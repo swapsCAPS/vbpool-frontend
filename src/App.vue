@@ -1,28 +1,29 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+  #app
+    PoolForm
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PoolForm from './components/PoolForm.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    PoolForm,
   }
 }
 </script>
 
 <style>
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #fff8f2;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  position: relative;
 }
 </style>

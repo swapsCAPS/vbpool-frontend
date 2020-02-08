@@ -28,6 +28,7 @@
     "mocha": "^7.0.1",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
+    "vue-cli-plugin-pug": "~1.0.7",
     "vue-template-compiler": "^2.6.11"
   },
   "browserslist": [

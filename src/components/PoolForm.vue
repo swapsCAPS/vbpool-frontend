@@ -6,12 +6,16 @@
         v-bind:class="{ rotate: rotated }"
       )
         .a4-front
-          Front
+          Front(
+            :disableInputs="!!rotated"
+          )
           span.zoz(
             v-on:click="doFlip"
           ) z.o.z
         .a4-back
-          Back
+          Back(
+            :disableInputs="!rotated"
+          )
           span.zoz(
             v-on:click="doFlip"
           ) z.o.z
@@ -33,23 +37,10 @@ export default {
   data: function () {
     return {
       rotated: false,
-      margin:  128,
-      window:  {
-        width:  0,
-        height: 0,
-      },
     }
   },
 
   computed: {
-    a4Size: function () {
-      const height = this.window.height - this.margin
-      const width  = height * 0.7070707
-      return {
-        height: `${height}px`,
-        width:  `${width}px`,
-      }
-    },
   },
 
   props: {},
@@ -91,10 +82,14 @@ h1 {
 
 .a4 {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
   left: 0;
   right: 0;
+  top: 0;
+  bottom: 0;
+  min-width: 740px;
+  max-width: 1200px;
   transition: transform 0.8s;
   transform-style: preserve-3d;
   transform-origin: center right;

@@ -7,21 +7,25 @@
 import PoolForm from './components/PoolForm.vue'
 
 export default {
-  name: 'App',
+  name:       'App',
   components: {
+
     PoolForm,
-  }
+  },
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
 body {
   margin: 0 !important;
   padding: 0 !important;
   background-color: #fff8f2;
+  color: #666;
+  cursor: default;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;

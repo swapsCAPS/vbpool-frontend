@@ -18,6 +18,9 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
+h1, h2, h3, h4, p {
+  margin: 0;
+}
 body {
   margin: 0 !important;
   padding: 0 !important;

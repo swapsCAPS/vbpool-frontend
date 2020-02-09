@@ -3,7 +3,9 @@
     .flip-container(
     )
       .a4(
+        ref="a4"
         v-bind:class="{ rotate: rotated }"
+        v-bind:style="{ height: `${a4Height}px` }"
       )
         .a4-front
           Front(
@@ -36,7 +38,8 @@ export default {
 
   data: function () {
     return {
-      rotated: false,
+      rotated:  false,
+      a4Height: 1414,
     }
   },
 
@@ -47,6 +50,9 @@ export default {
 
   created () {
     window.addEventListener('resize', this.handleResize)
+  },
+
+  mounted () {
     this.handleResize()
   },
 
@@ -59,10 +65,12 @@ export default {
       this.rotated = !this.rotated
     },
     handleResize () {
-      this.window = {
-        width:  window.innerWidth,
-        height: window.innerHeight,
+      if (!this.$refs.a4) {
+        this.a4Height = 1414
+        return
       }
+      console.log('this.$refs.a4.clientWidth', this.$refs.a4.clientWidth, this.$refs.a4.clientHeight)
+      this.a4Height = this.$refs.a4.clientWidth * 1.414
     },
   },
 }
@@ -75,8 +83,7 @@ h1 {
 .flip-container {
   position: relative;
   background-color: transparent;
-  padding-top: 141.4%;/* 141.4%; */
-  margin: 1rem 1rem;
+  margin: 3rem 1rem;
   perspective: 3000px;
 }
 
@@ -89,7 +96,8 @@ h1 {
   top: 0;
   bottom: 0;
   min-width: 740px;
-  max-width: 1200px;
+  max-width: 1000px;
+  height: 1414px;
   transition: transform 0.8s;
   transform-style: preserve-3d;
   transform-origin: center right;

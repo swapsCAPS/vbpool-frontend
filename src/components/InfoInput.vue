@@ -69,7 +69,6 @@ h1, h2, h3 {
   height: 100%;
   background-color: transparent;
   font-size: 22pt;
-  font-family: 'Gochi Hand', cursive;
 
 }
 

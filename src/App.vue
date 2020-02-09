@@ -28,6 +28,9 @@ body {
   color: #666;
   cursor: default;
 }
+input {
+  font-family: 'Gochi Hand', cursive;
+}
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

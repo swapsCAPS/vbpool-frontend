@@ -59,7 +59,11 @@
         subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
       )
         template(v-slot:content)
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+          .groups-container
+            div(v-for="group in groups")
+              GroupStage(
+                :group="group"
+              )
     .eighth
       Section(
         text="Achtste finales"
@@ -78,14 +82,14 @@
       .half
         Section(
           text="Halve finales"
-          subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
+          subtext="(12/16 pnt)"
         )
           template(v-slot:content)
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
       .final
         Section(
           text="Finale"
-          subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
+          subtext="20/24 pnt"
         )
           template(v-slot:content)
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
@@ -117,6 +121,9 @@
 import InfoInput from './InfoInput'
 import Header from './Header'
 import Section from './Section'
+import GroupStage from './GroupStage'
+
+import groups from '../assets/teams.json'
 
 export default {
   name: 'Front',
@@ -125,6 +132,7 @@ export default {
     InfoInput,
     Header,
     Section,
+    GroupStage,
   },
 
   props: {
@@ -132,10 +140,16 @@ export default {
   },
 
   data: function () {
-    return { }
+    return {
+      groups,
+    }
   },
 
   computed: {
+  },
+
+  mounted () {
+    console.log(this.groups)
   },
 
   methods: { },
@@ -175,6 +189,11 @@ export default {
   content: "-";
   position: absolute;
   left: 0;
+}
+
+.groups-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .finals {

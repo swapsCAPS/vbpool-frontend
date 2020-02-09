@@ -29,6 +29,7 @@ body {
   cursor: default;
 }
 input {
+  padding: 0;
   font-family: 'Gochi Hand', cursive;
 }
 #app {

@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .section-container {
   margin-top: 0.8rem;
-  min-height: 100px;
+  min-height: 10px;
 }
 
 .section-header {

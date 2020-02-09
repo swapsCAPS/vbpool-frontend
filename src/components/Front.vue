@@ -70,14 +70,32 @@
         subtext="(5 pnt voor elk genoemd team of 8 pnt als het ook nog op de juiste plaats staat)"
       )
         template(v-slot:content)
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+          .flex-wrap
+            .game(v-for="game in games.eighth")
+              span.game-nr {{ game.nr }}
+              div.inputs
+                .game-input-wrapper
+                  span {{ game.naam1 }}
+                  input(type="text")
+                .game-input-wrapper
+                  span {{ game.naam2 }}
+                  input(type="text")
     .quarter
       Section(
         text="Kwarfinales"
         subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
       )
         template(v-slot:content)
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+          .flex-wrap
+            .game(v-for="game in games.quarter")
+              span.game-nr {{ game.nr }}
+              div.inputs
+                .game-input-wrapper
+                  span {{ game.naam1 }}
+                  input(type="text")
+                .game-input-wrapper
+                  span {{ game.naam2 }}
+                  input(type="text")
     .finals
       .half
         Section(
@@ -85,14 +103,32 @@
           subtext="(12/16 pnt)"
         )
           template(v-slot:content)
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+            .flex-wrap
+              .game.half(v-for="game in games.half")
+                span.game-nr {{ game.nr }}
+                div.inputs
+                  .game-input-wrapper
+                    span {{ game.naam1 }}
+                    input(type="text")
+                  .game-input-wrapper
+                    span {{ game.naam2 }}
+                    input(type="text")
       .final
         Section(
           text="Finale"
           subtext="20/24 pnt"
         )
           template(v-slot:content)
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+            .flex-wrap
+              .game.half(v-for="game in games.final")
+                span.game-nr {{ game.nr }}
+                div.inputs
+                  .game-input-wrapper
+                    span {{ game.naam1 }}
+                    input(type="text")
+                  .game-input-wrapper
+                    span {{ game.naam2 }}
+                    input(type="text")
     .ending
       .stance
         Section(
@@ -124,6 +160,7 @@ import Section from './Section'
 import GroupStage from './GroupStage'
 
 import groups from '../assets/teams.json'
+import allGames from '../assets/games.json'
 
 export default {
   name: 'Front',
@@ -142,10 +179,18 @@ export default {
   data: function () {
     return {
       groups,
+      allGames,
     }
   },
 
   computed: {
+    games () {
+      return this.allGames.games.reduce((acc, game) => {
+        if (!game.type) return acc
+        acc[game.type].push(game)
+        return acc
+      }, { eighth: [], quarter: [], half: [], final: [] })
+    },
   },
 
   mounted () {
@@ -194,6 +239,35 @@ export default {
 .groups-container {
   display: flex;
   justify-content: space-between;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game {
+  width: 25%;
+  display: flex;
+  overflow: hidden;
+}
+
+.game .inputs {
+  margin-left: 0.5rem;
+}
+
+.game-input-wrapper {
+  position: relative;
+  border: 1px solid #ccc;
+  display: flex;
+}
+
+.game-input-wrapper span {
+  flex-grow: 1;
+}
+
+.game-input-wrapper input {
+  border: 0;
 }
 
 .finals {

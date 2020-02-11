@@ -30,7 +30,7 @@ h1, h2, h3 {
 .head h2 {
   text-align: center;
   background-color: #333;
-  color: green;
+  color: #52b352;
   font-style: italic;
 }
 </style>

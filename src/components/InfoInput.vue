@@ -28,9 +28,6 @@ export default {
 </script>
 
 <style scoped>
-h1, h2, h3 {
-  margin: 0 0;
-}
 .info-input-container {
   position: relative;
   margin-top: 0.5rem;

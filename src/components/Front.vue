@@ -71,15 +71,8 @@
       )
         template(v-slot:content)
           .flex-wrap
-            .game(v-for="game in games.eighth")
-              span.game-nr {{ game.nr }}
-              div.inputs
-                .game-input-wrapper
-                  span {{ game.naam1 }}
-                  input(type="text")
-                .game-input-wrapper
-                  span {{ game.naam2 }}
-                  input(type="text")
+            .game.w25.m-top-05.m-bottom-025(v-for="game in games.eighth")
+              Game(:game="game")
     .quarter
       Section(
         text="Kwarfinales"
@@ -87,15 +80,8 @@
       )
         template(v-slot:content)
           .flex-wrap
-            .game(v-for="game in games.quarter")
-              span.game-nr {{ game.nr }}
-              div.inputs
-                .game-input-wrapper
-                  span {{ game.naam1 }}
-                  input(type="text")
-                .game-input-wrapper
-                  span {{ game.naam2 }}
-                  input(type="text")
+            .game.w25.m-top-05.m-bottom-025(v-for="game in games.quarter")
+              Game(:game="game")
     .finals
       .half
         Section(
@@ -104,15 +90,8 @@
         )
           template(v-slot:content)
             .flex-wrap
-              .game.half(v-for="game in games.half")
-                span.game-nr {{ game.nr }}
-                div.inputs
-                  .game-input-wrapper
-                    span {{ game.naam1 }}
-                    input(type="text")
-                  .game-input-wrapper
-                    span {{ game.naam2 }}
-                    input(type="text")
+              .game.w50.m-top-05.m-bottom-025(v-for="game in games.half")
+                Game(:game="game")
       .final
         Section(
           text="Finale"
@@ -120,15 +99,8 @@
         )
           template(v-slot:content)
             .flex-wrap
-              .game.half(v-for="game in games.final")
-                span.game-nr {{ game.nr }}
-                div.inputs
-                  .game-input-wrapper
-                    span {{ game.naam1 }}
-                    input(type="text")
-                  .game-input-wrapper
-                    span {{ game.naam2 }}
-                    input(type="text")
+              .game.w100.m-top-05.m-bottom-025(v-for="game in games.final")
+                Game(:game="game")
     .ending
       .stance
         Section(
@@ -158,6 +130,7 @@ import InfoInput from './InfoInput'
 import Header from './Header'
 import Section from './Section'
 import GroupStage from './GroupStage'
+import Game from './Game'
 
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
@@ -170,6 +143,7 @@ export default {
     Header,
     Section,
     GroupStage,
+    Game,
   },
 
   props: {
@@ -247,27 +221,8 @@ export default {
 }
 
 .game {
-  width: 25%;
   display: flex;
   overflow: hidden;
-}
-
-.game .inputs {
-  margin-left: 0.5rem;
-}
-
-.game-input-wrapper {
-  position: relative;
-  border: 1px solid #ccc;
-  display: flex;
-}
-
-.game-input-wrapper span {
-  flex-grow: 1;
-}
-
-.game-input-wrapper input {
-  border: 0;
 }
 
 .finals {

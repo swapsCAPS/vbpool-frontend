@@ -12,8 +12,8 @@
     .points
       h3 Punten
       p Ruststand goed: 2 pnt, Eindstand goed: 3 pnt, Toto goed: 4 pnt. Totaal aantal doelpunten op één dag goed: 5 pnt.
-    .table
-      table
+    .tables
+      table.w50.m-right-025
         tr
           th Datum
           th tijd
@@ -22,14 +22,46 @@
           th rust
           th eind
           th toto
+        tr(v-for="game in games.left")
+          td {{ game.formattedDate }}
+          td {{ game.tijd }}
+          td {{ game.nr }}
+          td.game-text {{ `${game.naam1} - ${game.naam2}` }}
+          td
+            input
+          td
+            input
+          td
+            input
+      table.w50.m-left-025
+        tr
+          th Datum
+          th tijd
+          th nr
+          th Wedstrijd
+          th rust
+          th eind
+          th toto
+        tr(v-for="game in games.right")
+          td {{ game.formattedDate }}
+          td {{ game.tijd }}
+          td {{ game.nr }}
+          td.game-text {{ `${game.naam1} - ${game.naam2}` }}
+          td
+            input
+          td
+            input
+          td
+            input
 
     .footer
       h2 UITERLIJK INLEVEREN OP MAANDAG 8 JUNI 2020
 </template>
 
 <script>
-
 import Header from './Header'
+
+import allGames from '../assets/games.json'
 
 export default {
   name: 'Back',
@@ -43,10 +75,19 @@ export default {
   },
 
   data: function () {
-    return { }
+    return {
+      allGames,
+    }
   },
 
   computed: {
+    games () {
+      const { games } = allGames
+      return {
+        left:  games.slice(0, (games.length / 2) + 1),
+        right: games.slice(-games.length / 2),
+      }
+    },
   },
 
   created () {
@@ -74,17 +115,31 @@ export default {
   text-align: center;
 }
 
-.table {
+.tables {
+  display: flex;
   margin-top: 1rem;
 }
 
-.table th {
+.tables th {
   font-weight: normal;
 }
 
-.table table, td {
+.tables input {
+  width: 2rem;
+}
+
+.tables table, td {
   border: 1px solid black;
   border-collapse: collapse;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+}
+
+td.game-text {
+  max-width: 8.5rem;
+
 }
 
 .footer {

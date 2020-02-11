@@ -18,7 +18,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   margin: 0;
 }
 
@@ -43,6 +43,29 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
+}
+
+.game-input-wrapper {
+  position: relative;
+  border: 1px solid #ccc;
+  display: flex;
+}
+
+.game-input-wrapper-bottom {
+  border-top: none;
+}
+
+.game-input-wrapper span {
+  flex-grow: 1;
+}
+
+.game-input-wrapper input {
+  border: 0;
+  flex-grow: 9;
+}
+
+.no-top-border {
+  border-top: none !important;
 }
 
 .w25 {
@@ -91,6 +114,26 @@ input {
 
 @media screen and (max-width: 800px) {
   body {
+    font-size: 10pt;
+  }
+
+  h1 {
+    font-size: 14pt;
+  }
+
+  h2 {
+    font-size: 12pt;
+  }
+
+  h3 {
+    font-size: 10pt;
+  }
+
+  h4 {
+    font-size: 10pt;
+  }
+
+  h5 {
     font-size: 10pt;
   }
 

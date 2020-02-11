@@ -30,28 +30,4 @@ export default {
   margin-left: 0.5rem;
   width: 100%;
 }
-
-.game-input-wrapper {
-  position: relative;
-  border: 1px solid #ccc;
-  display: flex;
-}
-
-.game-input-wrapper-bottom {
-  border-top: none;
-}
-
-.game-input-wrapper span {
-  flex-grow: 1;
-}
-
-.game-input-wrapper input {
-  border: 0;
-  flex-grow: 9;
-}
-
-.no-top-border {
-  border-top: none !important;
-}
-
 </style>

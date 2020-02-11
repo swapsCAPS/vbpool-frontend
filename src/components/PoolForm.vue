@@ -38,7 +38,7 @@ export default {
 
   data: function () {
     return {
-      rotated:  true,
+      rotated:  false,
       a4Height: 1414,
     }
   },

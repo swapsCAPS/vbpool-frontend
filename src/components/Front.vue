@@ -102,27 +102,52 @@
               .game.w100.m-top-05.m-bottom-025(v-for="game in games.final")
                 Game(:game="game")
     .ending
-      .stance
+      .w25
         Section(
           text="Eindstand"
           subtext=""
         )
           template(v-slot:content)
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
-      .top-score
+            .inputs.m-bottom-025
+              .game-input-wrapper
+                span 1e:
+                input(type="text")
+              .game-input-wrapper.no-top-border
+                span 2e:
+                input(type="text")
+      .w25.m-left-05
         Section(
           text="Topscorer & aantal goals"
           subtext=""
         )
           template(v-slot:content)
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
-      .misc
+            .game-input-wrapper
+              span 1:
+              input(type="text")
+            .game-input-wrapper
+              span Aantal goals:
+              input(type="text")
+      .w50.m-left-05
         Section(
           text="Overigen"
           subtext=""
         )
           template(v-slot:content)
-            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+            .game-input-wrapper
+              span aantal gele kaarten (±4, 16p):
+              input(type="text")
+            .game-input-wrapper
+              span aantal rode kaarten (±2, 16p):
+              input(type="text")
+            .game-input-wrapper
+              span aantal penalties in speeltijd (±1, 16p):
+              input(type="text")
+            .game-input-wrapper
+              span aantal gelijke spelen (±3, 16p):
+              input(type="text")
+            .game-input-wrapper
+              span aantal doelpunten in toernooi (±5, 16p):
+              input(type="text")
 </template>
 
 <script>
@@ -240,19 +265,6 @@ export default {
 
 .ending {
   display: flex;
-}
-
-.ending .stance, .top-score {
-  width: 25%;
-}
-
-.ending .stance {
-  margin-right: 0.25rem;
-}
-
-.ending .misc {
-  margin-left: 0.5rem;
-  width: 50%;
 }
 
 </style>

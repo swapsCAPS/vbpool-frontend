@@ -1,8 +1,8 @@
 <template lang="pug">
   .section-container
     .section-header
-      h1.text {{ text || "Main text" }}
-      h1.subtext {{ subtext }}
+      h4.text {{ text || "Main text" }}
+      h4.subtext {{ subtext }}
     .section-content
       slot(name="content")
 </template>
@@ -35,12 +35,10 @@ export default {
   margin-top: 0.1rem;
   margin-bottom: 0.1rem;
   font-weight: 600;
-  font-size: 14pt;
 }
 
 .section-header .subtext {
   font-weight: 500;
-  font-size: 12pt;
   margin-left: 1rem;
 }
 

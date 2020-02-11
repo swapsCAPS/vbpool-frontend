@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/vbpool/',
+  publicPath: '/vbpool-frontend/',
 }

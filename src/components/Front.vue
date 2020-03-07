@@ -59,7 +59,7 @@
         subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
       )
         template(v-slot:content)
-          .groups-container
+          .wrap-container
             div(v-for="group in groups")
               GroupStage(
                 :group="group"
@@ -70,8 +70,8 @@
         subtext="(5 pnt voor elk genoemd team of 8 pnt als het ook nog op de juiste plaats staat)"
       )
         template(v-slot:content)
-          .flex-wrap
-            .game.w25.m-top-05.m-bottom-025(v-for="game in games.eighth")
+          .wrap-container
+            .game.m-top-05.m-bottom-025(v-for="game in games.eighth")
               Game(:game="game")
     .quarter
       Section(
@@ -79,8 +79,8 @@
         subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
       )
         template(v-slot:content)
-          .flex-wrap
-            .game.w25.m-top-05.m-bottom-025(v-for="game in games.quarter")
+          .wrap-container
+            .game.m-top-05.m-bottom-025(v-for="game in games.quarter")
               Game(:game="game")
     .finals
       .half
@@ -89,8 +89,8 @@
           subtext="(12/16 pnt)"
         )
           template(v-slot:content)
-            .flex-wrap
-              .game.w50.m-top-05.m-bottom-025(v-for="game in games.half")
+            .wrap-container
+              .game.m-top-05.m-bottom-025(v-for="game in games.half")
                 Game(:game="game")
       .final
         Section(
@@ -98,9 +98,8 @@
           subtext="20/24 pnt"
         )
           template(v-slot:content)
-            .flex-wrap
-              .game.w100.m-top-05.m-bottom-025(v-for="game in games.final")
-                Game(:game="game")
+            .game.m-top-05.m-bottom-025(v-for="game in games.final")
+              Game(:game="game")
     .ending
       .end-stance.w25
         Section(
@@ -234,14 +233,15 @@ export default {
   left: 0;
 }
 
-.groups-container {
+.wrap-container {
+  align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .flex-wrap {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .game {

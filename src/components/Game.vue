@@ -22,7 +22,7 @@ export default {
 <style scoped>
 .game-container {
   display: flex;
-  width: 100%;
+  min-width: 14rem;
   padding: 0 0.5rem;
 }
 

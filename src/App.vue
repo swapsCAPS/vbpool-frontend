@@ -101,6 +101,18 @@ input[type=number] {
   width: 100%;
 }
 
+.mw25 {
+  width: 25%;
+}
+
+.mw50 {
+  width: 50%;
+}
+
+.mw100 {
+  width: 100%;
+}
+
 .m-top-025 {
   margin-top: 0.5rem;
 }

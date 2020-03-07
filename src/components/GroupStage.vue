@@ -28,6 +28,7 @@ export default {
   display: flex;
   flex-direction: column;
   margin-right: .2rem;
+  min-width: 7rem;
 }
 .group div span {
   float: left;

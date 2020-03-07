@@ -47,6 +47,7 @@ export default {
 <style scoped>
 .a4 {
   background: #fcfdff;
+  padding-bottom: 3rem;
 }
 
 .back {

@@ -82,7 +82,7 @@
         )
           template(v-slot:content)
             .row
-              .col-sm-6.col-md-3.col-lg-3(v-for="game in games.eighth")
+              .col-xs-12.col-sm-6.col-md-4.col-lg-3(v-for="game in games.eighth")
                 Game(
                   :game="game"
                   :teams="teams"
@@ -95,7 +95,7 @@
         )
           template(v-slot:content)
             .row
-              .col-sm-6.col-md-3.col-lg-3(v-for="game in games.quarter")
+              .col-xs-12.col-sm-6.col-md-4.col-lg-3(v-for="game in games.quarter")
                 Game(
                   :game="game"
                   :teams="teams"
@@ -108,7 +108,7 @@
         )
           template(v-slot:content)
             .row
-              .col-sm-12.col-md-6.col-lg-6(v-for="game in games.half")
+              .col-sm-6.col-md-6.col-lg-6(v-for="game in games.half")
                 Game(
                   :game="game"
                   :teams="teams"
@@ -120,13 +120,13 @@
         )
           template(v-slot:content)
             .row
-              .col-sm-12(v-for="game in games.final")
+              .col-sm-6(v-for="game in games.final")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
     .row
-      .col-md-3
+      .col-xs-6.col-md-3
         Section(
           text="Eindstand"
           subtext=""
@@ -139,7 +139,7 @@
               .game-input-wrapper.no-top-border
                 span 2e:
                 input(type="text")
-      .col-md-3
+      .col-xs-6.col-md-3
         Section(
           text="Topscorer & aantal goals"
           subtext=""
@@ -151,7 +151,7 @@
             .game-input-wrapper
               span Aantal goals (12p):
               input(type="text")
-      .col-md-6
+      .col-xs-6
         Section(
           text="Overigen"
           subtext=""

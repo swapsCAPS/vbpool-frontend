@@ -6,8 +6,8 @@
 <script>
 import PoolForm from './components/PoolForm.vue'
 
-import 'vue-select/dist/vue-select.css'
 import './assets/bootstrap.min.css'
+import 'vue-select/dist/vue-select.css'
 
 export default {
   name:       'App',
@@ -41,11 +41,9 @@ body {
 }
 
 input {
-  padding: 0;
   font-family: 'Gochi Hand', cursive;
   border: 0;
   font-size: 18pt;
-  max-height: 1.5rem
 }
 
 /* Disable number spinners */

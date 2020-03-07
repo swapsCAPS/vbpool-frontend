@@ -1,18 +1,22 @@
 <template lang="pug">
   .row
-    .col-lg-1
-      span {{ game.nr }}
-    .col-lg-11
-      .game-input-wrapper
-        span {{ game.naam1 }}
-        v-select(
-          class="select"
-          :options="teams"
-        )
-      .game-input-wrapper.no-top-border
-        span {{ game.naam2 }}
-        .select
+    .col-xs-1
+      span {{ `${game.nr}:` }}
+    .col-xs-10
+      .row
+        .col-xs-2
+          span {{ game.naam1 }}
+        .col-xs-9.float-right
           v-select(
+            class="select"
+            :options="teams"
+          )
+      .row
+        .col-xs-2
+          span {{ game.naam2 }}
+        .col-xs-9.float-right
+          v-select(
+            class="select"
             :options="teams"
           )
 </template>
@@ -29,17 +33,14 @@ export default {
 
 <style >
 .game-input-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px;
+  border: 1px #333;
 }
 
-.game-input-wrapper > span {
+.float-right {
+  float: right;
 }
 
 .select {
-  min-width: 20rem;
 }
 
 .select .vs__search::placeholder,
@@ -49,13 +50,12 @@ export default {
   font-family: 'Gochi Hand', cursive;
   border: 0;
   line-height: 1.5rem;
-  padding: 0;
-  margin: 0;
 }
 
 .select .vs__clear,
 .select .vs__open-indicator {
   fill: #394066;
+  cursor: pointer;
 }
 
 </style>

@@ -35,7 +35,7 @@ export default {
   float: left;
   display: inline-block;
   vertical-align: middle;
-  min-width: 8rem;
+  min-width: 7rem;
   line-height: 1.5rem;
 }
 

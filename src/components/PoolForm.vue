@@ -54,7 +54,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  max-width: 1100px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
   background: #fcfdff;

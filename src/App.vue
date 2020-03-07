@@ -6,6 +6,8 @@
 <script>
 import PoolForm from './components/PoolForm.vue'
 
+import 'vue-select/dist/vue-select.css'
+
 export default {
   name:       'App',
   components: {
@@ -18,6 +20,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
+
 h1, h2, h3, h4, h5, p {
   margin: 0;
 }
@@ -72,15 +75,6 @@ input[type=number] {
 
 .game-input-wrapper-bottom {
   border-top: none;
-}
-
-.game-input-wrapper span {
-  min-width: 4rem;
-}
-
-.game-input-wrapper input {
-  border: 0;
-  max-width: 8rem;
 }
 
 .card {

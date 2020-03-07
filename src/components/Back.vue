@@ -153,7 +153,6 @@ export default {
   width: 2rem;
   text-align: center;
   background-color: transparent;
-  font-size: 16pt;
 }
 
 .tables table, td {

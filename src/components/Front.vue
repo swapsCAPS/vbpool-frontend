@@ -63,6 +63,7 @@
             div(v-for="group in groups")
               GroupStage(
                 :group="group"
+                :teams="teams"
               )
     .eighth
       Section(
@@ -72,7 +73,10 @@
         template(v-slot:content)
           .wrap-container
             .game.m-top-05.m-bottom-025(v-for="game in games.eighth")
-              Game(:game="game")
+              Game(
+                :game="game"
+                :teams="teams"
+              )
     .quarter
       Section(
         text="Kwarfinales"
@@ -81,7 +85,10 @@
         template(v-slot:content)
           .wrap-container
             .game.m-top-05.m-bottom-025(v-for="game in games.quarter")
-              Game(:game="game")
+              Game(
+                :game="game"
+                :teams="teams"
+              )
     .finals
       .half
         Section(
@@ -91,7 +98,10 @@
           template(v-slot:content)
             .wrap-container
               .game.m-top-05.m-bottom-025(v-for="game in games.half")
-                Game(:game="game")
+                Game(
+                  :game="game"
+                  :teams="teams"
+                )
       .final
         Section(
           text="Finale"
@@ -99,7 +109,10 @@
         )
           template(v-slot:content)
             .game.m-top-05.m-bottom-025(v-for="game in games.final")
-              Game(:game="game")
+              Game(
+                :game="game"
+                :teams="teams"
+              )
     .ending
       .end-stance.w25
         Section(
@@ -188,6 +201,11 @@ export default {
         return acc
       }, { eighth: [], quarter: [], half: [], final: [] })
     },
+    teams () {
+      const bla = groups.map(({ teams }) => teams).reduce((acc, teams) => acc.concat(teams), []).map(({ team }) => team)
+      console.log('bla', bla)
+      return bla
+    },
   },
 
   mounted () {
@@ -202,7 +220,6 @@ export default {
 .container {
   padding: 1rem 1.0rem 3rem 1.0rem;
   font-family: 'Times New Roman', serif;
-  font-size: 16pt;
 }
 
 .user-info {
@@ -254,7 +271,6 @@ export default {
 
 .game {
   display: flex;
-  overflow: hidden;
 }
 
 .finals {

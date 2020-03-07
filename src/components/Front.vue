@@ -38,15 +38,21 @@
       ul
         li Per dag zijn de volgende geldprijzen te verdienen:
           ul
-            li bla
-            li bla
-            li bla
-            li bla
-        li Aan het eind van het toernooi
+            li Degene die op één dag de meeste punten heeft verzameld, krijgt daarvoor € 2,50
+            li Degene die na een dag in de totaalstand bovenaan staat, krijgt daarvoor € 1,00
+            li Degene die na een dag in de totaalstand onderaan staat, krijgt daarvoor als troost € 0,10
+            li
+              p De punten voor de finalerondes tellen mee voor de dagprijs op de dag dat de teams bekend zijn
+              p De punten voor de eindstand, topscorers en aantallen tellen op de dag van de finale mee voor de dagprijs
+        li
+          span.bold {{ `Aan het eind van het toernooi ` }}
+          span zijn de volgende geldprijzen te verdienen:
           ul
-            li bla
-            li bla
-        li Bij een gelijk aantal punten
+            li De rode lantaarn ontvangt als troostprijs € 10,00
+            li
+              p De hoogste deelnemers in de totaalstand krijgen de volgende prijzen:
+              p 1e pl: 50%, 2de pl: 30%, 3e pl: 15%, 4e pl: 5% van de totale inleg (minus de dagprijzen en de rode lantaarn)
+        li Bij een gelijk aantal punten wordt de betreffende prijs verdeeld
     .groups
       Section(
         text="Groepstanden"
@@ -96,7 +102,7 @@
               .game.w100.m-top-05.m-bottom-025(v-for="game in games.final")
                 Game(:game="game")
     .ending
-      .w25
+      .end-stance.w25
         Section(
           text="Eindstand"
           subtext=""
@@ -109,7 +115,7 @@
               .game-input-wrapper.no-top-border
                 span 2e:
                 input(type="text")
-      .w25.m-left-05
+      .top-scorer-goals.w25.m-left-05
         Section(
           text="Topscorer & aantal goals"
           subtext=""
@@ -121,7 +127,7 @@
             .game-input-wrapper
               span Aantal goals:
               input(type="text")
-      .w50.m-left-05
+      .misc.w50.m-left-05
         Section(
           text="Overigen"
           subtext=""
@@ -258,6 +264,10 @@ export default {
 
 .ending {
   display: flex;
+}
+
+.ending .misc .game-input-wrapper input, span {
+  flex-grow: 1;
 }
 
 </style>

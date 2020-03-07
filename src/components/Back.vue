@@ -5,11 +5,17 @@
     )
     .explanation
       h3 Uitleg
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
-    .warning
+      p
+        p
+          span {{ `Vul hieronder voor alle wedstrijden jouw uitslagen in. ` }}
+          span.bold Ook daar waar de teams nog niet bekend zijn.
+        p (Ook al heb je een ander team op die plaat dan kan je uitslag nog steeds goed zijn)
+        p De uitslag hoeft onderling niet te kloppen. Je krijgt punten voor elk vak dat achteraf juist blijkt te zijn ingevuld.
+        p Bij 'toto' vul je een 1 in voor winst linker team, een 2 voor winst rechter team en een 3 voor een gelijkspel.
+    .warning.m-top-05
       h3 Alle uitslagen, ook de toto, gelden na 90 minuten voetbal!
       span (plus de eventuele blessuretijd)
-    .points
+    .points.m-top-05
       h3 Punten
       p Ruststand goed: 2 pnt, Eindstand goed: 3 pnt, Toto goed: 4 pnt. Totaal aantal doelpunten op één dag goed: 5 pnt.
     .tables
@@ -33,8 +39,11 @@
           td
             MatchInput(
             )
-          td
-            MatchInput(
+          td.toto
+            input(
+              type="number"
+              min="1"
+              max="3"
             )
       table.w50.m-left-025
         tr
@@ -56,8 +65,11 @@
           td
             MatchInput(
             )
-          td
-            MatchInput(
+          td.toto
+            input(
+              type="number"
+              min="1"
+              max="3"
             )
 
     .footer
@@ -107,7 +119,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .container {
   padding: 0.5rem;
   height: 100%;
@@ -133,6 +145,9 @@ export default {
 
 .tables input {
   width: 2rem;
+  text-align: center;
+  background-color: transparent;
+  font-size: 16pt;
 }
 
 .tables table, td {
@@ -146,7 +161,6 @@ export default {
 
 td.game-text {
   max-width: 8.5rem;
-
 }
 
 .footer {
@@ -154,6 +168,15 @@ td.game-text {
   bottom: 2rem;
   left: 0.5rem;
   right: 0.5rem;
+}
+
+.toto {
+  text-align: center;
+}
+
+.toto input {
+  position: relative;;
+  width: 2rem%;
 }
 
 .footer h2 {

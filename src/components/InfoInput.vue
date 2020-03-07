@@ -57,7 +57,6 @@ export default {
   flex-grow: 0.8;
   margin-left: 0.5rem;
   bottom: 0.6rem;
-  border: 0;
   height: 100%;
   background-color: transparent;
   font-size: 22pt;

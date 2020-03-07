@@ -22,6 +22,10 @@ h1, h2, h3, h4, h5, p {
   margin: 0;
 }
 
+h3 {
+  margin-bottom: 0.25rem;
+}
+
 p {
   font-size: 12pt;
 }
@@ -37,6 +41,7 @@ body {
 input {
   padding: 0;
   font-family: 'Gochi Hand', cursive;
+  border: 0;
 }
 
 /* Disable number spinners */
@@ -122,6 +127,10 @@ input[type=number] {
 
 .m-right-05 {
   margin-right: 0.5rem;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 @media screen and (max-width: 800px) {

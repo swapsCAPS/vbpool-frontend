@@ -30,12 +30,7 @@ export default {
 
 .input-wrapper input {
   position: relative;
-  border: 0;
-  background-color: red;
-  font-size: 16pt;
   max-width: 1rem;
-  text-align: center;
-
 }
 
 </style>

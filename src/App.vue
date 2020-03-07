@@ -7,6 +7,7 @@
 import PoolForm from './components/PoolForm.vue'
 
 import 'vue-select/dist/vue-select.css'
+import './assets/bootstrap.min.css'
 
 export default {
   name:       'App',
@@ -34,8 +35,6 @@ p {
 }
 
 body {
-  margin: 0 !important;
-  padding: 0 !important;
   background-color: #fff8f2;
   color: #666;
   cursor: default;
@@ -67,78 +66,12 @@ input[type=number] {
   position: relative;
 }
 
-.game-input-wrapper {
-  position: relative;
-  border: 1px solid #ccc;
-  display: flex;
-}
-
-.game-input-wrapper-bottom {
-  border-top: none;
-}
-
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .no-top-border {
   border-top: none !important;
-}
-
-.w25 {
-  width: 25%;
-}
-
-.w50 {
-  width: 50%;
-}
-
-.w100 {
-  width: 100%;
-}
-
-.mw25 {
-  width: 25%;
-}
-
-.mw50 {
-  width: 50%;
-}
-
-.mw100 {
-  width: 100%;
-}
-
-.m-top-025 {
-  margin-top: 0.5rem;
-}
-
-.m-top-05 {
-  margin-top: 0.5rem;
-}
-
-.m-left-025 {
-  margin-left: 0.25rem;
-}
-
-.m-left-05 {
-  margin-left: 0.5rem;
-}
-
-.m-bottom-025 {
-  margin-bottom: 0.25rem;
-}
-
-.m-bottom-05 {
-  margin-bottom: 0.5rem;
-}
-
-.m-right-025 {
-  margin-right: 0.25rem;
-}
-
-.m-right-05 {
-  margin-right: 0.5rem;
 }
 
 .bold {

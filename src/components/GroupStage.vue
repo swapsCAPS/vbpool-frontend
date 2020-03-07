@@ -24,18 +24,18 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem;
-  min-width: 9rem;
+  min-width: 5rem;
 }
 .group div {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 
 .group div span {
   float: left;
   display: inline-block;
   vertical-align: middle;
+  min-width: 8rem;
   line-height: 1.5rem;
 }
 

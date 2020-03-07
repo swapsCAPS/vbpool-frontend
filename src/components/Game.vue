@@ -1,7 +1,8 @@
 <template lang="pug">
-  .game-container
-    span {{ game.nr }}
-    .inputs.m-left-05
+  .row
+    .col-lg-1
+      span {{ game.nr }}
+    .col-lg-11
       .game-input-wrapper
         span {{ game.naam1 }}
         v-select(
@@ -27,33 +28,18 @@ export default {
 </script>
 
 <style >
-.game-container {
-  display: flex;
-  padding: 0 0.2rem;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.game-container > span {
-  margin-top: 0.3rem;
-}
-
-.inputs {
-}
-
 .game-input-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 12.5rem;
+  border: 1px;
 }
 
 .game-input-wrapper > span {
-  min-width: 3.5rem;
 }
 
 .select {
-  width: 9rem;
+  min-width: 20rem;
 }
 
 .select .vs__search::placeholder,

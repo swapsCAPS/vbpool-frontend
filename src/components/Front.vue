@@ -1,120 +1,132 @@
 <template lang="pug">
-  .container
-    Header(
-      title="Inschrijfformulier   inleg: € 10,00"
-    )
-    .user-info
-      .left
-        InfoInput(
-          title="Naam"
-          fieldName="name"
+  div
+    .row
+      .col-sm-12
+        Header(
+          title="Inschrijfformulier   inleg: € 10,00"
         )
-        InfoInput(
-          title="Adres"
-          fieldName="address"
-        )
-        InfoInput(
-          title="Email"
-          fieldName="email"
-        )
-      .right
-        InfoInput(
-          title="Telefoon"
-          fieldName="phone"
-        )
-        InfoInput(
-          title="Plaats"
-          fieldName="city"
-        )
-        InfoInput(
-          title="Betaald"
-          fieldName="paid"
-        )
-    .instructions
-      h3 Instructies
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
-    .prizes
-      h3 Prijzen
-      ul
-        li Per dag zijn de volgende geldprijzen te verdienen:
+    .row
+      .col-sm-12
+        .user-info
+          .row
+            .col-lg-6
+              InfoInput(
+                title="Naam"
+                fieldName="name"
+              )
+              InfoInput(
+                title="Adres"
+                fieldName="address"
+              )
+              InfoInput(
+                title="Email"
+                fieldName="email"
+              )
+            .col-lg-6
+              InfoInput(
+                title="Telefoon"
+                fieldName="phone"
+              )
+              InfoInput(
+                title="Plaats"
+                fieldName="city"
+              )
+              InfoInput(
+                title="Betaald"
+                fieldName="paid"
+              )
+    .row
+      .col-sm-12
+        .instructions
+          h3 Instructies
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+      .col-sm-12
+        .prizes
+          h3 Prijzen
           ul
-            li Degene die op één dag de meeste punten heeft verzameld, krijgt daarvoor € 2,50
-            li Degene die na een dag in de totaalstand bovenaan staat, krijgt daarvoor € 1,00
-            li Degene die na een dag in de totaalstand onderaan staat, krijgt daarvoor als troost € 0,10
+            li Per dag zijn de volgende geldprijzen te verdienen:
+              ul
+                li Degene die op één dag de meeste punten heeft verzameld, krijgt daarvoor € 2,50
+                li Degene die na een dag in de totaalstand bovenaan staat, krijgt daarvoor € 1,00
+                li Degene die na een dag in de totaalstand onderaan staat, krijgt daarvoor als troost € 0,10
+                li
+                  p De punten voor de finalerondes tellen mee voor de dagprijs op de dag dat de teams bekend zijn
+                  p De punten voor de eindstand, topscorers en aantallen tellen op de dag van de finale mee voor de dagprijs
             li
-              p De punten voor de finalerondes tellen mee voor de dagprijs op de dag dat de teams bekend zijn
-              p De punten voor de eindstand, topscorers en aantallen tellen op de dag van de finale mee voor de dagprijs
-        li
-          span.bold {{ `Aan het eind van het toernooi ` }}
-          span zijn de volgende geldprijzen te verdienen:
-          ul
-            li De rode lantaarn ontvangt als troostprijs € 10,00
-            li
-              p De hoogste deelnemers in de totaalstand krijgen de volgende prijzen:
-              p 1e pl: 50%, 2de pl: 30%, 3e pl: 15%, 4e pl: 5% van de totale inleg (minus de dagprijzen en de rode lantaarn)
-        li Bij een gelijk aantal punten wordt de betreffende prijs verdeeld
-    .groups
-      Section(
-        text="Groepstanden"
-        subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
-      )
-        template(v-slot:content)
-          .wrap-container
-            div(v-for="group in groups")
-              GroupStage(
-                :group="group"
-                :teams="teams"
-              )
-    .eighth
-      Section(
-        text="Achtste finales"
-        subtext="(5 pnt voor elk genoemd team of 8 pnt als het ook nog op de juiste plaats staat)"
-      )
-        template(v-slot:content)
-          .wrap-container
-            .game.m-top-05.m-bottom-025(v-for="game in games.eighth")
-              Game(
-                :game="game"
-                :teams="teams"
-              )
-    .quarter
-      Section(
-        text="Kwarfinales"
-        subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
-      )
-        template(v-slot:content)
-          .wrap-container
-            .game.m-top-05.m-bottom-025(v-for="game in games.quarter")
-              Game(
-                :game="game"
-                :teams="teams"
-              )
-    .finals
-      .half
+              span.bold {{ `Aan het eind van het toernooi ` }}
+              span zijn de volgende geldprijzen te verdienen:
+              ul
+                li De rode lantaarn ontvangt als troostprijs € 10,00
+                li
+                  p De hoogste deelnemers in de totaalstand krijgen de volgende prijzen:
+                  p 1e pl: 50%, 2de pl: 30%, 3e pl: 15%, 4e pl: 5% van de totale inleg (minus de dagprijzen en de rode lantaarn)
+            li Bij een gelijk aantal punten wordt de betreffende prijs verdeeld
+    .row
+      .col-sm-12
+        Section(
+          text="Groepstanden"
+          subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
+        )
+          template(v-slot:content)
+            .row
+              .col-xs-4.col-sm-2.col-md-2.col-lg-2(v-for="group in groups")
+                GroupStage(
+                  :group="group"
+                  :teams="teams"
+                  )
+    .row
+      .col-sm-12
+        Section(
+          text="Achtste finales"
+          subtext="(5 pnt voor elk genoemd team of 8 pnt als het ook nog op de juiste plaats staat)"
+        )
+          template(v-slot:content)
+            .row
+              .col-sm-6.col-md-3.col-lg-3(v-for="game in games.eighth")
+                Game(
+                  :game="game"
+                  :teams="teams"
+                )
+    .row
+      .col-sm-12
+        Section(
+          text="Kwarfinales"
+          subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
+        )
+          template(v-slot:content)
+            .row
+              .col-sm-6.col-md-3.col-lg-3(v-for="game in games.quarter")
+                Game(
+                  :game="game"
+                  :teams="teams"
+                )
+    .row
+      .col-md-6
         Section(
           text="Halve finales"
           subtext="(12/16 pnt)"
         )
           template(v-slot:content)
-            .wrap-container
-              .game.m-top-05.m-bottom-025(v-for="game in games.half")
+            .row
+              .col-sm-12.col-md-6.col-lg-6(v-for="game in games.half")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
-      .final
+      .col-md-6
         Section(
           text="Finale"
           subtext="20/24 pnt"
         )
           template(v-slot:content)
-            .game.m-top-05.m-bottom-025(v-for="game in games.final")
-              Game(
-                :game="game"
-                :teams="teams"
-              )
-    .ending
-      .end-stance.w25
+            .row
+              .col-sm-12(v-for="game in games.final")
+                Game(
+                  :game="game"
+                  :teams="teams"
+                )
+    .row
+      .col-md-3
         Section(
           text="Eindstand"
           subtext=""
@@ -127,7 +139,7 @@
               .game-input-wrapper.no-top-border
                 span 2e:
                 input(type="text")
-      .top-scorer-goals.w25.m-left-05
+      .col-md-3
         Section(
           text="Topscorer & aantal goals"
           subtext=""
@@ -139,7 +151,7 @@
             .game-input-wrapper
               span Aantal goals (12p):
               input(type="text")
-      .misc.w50.m-left-05
+      .col-md-6
         Section(
           text="Overigen"
           subtext=""
@@ -218,30 +230,12 @@ export default {
 
 <style scoped>
 .container {
-  padding: 1rem 1.0rem 3rem 1.0rem;
   font-family: 'Times New Roman', serif;
 }
 
 .user-info {
   border: 1px solid #ccc;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: stretch;
   padding: 0rem 0.5rem;
-
-}
-
-.user-info .left {
-  min-width: 50%;
-  max-width: 20rem;
-  overflow: hidden;
-}
-
-.user-info .right {
-  min-width: 50%;
-  max-width: 20rem;
-  overflow: hidden;
 }
 
 .prizes ul {
@@ -256,42 +250,6 @@ export default {
   content: "-";
   position: absolute;
   left: 0;
-}
-
-.wrap-container {
-  align-items: flex-start;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.flex-wrap {
-  display: flex;
-}
-
-.game {
-  display: flex;
-}
-
-.finals {
-  display: flex;
-}
-
-.finals .half {
-  width: 50%;
-}
-
-.finals .final {
-  margin-left: 0.5rem;
-  width: 50%;
-}
-
-.ending {
-  display: flex;
-}
-
-.ending .misc .game-input-wrapper input, span {
-  flex-grow: 1;
 }
 
 </style>

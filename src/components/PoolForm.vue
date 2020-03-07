@@ -45,7 +45,7 @@ export default {
 
 <style scoped>
 .pool-forms {
-  padding: 2rem 0;
+  padding: 2rem 1.5rem;
 }
 
 .a4 {
@@ -54,7 +54,6 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  min-width: 740px;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;

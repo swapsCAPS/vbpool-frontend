@@ -18,59 +18,60 @@
     .points.m-top-05
       h3 Punten
       p Ruststand goed: 2 pnt, Eindstand goed: 3 pnt, Toto goed: 4 pnt. Totaal aantal doelpunten op één dag goed: 5 pnt.
-    .tables
-      table.w50.m-right-025
-        tr
-          th Datum
-          th tijd
-          th nr
-          th Wedstrijd
-          th rust
-          th eind
-          th toto
-        tr(v-for="game in games.left")
-          td {{ game.formattedDate }}
-          td {{ game.tijd }}
-          td {{ game.nr }}
-          td.game-text {{ `${game.naam1} - ${game.naam2}` }}
-          td
-            MatchInput(
-            )
-          td
-            MatchInput(
-            )
-          td.toto
-            input(
-              type="number"
-              min="1"
-              max="3"
-            )
-      table.w50.m-left-025
-        tr
-          th Datum
-          th tijd
-          th nr
-          th Wedstrijd
-          th rust
-          th eind
-          th toto
-        tr(v-for="game in games.right")
-          td {{ game.formattedDate }}
-          td {{ game.tijd }}
-          td {{ game.nr }}
-          td.game-text {{ `${game.naam1} - ${game.naam2}` }}
-          td
-            MatchInput(
-            )
-          td
-            MatchInput(
-            )
-          td.toto
-            input(
-              type="number"
-              min="1"
-              max="3"
-            )
+    .table-wrapper
+      .tables
+        table.w50.m-right-025
+          tr
+            th Datum
+            th tijd
+            th nr
+            th Wedstrijd
+            th rust
+            th eind
+            th toto
+          tr(v-for="game in games.left")
+            td {{ game.formattedDate }}
+            td {{ game.tijd }}
+            td {{ game.nr }}
+            td.game-text {{ `${game.naam1} - ${game.naam2}` }}
+            td
+              MatchInput(
+              )
+            td
+              MatchInput(
+              )
+            td.toto
+              input(
+                type="number"
+                min="1"
+                max="3"
+              )
+        table.w50.m-left-025
+          tr
+            th Datum
+            th tijd
+            th nr
+            th Wedstrijd
+            th rust
+            th eind
+            th toto
+          tr(v-for="game in games.right")
+            td {{ game.formattedDate }}
+            td {{ game.tijd }}
+            td {{ game.nr }}
+            td.game-text {{ `${game.naam1} - ${game.naam2}` }}
+            td
+              MatchInput(
+              )
+            td
+              MatchInput(
+              )
+            td.toto
+              input(
+                type="number"
+                min="1"
+                max="3"
+              )
 
     .footer
       h2 UITERLIJK INLEVEREN OP MAANDAG 8 JUNI 2020
@@ -134,9 +135,14 @@ export default {
   text-align: center;
 }
 
+.table-wrapper {
+  overflow-x: scroll;
+}
+
 .tables {
   display: flex;
   margin-top: 1rem;
+  min-width: 50rem;
 }
 
 .tables th {

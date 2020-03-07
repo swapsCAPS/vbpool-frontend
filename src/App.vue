@@ -137,38 +137,4 @@ input[type=number] {
   font-weight: bold;
 }
 
-@media screen and (max-width: 800px) {
-  body {
-    font-size: 10pt;
-  }
-
-  h1 {
-    font-size: 14pt;
-  }
-
-  h2 {
-    font-size: 12pt;
-  }
-
-  h3 {
-    font-size: 10pt;
-  }
-
-  h4 {
-    font-size: 10pt;
-  }
-
-  h5 {
-    font-size: 10pt;
-  }
-
-  p {
-    line-height: 1.0rem;
-  }
-
-  td {
-    line-height: 1.2rem;
-  }
-}
-
 </style>

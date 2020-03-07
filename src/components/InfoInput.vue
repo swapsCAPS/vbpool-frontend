@@ -5,7 +5,6 @@
       h1.spacer {{ title }}:
       input(
         type="text"
-        :disabled="isDisabled"
       )
 </template>
 
@@ -14,15 +13,11 @@ export default {
   name: 'InfoInput',
 
   props: {
-    title:      String,
-    fieldName:  String,
-    isDisabled: Boolean,
+    title:     String,
+    fieldName: String,
   },
 
   watch: {
-    isDisabled () {
-      console.log(this.isDisabled)
-    },
   },
 }
 </script>

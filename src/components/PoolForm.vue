@@ -4,20 +4,19 @@
     )
       .a4(
         ref="a4"
-        v-bind:class="{ rotate: rotated }"
-        v-bind:style="{ height: `${a4Height}px` }"
+        :class="{ rotate: rotated }"
       )
-        .a4-front
-          Front(
-            :disableInputs="!!rotated"
-          )
+        .a4-front(
+          :class="{ 'fade-out': !!rotated, 'fade-in': !rotated, 'display-none': !!isDisabled }"
+        )
+          Front()
           span.zoz(
             v-on:click="doFlip"
           ) z.o.z
-        .a4-back
-          Back(
-            :disableInputs="!rotated"
-          )
+        .a4-back(
+          :class="{ 'fade-out': !rotated, 'fade-in': !!rotated, 'display-none': !isDisabled }"
+        )
+          Back()
           span.zoz(
             v-on:click="doFlip"
           ) z.o.z
@@ -38,8 +37,8 @@ export default {
 
   data: function () {
     return {
-      rotated:  false,
-      a4Height: 1414,
+      rotated:    true,
+      isDisabled: true,
     }
   },
 
@@ -49,7 +48,6 @@ export default {
   props: {},
 
   created () {
-    window.addEventListener('resize', this.handleResize)
   },
 
   mounted () {
@@ -57,12 +55,16 @@ export default {
   },
 
   destroyed () {
-    window.removeEventListener('resize', this.handleResize)
   },
 
   methods: {
     doFlip () {
       this.rotated = !this.rotated
+
+      // FIXME Meh can we do this nicer using css
+      setTimeout(() => {
+        this.isDisabled = !!this.rotated
+      }, 600)
     },
     handleResize () {
       if (!this.$refs.a4) {
@@ -89,8 +91,6 @@ h1 {
 
 .a4 {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
   left: 0;
   right: 0;
   top: 0;
@@ -98,6 +98,8 @@ h1 {
   min-width: 740px;
   max-width: 1000px;
   height: 1414px;
+  margin-left: auto;
+  margin-right: auto;
   transition: transform 0.8s;
   transform-style: preserve-3d;
   transform-origin: center right;
@@ -107,6 +109,26 @@ h1 {
 
 .rotate {
   transform: translateX(-100%) rotateY(-180deg);
+}
+
+.fade-out {
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -ms-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+   opacity: 0;
+}
+
+.fade-in {
+  -webkit-transition: opacity 1.5s ease-in-out;
+  -moz-transition: opacity 1.5s ease-in-out;
+  -ms-transition: opacity 1.5s ease-in-out;
+  -o-transition: opacity 1.5s ease-in-out;
+   opacity: 1;
+}
+
+.display-none {
+  display: none;
 }
 
 .a4-front, .a4-back {

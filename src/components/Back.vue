@@ -28,11 +28,14 @@
           td {{ game.nr }}
           td.game-text {{ `${game.naam1} - ${game.naam2}` }}
           td
-            input
+            MatchInput(
+            )
           td
-            input
+            MatchInput(
+            )
           td
-            input
+            MatchInput(
+            )
       table.w50.m-left-025
         tr
           th Datum
@@ -48,11 +51,14 @@
           td {{ game.nr }}
           td.game-text {{ `${game.naam1} - ${game.naam2}` }}
           td
-            input
+            MatchInput(
+            )
           td
-            input
+            MatchInput(
+            )
           td
-            input
+            MatchInput(
+            )
 
     .footer
       h2 UITERLIJK INLEVEREN OP MAANDAG 8 JUNI 2020
@@ -60,6 +66,7 @@
 
 <script>
 import Header from './Header'
+import MatchInput from './MatchInput'
 
 import allGames from '../assets/games.json'
 
@@ -68,10 +75,10 @@ export default {
 
   components: {
     Header,
+    MatchInput,
   },
 
   props: {
-    disableInputs: Boolean,
   },
 
   data: function () {

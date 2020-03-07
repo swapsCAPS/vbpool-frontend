@@ -8,33 +8,27 @@
         InfoInput(
           title="Naam"
           fieldName="name"
-          :isDisabled="disableInputs"
         )
         InfoInput(
           title="Adres"
           fieldName="address"
-          :isDisabled="disableInputs"
         )
         InfoInput(
           title="Email"
           fieldName="email"
-          :isDisabled="disableInputs"
         )
       .right
         InfoInput(
           title="Telefoon"
           fieldName="phone"
-          :isDisabled="disableInputs"
         )
         InfoInput(
           title="Plaats"
           fieldName="city"
-          :isDisabled="disableInputs"
         )
         InfoInput(
           title="Betaald"
           fieldName="paid"
-          :isDisabled="disableInputs"
         )
     .instructions
       h3 Instructies
@@ -172,7 +166,6 @@ export default {
   },
 
   props: {
-    disableInputs: Boolean,
   },
 
   data: function () {

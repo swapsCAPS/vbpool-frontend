@@ -25,10 +25,13 @@ export default {
   flex-direction: column;
   padding: 0 0.5rem;
   min-width: 5rem;
+  max-width: 12rem;
 }
+
 .group div {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .group div span {

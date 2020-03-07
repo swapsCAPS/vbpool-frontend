@@ -9,7 +9,7 @@
       .col-sm-12
         .user-info
           .row
-            .col-lg-6
+            .col-sm-6.col-md-6
               InfoInput(
                 title="Naam"
                 fieldName="name"
@@ -22,7 +22,7 @@
                 title="Email"
                 fieldName="email"
               )
-            .col-lg-6
+            .col-sm-6.col-md-6
               InfoInput(
                 title="Telefoon"
                 fieldName="phone"
@@ -132,14 +132,15 @@
           subtext=""
         )
           template(v-slot:content)
-            .inputs.m-bottom-025
-              .game-input-wrapper
-                span 1e:
-                input(type="text")
-              .game-input-wrapper.no-top-border
-                span 2e:
-                input(type="text")
-      .col-xs-6.col-md-3
+            GameSelector(
+              name="1e: "
+              :teams="teams"
+            ).border
+            GameSelector(
+              name="2e: "
+              :teams="teams"
+            ).input.border.no-top-border
+            .col-xs-6.col-md-3
         Section(
           text="Topscorer & aantal goals"
           subtext=""
@@ -180,6 +181,7 @@ import Header from './Header'
 import Section from './Section'
 import GroupStage from './GroupStage'
 import Game from './Game'
+import GameSelector from './GameSelector'
 
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
@@ -188,6 +190,7 @@ export default {
   name: 'Front',
 
   components: {
+    GameSelector,
     InfoInput,
     Header,
     Section,

@@ -1,29 +1,24 @@
 <template lang="pug">
-  .row
-    .col-xs-1
-      span {{ `${game.nr}:` }}
-    .col-xs-10
-      .row
-        .col-xs-2
-          span {{ game.naam1 }}
-        .col-xs-9.float-right
-          v-select(
-            class="select"
-            :options="teams"
-          )
-      .row
-        .col-xs-2
-          span {{ game.naam2 }}
-        .col-xs-9.float-right
-          v-select(
-            class="select"
-            :options="teams"
-          )
+  .game
+    span {{ `${game.nr}:` }}
+    .inputs
+      GameSelector(
+        :name="game.naam1"
+        :teams="teams"
+      ).border
+      GameSelector(
+        :name="game.naam2"
+        :teams="teams"
+      ).input.border.no-top-border
 </template>
 
 <script>
+import GameSelector from './GameSelector'
 export default {
-  name:  'Game',
+  name:       'Game',
+  components: {
+    GameSelector,
+  },
   props: {
     game:  Object,
     teams: Array,
@@ -32,15 +27,28 @@ export default {
 </script>
 
 <style >
-.game-input-wrapper {
-  border: 1px #333;
+.game {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
 
-.float-right {
-  float: right;
+.inputs {
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .select {
+  flex-grow:1;
 }
 
 .select .vs__search::placeholder,

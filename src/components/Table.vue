@@ -9,10 +9,10 @@
       th.end eind
       th.toto toto
     tr(v-for="game in games")
-      td {{ game.formattedDate }}
-      td {{ game.tijd }}
-      td {{ game.nr }}
-      td.game-text {{ `${game.naam1} - ${game.naam2}` }}
+      td.padded {{ game.formattedDate }}
+      td.padded {{ game.tijd }}
+      td.padded.nr {{ game.nr }}
+      td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
       td
         MatchInput()
       td
@@ -99,6 +99,14 @@ th.datum, th.time {
 
 th.nr {
   width: 3rem;
+}
+
+.padded {
+  padding-left: 0.5rem;
+}
+
+tr {
+  line-height: 1.5rem;
 }
 
 th.half-time, th.end {

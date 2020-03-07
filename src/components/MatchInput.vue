@@ -31,7 +31,7 @@ export default {
 
 .input-wrapper input {
   position: relative;
-  max-width: 3rem;
+  height: 2.5rem;
 }
 
 </style>

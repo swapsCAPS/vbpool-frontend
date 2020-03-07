@@ -3,7 +3,7 @@
     input(
       type="number"
     )
-    span -
+    span.bold -
     input(
       type="number"
     )
@@ -26,6 +26,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .input-wrapper input {

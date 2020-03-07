@@ -26,60 +26,14 @@
       .col-xs-12
         .tables
           .row
-            .col-xs-12.col-lg-6
-              table
-                tr
-                  th Datum
-                  th tijd
-                  th nr
-                  th Wedstrijd
-                  th rust
-                  th eind
-                  th toto
-                tr(v-for="game in games.left")
-                  td {{ game.formattedDate }}
-                  td {{ game.tijd }}
-                  td {{ game.nr }}
-                  td.game-text {{ `${game.naam1} - ${game.naam2}` }}
-                  td
-                    MatchInput(
-                    )
-                  td
-                    MatchInput(
-                    )
-                  td.toto
-                    input(
-                      type="number"
-                      min="1"
-                      max="3"
-                    )
-            .col-xs-12.col-lg-6
-              table
-                tr
-                  th Datum
-                  th tijd
-                  th nr
-                  th Wedstrijd
-                  th rust
-                  th eind
-                  th toto
-                tr(v-for="game in games.right")
-                  td {{ game.formattedDate }}
-                  td {{ game.tijd }}
-                  td {{ game.nr }}
-                  td.game-text {{ `${game.naam1} - ${game.naam2}` }}
-                  td
-                    MatchInput(
-                    )
-                  td
-                    MatchInput(
-                    )
-                  td.toto
-                    input(
-                      type="number"
-                      min="1"
-                      max="3"
-                    )
+            .col-xs-12.col-md-6.col-lg-6
+              Table(
+                :games="games.left"
+              )
+            .col-xs-12.col-md-6.col-lg-6
+              Table(
+                :games="games.right"
+              )
     .row
       .col-xs-12
         .footer
@@ -89,6 +43,7 @@
 <script>
 import Header from './Header'
 import MatchInput from './MatchInput'
+import Table from './Table'
 
 import allGames from '../assets/games.json'
 
@@ -98,6 +53,7 @@ export default {
   components: {
     Header,
     MatchInput,
+    Table,
   },
 
   props: {
@@ -187,7 +143,23 @@ td.game-text {
 
 .toto input {
   position: relative;;
-  width: 2rem%;
+  width: 2rem;
+}
+
+th.toto {
+  width: 3rem;
+}
+
+th.datum, th.time {
+  width: 5rem;
+}
+
+th.nr {
+  width: 3rem;
+}
+
+th.half-time, th.end {
+  width: 3rem;
 }
 
 .footer h2 {

@@ -11,14 +11,10 @@ export default {
   name: 'GroupStage',
 
   props: {
-    isDisabled: Boolean,
-    group:      Object,
+    group: Object,
   },
 
   watch: {
-    isDisabled () {
-      console.log(this.isDisabled)
-    },
   },
 }
 </script>
@@ -27,23 +23,27 @@ export default {
 .group {
   display: flex;
   flex-direction: column;
-  margin-right: .2rem;
-  min-width: 7rem;
+  padding: 0 0.5rem;
+  min-width: 9rem;
 }
+.group div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .group div span {
   float: left;
   display: inline-block;
   vertical-align: middle;
-  line-height: 1rem;
+  line-height: 1.5rem;
 }
 
 .group div input {
   float: right;
-  margin-left: 1.0rem;
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   text-align: center;
-  font-size: 18pt;
   padding: 0;
   border: 1px solid #ccc;
 }

@@ -121,10 +121,10 @@
         )
           template(v-slot:content)
             .game-input-wrapper
-              span 1:
+              span Speler (30p):
               input(type="text")
             .game-input-wrapper
-              span Aantal goals:
+              span Aantal goals (12p):
               input(type="text")
       .misc.w50.m-left-05
         Section(
@@ -202,21 +202,29 @@ export default {
 .container {
   padding: 1rem 1.0rem 3rem 1.0rem;
   font-family: 'Times New Roman', serif;
+  font-size: 16pt;
 }
 
 .user-info {
   border: 1px solid #ccc;
-  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: stretch;
+  padding: 0rem 0.5rem;
+
 }
 
 .user-info .left {
-  float: left;
-  width: 55%;
+  min-width: 50%;
+  max-width: 20rem;
+  overflow: hidden;
 }
 
 .user-info .right {
-  float: right;
-  width: 45%;
+  min-width: 50%;
+  max-width: 20rem;
+  overflow: hidden;
 }
 
 .prizes ul {

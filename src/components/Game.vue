@@ -1,7 +1,7 @@
 <template lang="pug">
   .game-container
     span {{ game.nr }}
-    div.inputs
+    .inputs.m-left-05
       .game-input-wrapper
         span {{ game.naam1 }}
         input(type="text")
@@ -22,12 +22,9 @@ export default {
 <style scoped>
 .game-container {
   display: flex;
-  min-width: 14rem;
   padding: 0 0.5rem;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.inputs {
-  margin-left: 0.5rem;
-  width: 100%;
-}
 </style>

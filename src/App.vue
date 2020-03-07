@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, p {
   margin: 0;
 }
 
-h3 {
+h3, h4 {
   margin-bottom: 0.25rem;
 }
 
@@ -42,6 +42,8 @@ input {
   padding: 0;
   font-family: 'Gochi Hand', cursive;
   border: 0;
+  font-size: 18pt;
+  max-height: 1.5rem
 }
 
 /* Disable number spinners */
@@ -73,12 +75,12 @@ input[type=number] {
 }
 
 .game-input-wrapper span {
-  flex-grow: 1;
+  min-width: 4rem;
 }
 
 .game-input-wrapper input {
   border: 0;
-  flex-grow: 9;
+  max-width: 8rem;
 }
 
 .card {

@@ -24,9 +24,9 @@ export default {
 
 <style scoped>
 .info-input-container {
+  min-width: 10rem;
   position: relative;
   margin-top: 0.5rem;
-  padding-right: 1rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
 }

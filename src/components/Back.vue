@@ -121,7 +121,7 @@ export default {
 
 <style>
 .container {
-  padding: 0.5rem;
+  padding: 1rem 1.0rem 3rem 1.0rem;
   height: 100%;
   font-family: 'Times New Roman', serif;
 }
@@ -164,7 +164,7 @@ td.game-text {
 }
 
 .footer {
-  position: absolute;
+  margin-top: 2rem;
   bottom: 2rem;
   left: 0.5rem;
   right: 0.5rem;

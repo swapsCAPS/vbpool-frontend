@@ -201,7 +201,7 @@ export default {
 
 <style scoped>
 .container {
-  padding: 0.5rem;
+  padding: 1rem 1.0rem 3rem 1.0rem;
   font-family: 'Times New Roman', serif;
 }
 

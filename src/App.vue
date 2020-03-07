@@ -81,6 +81,10 @@ input[type=number] {
   flex-grow: 9;
 }
 
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .no-top-border {
   border-top: none !important;
 }

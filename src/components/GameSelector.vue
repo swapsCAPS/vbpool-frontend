@@ -30,6 +30,7 @@ export default {
 
 .select {
   flex-grow: 1;
+  font-size: 1.2rem;
 }
 
 .select .vs__search::placeholder,

@@ -101,7 +101,7 @@
                   :teams="teams"
                 )
     .row
-      .col-12.col-md-12.col-lg-6
+      .col-12.col-md-12.col-lg-8.col-xl-6
         Section(
           text="Halve finales"
           subtext="(12/16 pnt)"
@@ -113,14 +113,14 @@
                   :game="game"
                   :teams="teams"
                 )
-      .col-12.col-md-12.col-lg-6
+      .col-12.col-md-12.col-lg-4.col-xl-6
         Section(
           text="Finale"
           subtext="20/24 pnt"
         )
           template(v-slot:content)
             .row
-              .col-12.col-md-6(v-for="game in games.final")
+              .col-12.col-md-6.col-lg-12.col-xl-6(v-for="game in games.final")
                 Game(
                   :game="game"
                   :teams="teams"

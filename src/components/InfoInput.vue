@@ -53,13 +53,14 @@ export default {
 
 .input-wrapper input {
   position: relative;
+  top: 0.1rem;
   color: black;
   flex-grow: 0.8;
   margin-left: 0.5rem;
   bottom: 0.6rem;
   height: 100%;
   background-color: transparent;
-  font-size: 22pt;
+  font-size: 22pt !important;
 
 }
 

@@ -1,8 +1,8 @@
 <template lang="pug">
   .row
-    .col-12.a4.card()
+    .col-12.mt-4.a4.card()
       Front()
-    .col-12.a4.card.back()
+    .col-12.mb-4.a4.card.back()
       Back()
 </template>
 

@@ -83,6 +83,7 @@
                 Game(
                   :game="game"
                   :teams="teams"
+                  v-model="form.finals.eighth[game.nr]"
                 )
     .row
       .col
@@ -223,9 +224,7 @@ export default {
       }, { eighth: [], quarter: [], half: [], final: [] })
     },
     teams () {
-      const bla = groups.map(({ teams }) => teams).reduce((acc, teams) => acc.concat(teams), []).map(({ team }) => team)
-      console.log('bla', bla)
-      return bla
+      return groups.map(({ teams }) => teams).reduce((acc, teams) => acc.concat(teams), []).map(({ team }) => team)
     },
   },
 

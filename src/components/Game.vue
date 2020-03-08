@@ -5,10 +5,12 @@
       GameSelector(
         :name="game.naam1"
         :teams="teams"
+        v-model="value[0]"
       ).border
       GameSelector(
         :name="game.naam2"
         :teams="teams"
+        v-model="value[1]"
       ).input.border.no-top-border
 </template>
 
@@ -22,6 +24,10 @@ export default {
   props: {
     game:  Object,
     teams: Array,
+    value: {
+      type:    Array,
+      default: () => [],
+    },
   },
 }
 </script>

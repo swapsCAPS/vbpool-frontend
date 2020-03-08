@@ -4,6 +4,8 @@
     v-select(
       class="select"
       :options="teams"
+      :value="value"
+      v-on:input="input"
     )
 </template>
 
@@ -13,6 +15,14 @@ export default {
   props: {
     name:  String,
     teams: Array,
+    value: String,
+  },
+
+  methods: {
+    // v-model was acting up
+    input (value) {
+      this.$emit('input', value)
+    },
   },
 }
 </script>

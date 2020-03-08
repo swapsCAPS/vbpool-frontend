@@ -3,6 +3,8 @@
     span {{ text }}
     input(
       :type="inputType"
+      :value="value"
+      v-on:input="$emit('input', $event.target.value)"
     )
 </template>
 
@@ -11,6 +13,7 @@ export default {
   name:  'MiscInput',
   props: {
     text:      String,
+    value:     [ String, Number ],
     inputType: {
       type:    String,
       default: 'text',

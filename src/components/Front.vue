@@ -97,6 +97,7 @@
                 Game(
                   :game="game"
                   :teams="teams"
+                  v-model="form.finals.quarter[game.nr]"
                 )
     .row
       .col-12.col-md-12.col-lg-8.col-xl-6
@@ -110,6 +111,7 @@
                 Game(
                   :game="game"
                   :teams="teams"
+                  v-model="form.finals.half[game.nr]"
                 )
       .col-12.col-md-12.col-lg-4.col-xl-6
         Section(
@@ -122,6 +124,7 @@
                 Game(
                   :game="game"
                   :teams="teams"
+                  v-model="form.finals.final"
                 )
     .row
       .col-12.col-md-6.col-lg-3
@@ -133,10 +136,12 @@
             GameSelector(
               name="1e: "
               :teams="teams"
+              v-model="form.endStance[0]"
             ).border
             GameSelector(
               name="2e: "
               :teams="teams"
+              v-model="form.endStance[1]"
             ).input.border.no-top-border
       .col-12.col-md-6.col-lg-3
         Section(
@@ -146,10 +151,12 @@
           template(v-slot:content)
             MiscInput(
               text="Speler (30p)"
+              v-model.trim="form.topScorer.player"
             ).border
             MiscInput(
               text="Aantal goals (12p)"
               inputType="number"
+              v-model.number="form.topScorer.goals"
             ).input.border.no-top-border
       .col-12.col-md-6
         Section(
@@ -160,22 +167,27 @@
             MiscInput(
               text="aantal gele kaarten (±4, 16p):"
               inputType="number"
+              v-model.number="form.misc.yellowCards"
             ).border
             MiscInput(
               text="aantal rode kaarten (±2, 16p):"
               inputType="number"
+              v-model.number="form.misc.redCards"
             ).input.border.no-top-border
             MiscInput(
               text="aantal penalties in speeltijd (±1, 16p):"
               inputType="number"
+              v-model.number="form.misc.penalties"
             ).input.border.no-top-border
             MiscInput(
               text="aantal gelijke spelen (±3, 16p):"
               inputType="number"
+              v-model.number="form.misc.draws"
             ).input.border.no-top-border
             MiscInput(
               text="aantal doelpunten in toernooi (±5, 16p):"
               inputType="number"
+              v-model.number="form.misc.totalGoals"
             ).input.border.no-top-border
 </template>
 

@@ -47,11 +47,19 @@ export default {
             43: [ '', '' ],
             44: [ '', '' ],
           },
+          quarter: {
+            45: [ '', '' ],
+            46: [ '', '' ],
+            47: [ '', '' ],
+            48: [ '', '' ],
+          },
+          half: {
+            49: [ '', '' ],
+            50: [ '', '' ],
+          },
+          final: [ '', '' ],
         },
-        endStance: {
-          first:  '',
-          second: '',
-        },
+        endStance: [ '', '' ],
         topScorer: {
           player: '',
           goals:  null,

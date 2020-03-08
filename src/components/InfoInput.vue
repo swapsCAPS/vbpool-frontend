@@ -5,6 +5,8 @@
       h1.spacer {{ title }}:
       input(
         type="text"
+        :value="value"
+        v-on:input="$emit('input', $event.target.value)"
       )
 </template>
 
@@ -13,11 +15,8 @@ export default {
   name: 'InfoInput',
 
   props: {
-    title:     String,
-    fieldName: String,
-  },
-
-  watch: {
+    title: String,
+    value: String,
   },
 }
 </script>

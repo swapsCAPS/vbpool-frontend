@@ -12,28 +12,24 @@
             .col-sm-6.col-md-6
               InfoInput(
                 title="Naam"
-                fieldName="name"
+                v-model.trim="form.userInfo.name"
               )
               InfoInput(
                 title="Adres"
-                fieldName="address"
+                v-model.trim="form.userInfo.address"
               )
               InfoInput(
                 title="Email"
-                fieldName="email"
+                v-model.trim="form.userInfo.email"
               )
             .col-sm-6.col-md-6
               InfoInput(
                 title="Telefoon"
-                fieldName="phone"
+                v-model.trim="form.userInfo.phone"
               )
               InfoInput(
                 title="Plaats"
-                fieldName="city"
-              )
-              InfoInput(
-                title="Betaald"
-                fieldName="paid"
+                v-model.trim="form.userInfo.city"
               )
     .row
       .col-12
@@ -73,7 +69,7 @@
                 GroupStage(
                   :group="group"
                   :teams="teams"
-                  )
+                )
     .row
       .col
         Section(
@@ -207,6 +203,7 @@ export default {
   },
 
   props: {
+    form: Object,
   },
 
   data: function () {
@@ -231,11 +228,6 @@ export default {
     },
   },
 
-  mounted () {
-    console.log(this.groups)
-  },
-
-  methods: { },
 }
 </script>
 

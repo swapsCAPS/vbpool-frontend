@@ -29,12 +29,12 @@ export default {
           city:    '',
         },
         groupStances: {
-          a: [], // TODO need to overwrite whole array prolly
-          b: [],
-          c: [],
-          d: [],
-          e: [],
-          f: [],
+          A: {},
+          B: {},
+          C: {},
+          D: {},
+          E: {},
+          F: {},
         },
         finals: {
           eighth: [

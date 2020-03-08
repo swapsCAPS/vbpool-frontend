@@ -3,7 +3,14 @@
     h4 {{ `Groep ${group.name}` }}
     div(v-for="team, index in group.teams")
       span {{ team.team }}
-      input(:class="{ 'no-top-border': index !== 0 }" type="number" min="1" max="4")
+      input(
+        :class="{ 'no-top-border': index !== 0 }"
+        :key="team.team"
+        type="number"
+        min="1"
+        max="4"
+        v-model="value[team.team]"
+      )
 </template>
 
 <script>
@@ -12,6 +19,7 @@ export default {
 
   props: {
     group: Object,
+    value: Object,
   },
 
   watch: {

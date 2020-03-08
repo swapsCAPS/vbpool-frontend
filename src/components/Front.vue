@@ -69,6 +69,7 @@
                 GroupStage(
                   :group="group"
                   :teams="teams"
+                  v-model="form.groupStances[group.name]"
                 )
     .row
       .col

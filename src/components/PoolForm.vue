@@ -5,13 +5,17 @@
         :form="page1"
       )
     .col-12.mb-4.a4.card.back()
-      Back()
+      Back(
+        :form="page2"
+      )
 </template>
 
 <script>
 
 import Front from './Front.vue'
 import Back from './Back.vue'
+
+import allGames from '../assets/games.json'
 
 export default {
   name: 'PoolForm',
@@ -72,10 +76,14 @@ export default {
           totalGoals:  null,
         },
       },
-      page2: {
-        // TODO obj w/ nr, rest, end, toto
-        games: [],
-      },
+      page2: allGames.games.reduce((acc, g) => {
+        acc[g.nr] = {
+          half: [ '', '' ],
+          end:  [ '', '' ],
+          toto: null,
+        }
+        return acc
+      }, {}),
     }
   },
 

@@ -2,10 +2,12 @@
   .input-wrapper
     input(
       type="number"
+      v-model.number="value[0]"
     )
     span -
     input(
       type="number"
+      v-model.number="value[1]"
     )
 </template>
 
@@ -14,10 +16,12 @@ export default {
   name: 'MatchInput',
 
   props: {
-    title:     String,
-    fieldName: String,
+    title: String,
+    value: {
+      type:    Array,
+      default: () => [],
+    },
   },
-
 }
 </script>
 

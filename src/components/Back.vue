@@ -28,10 +28,12 @@
           .col-12.col-xl-6
             Table(
               :games="games.left"
+              :form="form"
             )
           .col-12.col-xl-6
             Table(
               :games="games.right"
+              :form="form"
             )
     .row
       .col-12
@@ -56,6 +58,7 @@ export default {
   },
 
   props: {
+    form: Array,
   },
 
   data: function () {

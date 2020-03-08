@@ -9,20 +9,28 @@
         th.half-time rust
         th.end eind
         th.toto toto
-      tr(v-for="game in games")
+      tr(
+        v-for="game in games"
+        :key="game.nr"
+      )
         td.padded {{ game.formattedDate }}
         td.padded {{ game.tijd }}
         td.padded.nr {{ game.nr }}
         td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
         td
-          MatchInput()
+          MatchInput(
+            v-model="form[game.nr].half"
+          )
         td
-          MatchInput()
+          MatchInput(
+            v-model="form[game.nr].end"
+          )
         td.toto
           input(
             type="number"
             min="1"
             max="3"
+            v-model="form[game.nr].toto"
           )
 </template>
 
@@ -38,6 +46,11 @@ export default {
 
   props: {
     games: Array,
+    form:  {
+      type:    Array,
+      default: () => [],
+    },
+
   },
 
 }

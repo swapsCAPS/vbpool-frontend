@@ -1,12 +1,12 @@
 <template lang="pug">
   div
     .row
-      .col-sm-12
+      .col-12
         Header(
           title="Wedstrijdvoorspellingen"
         )
     .row
-      .col-sm-12
+      .col-12
         .explanation
           h3 Uitleg
           p
@@ -23,19 +23,18 @@
           h3 Punten
           p Ruststand goed: 2 pnt, Eindstand goed: 3 pnt, Toto goed: 4 pnt. Totaal aantal doelpunten op één dag goed: 5 pnt.
     .row
-      .col-xs-12
-        .tables
-          .row
-            .col-xs-12.col-md-6.col-lg-6
-              Table(
-                :games="games.left"
-              )
-            .col-xs-12.col-md-6.col-lg-6
-              Table(
-                :games="games.right"
-              )
+      .col-12
+        .row.tables
+          .col-12.col-xl-6
+            Table(
+              :games="games.left"
+            )
+          .col-12.col-xl-6
+            Table(
+              :games="games.right"
+            )
     .row
-      .col-xs-12
+      .col-12
         .footer
           h2 UITERLIJK INLEVEREN OP MAANDAG 8 JUNI 2020
 </template>
@@ -85,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container {
   font-family: 'Times New Roman', serif;
 }
@@ -98,68 +97,11 @@ export default {
   text-align: center;
 }
 
-.tables {
-  margin-top: 1rem;
-}
-
-.tables table {
-  width: 100%;
-  margin-bottom: 2rem;
-}
-
-.tables th {
-  font-weight: normal;
-}
-
-.tables input {
-  width: 3rem;
-  text-align: center;
-  background-color: transparent;
-}
-
-.tables table, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-}
-
-td.game-text {
-  max-width: 8.5rem;
-}
-
 .footer {
   margin-top: 2rem;
   bottom: 2rem;
   left: 0.5rem;
   right: 0.5rem;
-}
-
-.toto {
-  text-align: center;
-}
-
-.toto input {
-  position: relative;;
-  width: 2rem;
-}
-
-th.toto {
-  width: 3rem;
-}
-
-th.datum, th.time {
-  width: 5rem;
-}
-
-th.nr {
-  width: 3rem;
-}
-
-th.half-time, th.end {
-  width: 3rem;
 }
 
 .footer h2 {

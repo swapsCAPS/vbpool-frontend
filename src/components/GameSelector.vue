@@ -24,8 +24,12 @@ export default {
   align-items: center;
 }
 
+.input span {
+  padding-left: 0.5rem;
+}
+
 .select {
-  flex-grow:1;
+  flex-grow: 1;
 }
 
 .select .vs__search::placeholder,

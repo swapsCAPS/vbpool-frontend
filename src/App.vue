@@ -1,12 +1,14 @@
 <template lang="pug">
-  #app
-    PoolForm
+  .container
+    .row
+      .col-12
+        #app
+          PoolForm
 </template>
 
 <script>
 import PoolForm from './components/PoolForm.vue'
 
-import './assets/bootstrap.min.css'
 import 'vue-select/dist/vue-select.css'
 
 export default {
@@ -23,27 +25,31 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
 
 h1, h2, h3, h4, h5, p {
-  margin: 0;
+  margin: 0 !important;
 }
 
 h3, h4 {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem !important;
 }
 
 p {
-  font-size: 12pt;
+  font-size: 12pt !important;
 }
 
 body {
-  background-color: #fff8f2;
-  color: #666;
-  cursor: default;
+  background-color: #fff8f2 !important;
+  color: #666 !important;
+  cursor: default !important;
+}
+
+.container {
+  font-family: 'Times New Roman', serif;
 }
 
 input {
-  font-family: 'Gochi Hand', cursive;
-  border: 0;
-  font-size: 18pt;
+  font-family: 'Gochi Hand', cursive !important;
+  border: 0 !important;
+  font-size: 18pt !important;
 }
 
 /* Disable number spinners */
@@ -61,7 +67,6 @@ input[type=number] {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
 }
 
 .card {

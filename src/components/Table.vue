@@ -1,28 +1,29 @@
 <template lang="pug">
-  table
-    tr
-      th.datum Datum
-      th.time tijd
-      th.nr nr
-      th.match Wedstrijd
-      th.half-time rust
-      th.end eind
-      th.toto toto
-    tr(v-for="game in games")
-      td.padded {{ game.formattedDate }}
-      td.padded {{ game.tijd }}
-      td.padded.nr {{ game.nr }}
-      td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
-      td
-        MatchInput()
-      td
-        MatchInput()
-      td.toto
-        input(
-          type="number"
-          min="1"
-          max="3"
-        )
+  .table-responsive-md
+    table.table
+      tr
+        th.datum Datum
+        th.time tijd
+        th.nr nr
+        th.match Wedstrijd
+        th.half-time rust
+        th.end eind
+        th.toto toto
+      tr(v-for="game in games")
+        td.padded {{ game.formattedDate }}
+        td.padded {{ game.tijd }}
+        td.padded.nr {{ game.nr }}
+        td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
+        td
+          MatchInput()
+        td
+          MatchInput()
+        td.toto
+          input(
+            type="number"
+            min="1"
+            max="3"
+          )
 </template>
 
 <script>
@@ -39,40 +40,36 @@ export default {
     games: Array,
   },
 
-  data: function () { },
-
-  computed: {
-  },
-
-  created () {
-  },
-
-  methods: { },
 }
 </script>
 
 <style scoped>
 table {
-  width: 100%;
   margin-bottom: 2rem;
+  background: white !important;
 }
 
-.tables th {
+.table td {
+}
+
+th {
   font-weight: normal;
+  text-align: center;
 }
 
-.tables input {
-  width: 3rem;
+input {
+  width: 2rem;
   text-align: center;
   background-color: transparent;
 }
 
-.tables table, td {
-  border: 1px solid black;
+table td {
+  border: 1px solid #333;
   border-collapse: collapse;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 0;
 
 }
 
@@ -102,7 +99,7 @@ th.nr {
 }
 
 .padded {
-  padding-left: 0.5rem;
+  padding-left: 0.25rem;
 }
 
 tr {

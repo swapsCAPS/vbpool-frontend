@@ -1,10 +1,9 @@
 <template lang="pug">
-  .container
-    .row
-      .col-sm-12.a4.card()
-        Front()
-      .col-sm-12.a4.card.back()
-        Back()
+  .row
+    .col-12.a4.card()
+      Front()
+    .col-12.a4.card.back()
+      Back()
 </template>
 
 <script>
@@ -20,27 +19,6 @@ export default {
     Back,
   },
 
-  data: function () {
-    return {
-    }
-  },
-
-  computed: {
-  },
-
-  props: {},
-
-  created () {
-  },
-
-  mounted () {
-  },
-
-  destroyed () {
-  },
-
-  methods: {
-  },
 }
 </script>
 

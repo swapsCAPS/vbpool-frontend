@@ -1,8 +1,10 @@
 <template lang="pug">
   .section-container
     .section-header
-      h4.text {{ text || "Main text" }}
-      h4.subtext {{ subtext }}
+      h4
+        span.text {{ text || "Main text" }}
+        span {{ ` ` }}
+        span.subtext {{ subtext }}
     .section-content
       slot(name="content")
 </template>
@@ -28,18 +30,20 @@ export default {
   color: #fcfdff;
   font-family: 'Cormorant Garamond', serif;
   display: flex;
+  align-items: center;
+  padding: 0.1rem 0.3rem;
+}
+
+.section-header h4 {
+  margin-bottom: 0 !important;
 }
 
 .section-header .text {
-  margin-left: 0.3rem;
-  margin-top: 0.1rem;
-  margin-bottom: 0.1rem;
   font-weight: 600;
 }
 
 .section-header .subtext {
   font-weight: 500;
-  margin-left: 1rem;
 }
 
 .section-content {

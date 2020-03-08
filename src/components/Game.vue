@@ -32,6 +32,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  margin: 0.2rem;
 }
 
 .inputs {

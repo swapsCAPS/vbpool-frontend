@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
 import vSelect from 'vue-select'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.component('v-select', vSelect)
 

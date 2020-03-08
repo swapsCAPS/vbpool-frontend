@@ -48,7 +48,7 @@ export default {
   height: 1.5rem;
   text-align: center;
   padding: 0;
-  border: 1px solid #ccc;
+  border: 1px solid #ccc !important;
 }
 
 .no-top-border {

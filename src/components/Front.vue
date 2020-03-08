@@ -1,12 +1,12 @@
 <template lang="pug">
   div
     .row
-      .col-sm-12
+      .col
         Header(
           title="Inschrijfformulier   inleg: € 10,00"
         )
     .row
-      .col-sm-12
+      .col
         .user-info
           .row
             .col-sm-6.col-md-6
@@ -36,11 +36,11 @@
                 fieldName="paid"
               )
     .row
-      .col-sm-12
+      .col-12
         .instructions
           h3 Instructies
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
-      .col-sm-12
+      .col-12
         .prizes
           h3 Prijzen
           ul
@@ -62,71 +62,71 @@
                   p 1e pl: 50%, 2de pl: 30%, 3e pl: 15%, 4e pl: 5% van de totale inleg (minus de dagprijzen en de rode lantaarn)
             li Bij een gelijk aantal punten wordt de betreffende prijs verdeeld
     .row
-      .col-sm-12
+      .col
         Section(
           text="Groepstanden"
           subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
         )
           template(v-slot:content)
             .row
-              .col-xs-4.col-sm-2.col-md-2.col-lg-2(v-for="group in groups")
+              .col-6.col-md-4.col-lg-3.col-xl-2(v-for="group in groups")
                 GroupStage(
                   :group="group"
                   :teams="teams"
                   )
     .row
-      .col-sm-12
+      .col
         Section(
           text="Achtste finales"
           subtext="(5 pnt voor elk genoemd team of 8 pnt als het ook nog op de juiste plaats staat)"
         )
           template(v-slot:content)
             .row
-              .col-xs-12.col-sm-6.col-md-4.col-lg-3(v-for="game in games.eighth")
+              .col-12.col-md-6.col-lg-4.col-xl-3(v-for="game in games.eighth")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
     .row
-      .col-sm-12
+      .col
         Section(
           text="Kwarfinales"
           subtext="Vul in: 1 t/m 4 (5 pnt per correcte invoer)"
         )
           template(v-slot:content)
             .row
-              .col-xs-12.col-sm-6.col-md-4.col-lg-3(v-for="game in games.quarter")
+              .col-12.col-md-6.col-lg-4.col-xl-3(v-for="game in games.quarter")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
     .row
-      .col-md-6
+      .col-12.col-md-12.col-lg-6
         Section(
           text="Halve finales"
           subtext="(12/16 pnt)"
         )
           template(v-slot:content)
             .row
-              .col-sm-6.col-md-6.col-lg-6(v-for="game in games.half")
+              .col-12.col-md-6(v-for="game in games.half")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
-      .col-md-6
+      .col-12.col-md-12.col-lg-6
         Section(
           text="Finale"
           subtext="20/24 pnt"
         )
           template(v-slot:content)
             .row
-              .col-sm-6(v-for="game in games.final")
+              .col-12.col-md-6(v-for="game in games.final")
                 Game(
                   :game="game"
                   :teams="teams"
                 )
     .row
-      .col-xs-6.col-md-3
+      .col-12.col-md-6.col-lg-3
         Section(
           text="Eindstand"
           subtext=""
@@ -140,39 +140,45 @@
               name="2e: "
               :teams="teams"
             ).input.border.no-top-border
-            .col-xs-6.col-md-3
+      .col-12.col-md-6.col-lg-3
         Section(
           text="Topscorer & aantal goals"
           subtext=""
         )
           template(v-slot:content)
-            .game-input-wrapper
-              span Speler (30p):
-              input(type="text")
-            .game-input-wrapper
-              span Aantal goals (12p):
-              input(type="text")
-      .col-xs-6
+            MiscInput(
+              text="Speler (30p)"
+            ).border
+            MiscInput(
+              text="Aantal goals (12p)"
+              inputType="number"
+            ).input.border.no-top-border
+      .col-12.col-md-6
         Section(
           text="Overigen"
           subtext=""
         )
           template(v-slot:content)
-            .game-input-wrapper
-              span aantal gele kaarten (±4, 16p):
-              input(type="text")
-            .game-input-wrapper
-              span aantal rode kaarten (±2, 16p):
-              input(type="text")
-            .game-input-wrapper
-              span aantal penalties in speeltijd (±1, 16p):
-              input(type="text")
-            .game-input-wrapper
-              span aantal gelijke spelen (±3, 16p):
-              input(type="text")
-            .game-input-wrapper
-              span aantal doelpunten in toernooi (±5, 16p):
-              input(type="text")
+            MiscInput(
+              text="aantal gele kaarten (±4, 16p):"
+              inputType="number"
+            ).border
+            MiscInput(
+              text="aantal rode kaarten (±2, 16p):"
+              inputType="number"
+            ).input.border.no-top-border
+            MiscInput(
+              text="aantal penalties in speeltijd (±1, 16p):"
+              inputType="number"
+            ).input.border.no-top-border
+            MiscInput(
+              text="aantal gelijke spelen (±3, 16p):"
+              inputType="number"
+            ).input.border.no-top-border
+            MiscInput(
+              text="aantal doelpunten in toernooi (±5, 16p):"
+              inputType="number"
+            ).input.border.no-top-border
 </template>
 
 <script>
@@ -182,6 +188,7 @@ import Section from './Section'
 import GroupStage from './GroupStage'
 import Game from './Game'
 import GameSelector from './GameSelector'
+import MiscInput from './MiscInput'
 
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
@@ -190,12 +197,13 @@ export default {
   name: 'Front',
 
   components: {
-    GameSelector,
-    InfoInput,
-    Header,
-    Section,
-    GroupStage,
     Game,
+    GameSelector,
+    GroupStage,
+    Header,
+    InfoInput,
+    MiscInput,
+    Section,
   },
 
   props: {
@@ -232,10 +240,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  font-family: 'Times New Roman', serif;
-}
-
 .user-info {
   border: 1px solid #ccc;
   padding: 0rem 0.5rem;

@@ -3,7 +3,7 @@
     input(
       type="number"
     )
-    span.bold -
+    span -
     input(
       type="number"
     )
@@ -30,8 +30,12 @@ export default {
 }
 
 .input-wrapper input {
-  position: relative;
-  height: 2.5rem;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.input-wrapper span {
+  font-weight: bold;
 }
 
 </style>

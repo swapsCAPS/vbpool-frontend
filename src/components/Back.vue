@@ -58,7 +58,7 @@ export default {
   },
 
   props: {
-    form: Array,
+    form: Object,
   },
 
   data: function () {

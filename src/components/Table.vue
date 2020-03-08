@@ -47,8 +47,7 @@ export default {
   props: {
     games: Array,
     form:  {
-      type:    Array,
-      default: () => [],
+      type: Object,
     },
 
   },

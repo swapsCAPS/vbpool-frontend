@@ -9,27 +9,15 @@
       .col
         .user-info
           .row
-            .col-sm-6.col-md-6
+            .col-12.col-lg-6
               InfoInput(
                 title="Naam"
                 v-model.trim="form.userInfo.name"
               )
-              InfoInput(
-                title="Adres"
-                v-model.trim="form.userInfo.address"
-              )
+            .col-12.col-lg-6
               InfoInput(
                 title="Email"
                 v-model.trim="form.userInfo.email"
-              )
-            .col-sm-6.col-md-6
-              InfoInput(
-                title="Telefoon"
-                v-model.trim="form.userInfo.phone"
-              )
-              InfoInput(
-                title="Plaats"
-                v-model.trim="form.userInfo.city"
               )
     .row
       .col-12

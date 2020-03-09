@@ -8,12 +8,18 @@
       Back(
         :form="page2"
       )
+    .col-12.mb-4.a4.card()
+      Menu(
+        @discard="discard"
+        @send="send"
+      )
 </template>
 
 <script>
 
 import Front from './Front.vue'
 import Back from './Back.vue'
+import Menu from './Menu.vue'
 
 import allGames from '../assets/games.json'
 
@@ -23,73 +29,11 @@ export default {
   components: {
     Front,
     Back,
+    Menu,
   },
 
   data () {
-    return {
-      // TODO test if too far nested?
-      // TODO vuex?
-      page1: {
-        userInfo: {
-          name:    '',
-          address: '',
-          email:   '',
-          phone:   '',
-          city:    '',
-        },
-        groupStances: {
-          A: {},
-          B: {},
-          C: {},
-          D: {},
-          E: {},
-          F: {},
-        },
-        finals: {
-          eighth: {
-            37: [ '', '' ],
-            38: [ '', '' ],
-            39: [ '', '' ],
-            40: [ '', '' ],
-            41: [ '', '' ],
-            42: [ '', '' ],
-            43: [ '', '' ],
-            44: [ '', '' ],
-          },
-          quarter: {
-            45: [ '', '' ],
-            46: [ '', '' ],
-            47: [ '', '' ],
-            48: [ '', '' ],
-          },
-          half: {
-            49: [ '', '' ],
-            50: [ '', '' ],
-          },
-          final: [ '', '' ],
-        },
-        endStance: [ '', '' ],
-        topScorer: {
-          player: '',
-          goals:  null,
-        },
-        misc: {
-          yellowCards: null,
-          redCards:    null,
-          penalties:   null,
-          draws:       null,
-          totalGoals:  null,
-        },
-      },
-      page2: allGames.games.reduce((acc, g) => {
-        acc[g.nr] = {
-          half: [ '', '' ],
-          end:  [ '', '' ],
-          toto: null,
-        }
-        return acc
-      }, {}),
-    }
+    return this.getDefaultData()
   },
 
   watch: {
@@ -115,9 +59,23 @@ export default {
   },
 
   methods: {
+    send () {
+      console.log('send')
+    },
+
+    discard () {
+      const shouldDiscard = confirm('Weet je zeker dat je alles wilt wissen?!')
+      if (!shouldDiscard) return
+      window.localStorage.clear()
+      const data = this.getDefaultData()
+      this.page1 = data.page1
+      this.page2 = data.page2
+    },
+
     store (key, data) {
       window.localStorage.setItem(key, JSON.stringify(data))
     },
+
     get (key) {
       let data
       const stored = window.localStorage.getItem(key)
@@ -128,6 +86,71 @@ export default {
         return console.error(`Could not parse ${key} from store`)
       }
       return data
+    },
+
+    getDefaultData () {
+      return {
+        page1: {
+          userInfo: {
+            name:    '',
+            address: '',
+            email:   '',
+            phone:   '',
+            city:    '',
+          },
+          groupStances: {
+            A: {},
+            B: {},
+            C: {},
+            D: {},
+            E: {},
+            F: {},
+          },
+          finals: {
+            eighth: {
+              37: [ '', '' ],
+              38: [ '', '' ],
+              39: [ '', '' ],
+              40: [ '', '' ],
+              41: [ '', '' ],
+              42: [ '', '' ],
+              43: [ '', '' ],
+              44: [ '', '' ],
+            },
+            quarter: {
+              45: [ '', '' ],
+              46: [ '', '' ],
+              47: [ '', '' ],
+              48: [ '', '' ],
+            },
+            half: {
+              49: [ '', '' ],
+              50: [ '', '' ],
+            },
+            final: [ '', '' ],
+          },
+          endStance: [ '', '' ],
+          topScorer: {
+            player: '',
+            goals:  null,
+          },
+          misc: {
+            yellowCards: null,
+            redCards:    null,
+            penalties:   null,
+            draws:       null,
+            totalGoals:  null,
+          },
+        },
+        page2: allGames.games.reduce((acc, g) => {
+          acc[g.nr] = {
+            half: [ '', '' ],
+            end:  [ '', '' ],
+            toto: null,
+          }
+          return acc
+        }, {}),
+      }
     },
   },
 

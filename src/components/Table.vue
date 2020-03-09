@@ -30,6 +30,7 @@
             type="number"
             min="1"
             max="3"
+            @keypress="checkInput($event)"
             v-model="form[game.nr].toto"
           )
 </template>
@@ -48,6 +49,15 @@ export default {
     games: Array,
     form:  {
       type: Object,
+    },
+
+  },
+
+  methods: {
+    checkInput (event) {
+      const { key, target } = event
+      const { value }       = target
+      if (key < 1 || +key > 3 || value.length) return event.preventDefault()
     },
 
   },

@@ -92,9 +92,43 @@ export default {
     }
   },
 
-  components: {
-    Front,
-    Back,
+  watch: {
+    page1: {
+      deep: true,
+      handler () {
+        this.store('page1', this.page1)
+      },
+    },
+    page2: {
+      deep: true,
+      handler () {
+        this.store('page2', this.page2)
+      },
+    },
+  },
+
+  mounted () {
+    const page1 = this.get('page1')
+    const page2 = this.get('page2')
+    if (page1) this.page1 = page1
+    if (page2) this.page2 = page2
+  },
+
+  methods: {
+    store (key, data) {
+      window.localStorage.setItem(key, JSON.stringify(data))
+    },
+    get (key) {
+      let data
+      const stored = window.localStorage.getItem(key)
+      if (!stored) return console.log(`No data for ${key}`)
+      try {
+        data = JSON.parse(stored)
+      } catch (error) {
+        return console.error(`Could not parse ${key} from store`)
+      }
+      return data
+    },
   },
 
 }

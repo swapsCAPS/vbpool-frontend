@@ -20,6 +20,11 @@ import allGames from '../assets/games.json'
 export default {
   name: 'PoolForm',
 
+  components: {
+    Front,
+    Back,
+  },
+
   data () {
     return {
       // TODO test if too far nested?

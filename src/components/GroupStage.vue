@@ -9,6 +9,7 @@
         type="number"
         min="1"
         max="4"
+        @keypress="checkInput($event)"
         v-model="value[team.team]"
       )
 </template>
@@ -22,7 +23,12 @@ export default {
     value: Object,
   },
 
-  watch: {
+  methods: {
+    checkInput (event) {
+      const { key, target } = event
+      const { value }       = target
+      if (key < 1 || +key > 4 || value.length) return event.preventDefault()
+    },
   },
 }
 </script>

@@ -224,7 +224,11 @@ export default {
       }, { eighth: [], quarter: [], half: [], final: [] })
     },
     teams () {
-      return groups.map(({ teams }) => teams).reduce((acc, teams) => acc.concat(teams), []).map(({ team }) => team)
+      return groups
+        .map(({ teams }) => teams)
+        .reduce((acc, teams) => acc.concat(teams), [])
+        .map(({ team }) => team)
+        .sort()
     },
   },
 

@@ -12,6 +12,7 @@
       Menu(
         @discard="discard"
         @send="send"
+        :errors="errors"
       )
 </template>
 
@@ -67,9 +68,10 @@ export default {
       const shouldDiscard = confirm('Weet je zeker dat je alles wilt wissen?!')
       if (!shouldDiscard) return
       window.localStorage.clear()
-      const data = this.getDefaultData()
-      this.page1 = data.page1
-      this.page2 = data.page2
+      const data  = this.getDefaultData()
+      this.errors = []
+      this.page1  = data.page1
+      this.page2  = data.page2
     },
 
     store (key, data) {
@@ -90,7 +92,8 @@ export default {
 
     getDefaultData () {
       return {
-        page1: {
+        errors: [],
+        page1:  {
           userInfo: {
             name:    '',
             address: '',

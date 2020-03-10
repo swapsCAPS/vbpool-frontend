@@ -23,7 +23,9 @@
       .col-12
         .instructions
           h3 Instructies
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque congue, ipsum in dignissim commodo, urna ante varius tortor, euismod tempus leo ante vitae massa. Aliquam tincidunt neque et sem viverra iaculis. Quisque suscipit risus a aliquam ornare. Cras iaculis neque sed nisl congue lobortis. Aenean sed leo feugiat, gravida elit vitae, lacinia diam. Proin malesuada nunc ante, quis mattis ante auctor vitae. Vivamus efficitur massa nunc, eu condimentum lacus accumsan eget. Phasellus felis nunc, elementum ac vehicula efficitur, egestas eu elit.
+          p Hier onder kun je voorspellingen invoeren voor het EK 2020 van 12 juni 2020 tot 12 juli 2020.
+          p Voor elke juiste voorspelling krijg je punten, bij de verschillende onderdelen staat hoeveel.
+          p De voorspellingen hoeven niet te kloppen, bij een uitslag kun je bijvoorbeeld 1-0 bij de rust, 0-2 bij de eindstand en een 3 bij de toto invullen. Of je kunt een team dat je uitgeschakeld hebt in een volgende ronde toch weer opnemen.
       .col-12
         .prizes
           h3 Prijzen

@@ -16,13 +16,17 @@
         .errors(v-for="error in errors")
           .error - {{ error.message }}
 
+    Disabler(:isDisabled="!isLoggedIn")
 </template>
 
 <script>
+import Disabler from './Disabler'
+
 export default {
   name: 'Menu',
 
   components: {
+    Disabler,
   },
 
   props: {

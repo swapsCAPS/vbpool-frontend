@@ -35,6 +35,7 @@
               :games="games.right"
               :form="form"
             )
+          Disabler(:isDisabled="!isLoggedIn")
     .row
       .col-12
         .footer
@@ -45,6 +46,7 @@
 import Header from './Header'
 import MatchInput from './MatchInput'
 import Table from './Table'
+import Disabler from './Disabler'
 
 import allGames from '../assets/games.json'
 
@@ -55,6 +57,7 @@ export default {
     Header,
     MatchInput,
     Table,
+    Disabler,
   },
 
   props: {

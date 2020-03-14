@@ -3,16 +3,19 @@
     .col-12.mt-4.a4.card()
       Front(
         :form="page1"
+        :isLoggedIn="isLoggedIn"
       )
     .col-12.mb-4.a4.card.back()
       Back(
         :form="page2"
+        :isLoggedIn="isLoggedIn"
       )
     .col-12.mb-4.a4.card()
       Menu(
         @discard="discard"
         @send="send"
         :errors="errors"
+        :isLoggedIn="isLoggedIn"
       )
 </template>
 
@@ -153,6 +156,7 @@ export default {
           }
           return acc
         }, {}),
+        isLoggedIn: false,
       }
     },
   },

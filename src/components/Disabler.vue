@@ -1,9 +1,8 @@
 <template lang="pug">
-  .row
-    .col.disabler(
-      :class="{ isDisabled }"
-      @click="alert"
-    )
+  .disabler(
+    :class="{ isDisabled }"
+    @click="alert"
+  )
 </template>
 
 <script>

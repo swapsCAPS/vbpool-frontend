@@ -61,7 +61,8 @@ export default {
   },
 
   props: {
-    form: Object,
+    form:       Object,
+    isLoggedIn: Boolean,
   },
 
   data: function () {

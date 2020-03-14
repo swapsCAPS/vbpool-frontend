@@ -4,6 +4,7 @@
       Front(
         :form="page1"
         :isLoggedIn="isLoggedIn"
+        @validateEmail="onValidateEmail"
       )
     .col-12.mb-4.a4.card.back()
       Back(
@@ -64,6 +65,8 @@ export default {
 
   methods: {
     send () {
+      // Validate logged in
+      // Validate form
       console.log('send')
     },
 
@@ -91,6 +94,10 @@ export default {
         return console.error(`Could not parse ${key} from store`)
       }
       return data
+    },
+
+    onValidateEmail (value) {
+      console.log('value', this.page1.userInfo.email)
     },
 
     getDefaultData () {

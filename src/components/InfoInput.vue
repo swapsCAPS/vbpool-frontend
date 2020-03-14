@@ -60,7 +60,7 @@ export default {
   height: 100%;
   background-color: transparent;
   font-size: 22pt !important;
-
+  overflow: hidden;
 }
 
 </style>

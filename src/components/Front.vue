@@ -4,7 +4,7 @@
       .row
         .col
           Header(
-            title="Inschrijfformulier   inleg: € 10,00"
+            title="Inschrijfformulier inleg: € 10,00"
           )
       .row
         .col
@@ -16,10 +16,17 @@
                   v-model.trim="form.userInfo.name"
                 )
               .col-12.col-lg-6
-                InfoInput(
-                  title="Email"
-                  v-model.trim="form.userInfo.email"
-                )
+                .row.email-input-wrapper
+                  .col-10
+                    InfoInput(
+                      title="Email"
+                      v-model.trim="form.userInfo.email"
+                    )
+                  .col-2
+                    button.btn.btn-primary.validate-email.float-right(
+                      @click="$emit('validateEmail')"
+                    ) Valideren
+
       .row
         .col-12
           .instructions
@@ -262,6 +269,15 @@ export default {
   content: "-";
   position: absolute;
   left: 0;
+}
+
+.email-input-wrapper {
+  align-items: center;
+
+}
+
+.validate-email {
+
 }
 
 </style>

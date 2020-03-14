@@ -9,30 +9,26 @@
       .row
         .col
           .user-info
-            .row
+            .row.mt-2.mb-2
               .col-12.col-lg-6
                 InfoInput(
                   title="Naam"
                   v-model.trim="form.userInfo.name"
                 )
               .col-12.col-lg-6
-                .row.email-input-wrapper(v-if="!isLoggedIn")
-                  .col-10
-                    InfoInput(
-                      title="Email"
-                      v-model.trim="form.userInfo.email"
-                    )
-                  .col-2
-                    button.btn.btn-primary.float-right(
-                      @click="$emit('verifyEmail')"
-                    ) Verifiëren
-                .row.email-input-wrapper(v-else)
-                  .col-10
-                    h1 {{ form.userInfo.email }}
-                  .col-2
-                    button.btn.btn-primary.float-right(
-                      @click="$emit('logOut')"
-                    ) Uitloggen
+                .email-input-wrapper(v-if="!isLoggedIn")
+                  InfoInput(
+                    title="Email"
+                    v-model.trim="form.userInfo.email"
+                  )
+                  button.btn.btn-primary.float-right(
+                    @click="$emit('verifyEmail')"
+                  ) Verifiëren
+                .email-input-wrapper(v-else)
+                  h1.email-text Email: {{ form.userInfo.email }}
+                  button.btn.btn-primary.float-right(
+                    @click="$emit('logOut')"
+                  ) Uitloggen
       .row
         .col-12
           .instructions
@@ -278,8 +274,16 @@ export default {
 }
 
 .email-input-wrapper {
+  display: flex;
   align-items: center;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
+  justify-content: space-between;
+}
+
+.email-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

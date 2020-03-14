@@ -25,7 +25,6 @@ export default {
 .info-input-container {
   min-width: 10rem;
   position: relative;
-  margin-top: 0.5rem;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300;
 }

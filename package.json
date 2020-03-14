@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy-gh": "npm run build && gh-pages -d dist"
+    "deploy-gh": "npm run build && gh-pages -d dist",
+    "deploy-fb": "npm run build && firebase deploy --only hosting:vbpool"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",

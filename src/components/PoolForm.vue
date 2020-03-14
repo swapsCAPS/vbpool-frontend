@@ -76,7 +76,6 @@ export default {
     discard () {
       const shouldDiscard = confirm('Weet je zeker dat je alles wilt wissen?!')
       if (!shouldDiscard) return
-      window.localStorage.clear()
       const data  = this.getDefaultData()
       this.errors = []
       this.page1  = data.page1
@@ -109,7 +108,7 @@ export default {
           userInfo: {
             name:    '',
             address: '',
-            email:   '',
+            email:   this.page1 ? this.page1.userInfo.email : '', // FIXME Bit hacky
             phone:   '',
             city:    '',
           },

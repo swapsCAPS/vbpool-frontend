@@ -3,16 +3,24 @@
     .row
       .col-12
         #app
-          PoolForm
+          router-view
 </template>
 
 <script>
-import PoolForm from './components/PoolForm.vue'
+import VueRouter from 'vue-router'
 
 import 'vue-select/dist/vue-select.css'
 
+import PoolForm from './components/PoolForm.vue'
+
+const routes = [
+  { path: '/', redirect: '/form' },
+  { path: '/form', component: PoolForm },
+]
+
 export default {
   name:       'App',
+  router:     new VueRouter({ routes }),
   components: {
 
     PoolForm,

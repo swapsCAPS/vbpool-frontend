@@ -30,6 +30,10 @@ import allGames from '../assets/games.json'
 
 import { emailRE } from '../constants'
 
+import {
+  sendSignInLink,
+} from '../api-calls'
+
 export default {
   name: 'PoolForm',
 
@@ -44,25 +48,9 @@ export default {
   },
 
   watch: {
-    page1: {
-      deep: true,
-      handler () {
-        this.store('page1', this.page1)
-      },
-    },
-    page2: {
-      deep: true,
-      handler () {
-        this.store('page2', this.page2)
-      },
-    },
   },
 
   mounted () {
-    const page1 = this.get('page1')
-    const page2 = this.get('page2')
-    if (page1) this.page1 = page1
-    if (page2) this.page2 = page2
   },
 
   methods: {
@@ -101,7 +89,13 @@ export default {
     onValidateEmail () {
       const { email } = this.page1.userInfo
       if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
-      console.log('value', email)
+      sendSignInLink(email)
+        .then(() => {
+          this.store('emailForSignIn', email)
+        })
+        .catch(error => {
+          console.error('Something went wrong sending sign in link', error)
+        })
     },
 
     getDefaultData () {

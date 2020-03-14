@@ -39,7 +39,7 @@ export default {
       if (!email) {
         // User opened the link on a different device. To prevent session fixation
         // attacks, ask the user to provide the associated email again. For example:
-        email = window.prompt('We konden je inlog-actie niet vinden op dit apparaat\nVul AUB nogmaals je email adres in')
+        email = window.prompt('We konden je inlog-actie niet vinden voor deze browser\nVul AUB nogmaals je email adres in')
       }
 
       firebase.auth().signInWithEmailLink(email, window.location.href)

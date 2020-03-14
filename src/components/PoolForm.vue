@@ -28,6 +28,8 @@ import Menu from './Menu.vue'
 
 import allGames from '../assets/games.json'
 
+import { emailRE } from '../constants'
+
 export default {
   name: 'PoolForm',
 
@@ -96,8 +98,10 @@ export default {
       return data
     },
 
-    onValidateEmail (value) {
-      console.log('value', this.page1.userInfo.email)
+    onValidateEmail () {
+      const { email } = this.page1.userInfo
+      if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
+      console.log('value', email)
     },
 
     getDefaultData () {

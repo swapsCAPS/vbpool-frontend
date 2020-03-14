@@ -1,8 +1,16 @@
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+
 import Vue from 'vue'
 import App from './App.vue'
 import vSelect from 'vue-select'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import { firebaseConfig } from './constants'
+
+firebase.initializeApp(firebaseConfig)
 
 Vue.component('v-select', vSelect)
 

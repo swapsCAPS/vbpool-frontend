@@ -1,18 +1,13 @@
 import * as firebase from 'firebase/app'
 
 const actionCodeSettings = {
-  url:             process.env.VBPOOL_APP_URL,
+  url:             `${process.env.VUE_APP_HOST_URL}/#/verify-email`,
   handleCodeInApp: true,
-  iOS:             {
-    bundleId: 'com.example.ios',
-  },
-  android: {
-    packageName:    'com.example.android', // TODO gmail?
-    installApp:     true,
-    minimumVersion: '12',
-  },
 }
 
 export const sendSignInLink = (email) => {
-  firebase.auth().sendSignInLink(email, actionCodeSettings)
+  console.log('actionCodeSettings', actionCodeSettings)
+  return firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
 }
+
+export const logOut = () => firebase.auth().signOut()

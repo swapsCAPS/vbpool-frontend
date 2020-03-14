@@ -12,19 +12,17 @@ import VueRouter from 'vue-router'
 import 'vue-select/dist/vue-select.css'
 
 import PoolForm from './components/PoolForm.vue'
+import VerifyEmail from './components/VerifyEmail.vue'
 
 const routes = [
-  { path: '/', redirect: '/form' },
-  { path: '/form', component: PoolForm },
+  { path: '/', name: 'root', redirect: '/form' },
+  { path: '/form', name: 'form', component: PoolForm },
+  { path: '/verify-email', component: VerifyEmail },
 ]
 
 export default {
-  name:       'App',
-  router:     new VueRouter({ routes }),
-  components: {
-
-    PoolForm,
-  },
+  name:   'App',
+  router: new VueRouter({ routes }),
 }
 </script>
 

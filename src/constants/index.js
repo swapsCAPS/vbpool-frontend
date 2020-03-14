@@ -15,12 +15,14 @@ export const actionCodeSettings = {
 export const emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const firebaseConfig = {
-  apiKey:            process.env.VBPOOL_API_KEY,
-  authDomain:        process.env.VBPOOL_AUTH_DOMAIN,
-  databaseURL:       process.env.VBPOOL_DATABASE_URL,
-  projectId:         process.env.VBPOOL_PROJECT_ID,
-  storageBucket:     process.env.VBPOOL_STORAGE_BUCKET,
-  messagingSenderId: process.env.VBPOOL_MESSAGING_SENDER_ID,
-  appId:             process.env.VBPOOL_APP_ID,
-  measurementId:     process.env.VBPOOL_MEASUREMENT_ID,
+  apiKey:            process.env.VUE_APP_API_KEY,
+  authDomain:        process.env.VUE_APP_AUTH_DOMAIN,
+  databaseURL:       process.env.VUE_APP_DATABASE_URL,
+  projectId:         process.env.VUE_APP_PROJECT_ID,
+  storageBucket:     process.env.VUE_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.VUE_APP_MESSAGING_SENDER_ID,
+  appId:             process.env.VUE_APP_APP_ID,
+  measurementId:     process.env.VUE_APP_MEASUREMENT_ID,
 }
+
+export const STORE_EMAIL_KEY = 'emailForSignIn'

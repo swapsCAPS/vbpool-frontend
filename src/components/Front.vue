@@ -16,17 +16,23 @@
                   v-model.trim="form.userInfo.name"
                 )
               .col-12.col-lg-6
-                .row.email-input-wrapper
+                .row.email-input-wrapper(v-if="!isLoggedIn")
                   .col-10
                     InfoInput(
                       title="Email"
                       v-model.trim="form.userInfo.email"
                     )
                   .col-2
-                    button.btn.btn-primary.validate-email.float-right(
-                      @click="$emit('validateEmail')"
-                    ) Valideren
-
+                    button.btn.btn-primary.float-right(
+                      @click="$emit('verifyEmail')"
+                    ) Verifiëren
+                .row.email-input-wrapper(v-else)
+                  .col-10
+                    h1 {{ form.userInfo.email }}
+                  .col-2
+                    button.btn.btn-primary.float-right(
+                      @click="$emit('logOut')"
+                    ) Uitloggen
       .row
         .col-12
           .instructions
@@ -273,11 +279,7 @@ export default {
 
 .email-input-wrapper {
   align-items: center;
-
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
 }
-
-.validate-email {
-
-}
-
 </style>

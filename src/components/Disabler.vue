@@ -12,11 +12,15 @@ export default {
 
   props: {
     isDisabled: Boolean,
+    message:    {
+      type:    String,
+      default: () => 'Vul AUB je email adres in. Klik daarna op "Verifiëren"',
+    },
   },
 
   methods: {
     alert () {
-      window.alert('Vul AUB je email adres in')
+      window.alert(this.message)
     },
   },
 

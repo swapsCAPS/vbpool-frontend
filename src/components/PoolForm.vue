@@ -4,7 +4,8 @@
       Front(
         :form="page1"
         :isLoggedIn="isLoggedIn"
-        @validateEmail="onValidateEmail"
+        @verifyEmail="onVerifyEmail"
+        @logOut="onLogOut"
       )
     .col-12.mb-4.a4.card.back()
       Back(
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import * as firebase from 'firebase/app'
 
 import Front from './Front.vue'
 import Back from './Back.vue'
@@ -28,11 +30,14 @@ import Menu from './Menu.vue'
 
 import allGames from '../assets/games.json'
 
-import { emailRE } from '../constants'
-
 import {
-  sendSignInLink,
-} from '../api-calls'
+  emailRE,
+  STORE_EMAIL_KEY,
+} from '../constants'
+
+import { vbpStore } from '../helpers'
+
+import * as apiCalls from '../api-calls'
 
 export default {
   name: 'PoolForm',
@@ -51,6 +56,14 @@ export default {
   },
 
   mounted () {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.isLoggedIn           = true
+        this.page1.userInfo.email = user.email
+      } else {
+        this.isLoggedIn = false
+      }
+    })
   },
 
   methods: {
@@ -70,32 +83,23 @@ export default {
       this.page2  = data.page2
     },
 
-    store (key, data) {
-      window.localStorage.setItem(key, JSON.stringify(data))
-    },
-
-    get (key) {
-      let data
-      const stored = window.localStorage.getItem(key)
-      if (!stored) return console.log(`No data for ${key}`)
-      try {
-        data = JSON.parse(stored)
-      } catch (error) {
-        return console.error(`Could not parse ${key} from store`)
-      }
-      return data
-    },
-
-    onValidateEmail () {
+    onVerifyEmail () {
       const { email } = this.page1.userInfo
       if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
-      sendSignInLink(email)
+
+      apiCalls.sendSignInLink(email)
         .then(() => {
-          this.store('emailForSignIn', email)
+          vbpStore.save(STORE_EMAIL_KEY, email)
+          window.alert(`Er is een email verzonden naar ${email}\nOpen de email om in te loggen`)
         })
         .catch(error => {
           console.error('Something went wrong sending sign in link', error)
+          window.alert(`Er is iets misgegaan. Neem AUB even contact met ons op\nerror: ${error.message}`)
         })
+    },
+
+    onLogOut () {
+      apiCalls.logOut()
     },
 
     getDefaultData () {

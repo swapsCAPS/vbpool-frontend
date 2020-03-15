@@ -19,6 +19,7 @@
                 .email-input-wrapper(v-if="!isLoggedIn")
                   InfoInput(
                     title="Email"
+                    inputType="email"
                     v-model.trim="form.userInfo.email"
                   )
                   button.btn.btn-primary.float-right(

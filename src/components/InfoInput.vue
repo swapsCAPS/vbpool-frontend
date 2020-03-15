@@ -7,7 +7,7 @@
     .input-wrapper
       h1.spacer {{ title }}:
       input(
-        type="text"
+        :type="inputType"
         :value="value"
         @input="$emit('input', $event.target.value)"
       )
@@ -18,6 +18,10 @@ export default {
   name: 'InfoInput',
 
   props: {
+    inputType: {
+      type:    String,
+      default: () => 'text',
+    },
     title: String,
     value: String,
   },

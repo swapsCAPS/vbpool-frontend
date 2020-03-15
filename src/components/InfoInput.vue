@@ -1,6 +1,9 @@
 <template lang="pug">
   .info-input-container
-    h1.title {{ title }}: .................................................................................................
+    h1.title
+      span {{ title }}:
+      span {{ ' ' }}
+      span.dots .................................................................................................
     .input-wrapper
       h1.spacer {{ title }}:
       input(
@@ -35,6 +38,10 @@ export default {
   cursor: default;
 }
 
+.info-input-container .dots {
+  color: #aaa;
+}
+
 .input-wrapper {
   position: absolute;
   display: flex;
@@ -51,11 +58,9 @@ export default {
 
 .input-wrapper input {
   position: relative;
-  top: 0.1rem;
   color: black;
   flex-grow: 0.8;
   margin-left: 0.5rem;
-  bottom: 0.6rem;
   height: 100%;
   background-color: transparent;
   font-size: 22pt !important;

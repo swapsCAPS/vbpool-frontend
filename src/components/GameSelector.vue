@@ -5,6 +5,7 @@
       class="select"
       :options="teams"
       :value="value"
+      :searchable="false"
       v-on:input="input"
     )
 </template>
@@ -27,7 +28,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .input {
   display: flex;
   flex-direction: row;
@@ -40,15 +41,15 @@ export default {
 
 .select {
   flex-grow: 1;
-  font-size: 1.2rem;
+  font-size: 14pt;
 }
 
 .select .vs__search::placeholder,
 .select .vs__dropdown-toggle,
 .select .vs__selected,
 .select .vs__dropdown-menu {
-  font-family: 'Gochi Hand', cursive;
-  border: 0;
+  border: 0 !important;
+  font-family: 'Delius', cursive !important;
   line-height: 1.5rem;
 }
 

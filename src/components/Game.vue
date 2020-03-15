@@ -11,7 +11,7 @@
         :name="game.naam2"
         :teams="teams"
         v-model="value[1]"
-      ).input.border.no-top-border
+      ).border.no-top-border
 </template>
 
 <script>
@@ -47,30 +47,4 @@ export default {
   flex-direction: column;
   width: 100%;
 }
-
-.input {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.select {
-  flex-grow:1;
-}
-
-.select .vs__search::placeholder,
-.select .vs__dropdown-toggle,
-.select .vs__selected,
-.select .vs__dropdown-menu {
-  font-family: 'Gochi Hand', cursive;
-  border: 0;
-  line-height: 1.5rem;
-}
-
-.select .vs__clear,
-.select .vs__open-indicator {
-  fill: #394066;
-  cursor: pointer;
-}
-
 </style>

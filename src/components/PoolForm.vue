@@ -176,7 +176,6 @@ export default {
 .a4 {
   background: #fcfdff;
   padding-bottom: 3rem;
-  overflow: hidden;
 }
 
 .back {

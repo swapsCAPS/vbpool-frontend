@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Gochi+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Delius&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
 
 h1, h2, h3, h4, h5, p {
@@ -53,7 +53,7 @@ body {
 }
 
 input {
-  font-family: 'Gochi Hand', cursive !important;
+  font-family: 'Delius', cursive !important;
   border: 0 !important;
   font-size: 18pt !important;
 }

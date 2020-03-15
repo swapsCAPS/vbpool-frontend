@@ -1,17 +1,17 @@
 <template lang="pug">
   .game
-    span {{ `${game.nr}:` }}
+    span.nr {{ `${game.nr}:` }}
     .inputs
       GameSelector(
         :name="game.naam1"
         :teams="teams"
         v-model="value[0]"
-      ).border
+      ).vbp-border
       GameSelector(
         :name="game.naam2"
         :teams="teams"
         v-model="value[1]"
-      ).border.no-top-border
+      ).vbp-border.vbp-no-top-border
 </template>
 
 <script>
@@ -39,6 +39,9 @@ export default {
   flex-direction: row;
   align-items: baseline;
   margin: 0.2rem;
+}
+
+.nr {
 }
 
 .inputs {

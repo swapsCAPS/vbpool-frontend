@@ -54,8 +54,10 @@ body {
 
 input {
   font-family: 'Delius', cursive !important;
-  border: 0 !important;
-  font-size: 18pt !important;
+  -webkit-appearance: none !important;
+  -webkit-focus-ring-color: none !important;
+  border-radius: 0;
+  border: 0;
 }
 
 /* Disable number spinners */
@@ -79,11 +81,11 @@ input[type=number] {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.border {
+.vbp-border {
   border: 1px solid #ccc;
 }
 
-.no-top-border {
+.vbp-no-top-border {
   border-top: none !important;
 }
 

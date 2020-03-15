@@ -4,7 +4,7 @@
     div(v-for="team, index in group.teams")
       span {{ team.team }}
       input(
-        :class="{ 'no-top-border': index !== 0 }"
+        :class="{ 'vbp-no-top-border': index !== 0 }"
         :key="team.team"
         type="number"
         min="1"
@@ -62,11 +62,7 @@ export default {
   height: 1.5rem;
   text-align: center;
   padding: 0;
-  border: 1px solid #ccc !important;
-}
-
-.no-top-border {
-  border-top: none !important;
+  border: 1px solid #ccc;
 }
 
 input::-webkit-outer-spin-button,

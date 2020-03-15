@@ -1,16 +1,17 @@
 <template lang="pug">
-  .info-input-container
-    h1.title
-      span {{ title }}:
-      span {{ ' ' }}
-      span.dots .................................................................................................
-    .input-wrapper
-      h1.spacer {{ title }}:
-      input(
-        :type="inputType"
-        :value="value"
-        @input="$emit('input', $event.target.value)"
-      )
+  div
+    .info-input-container
+      h3
+        span {{ `${title}: ` }}
+      .ml-1.wrapper(v-if="editable")
+        h3.dots .................................................................................................
+          input(
+            :type="inputType"
+            :value="value"
+            @input="$emit('input', $event.target.value)"
+          )
+      .ml-1.wrapper(v-else)
+        h3.email-text {{ value }}
 </template>
 
 <script>
@@ -22,28 +23,48 @@ export default {
       type:    String,
       default: () => 'text',
     },
-    title: String,
-    value: String,
+    editable: Boolean,
+    title:    String,
+    value:    String,
   },
 }
 </script>
 
 <style scoped>
 .info-input-container {
-  min-width: 10rem;
-  position: relative;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
+  min-width: 3rem;
+  display: flex;
+  display:-webkit-box;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 0.4rem;
 }
 
-.info-input-container .title {
+.email-text {
   overflow: hidden;
   white-space: nowrap;
-  cursor: default;
+  text-overflow: ellipsis;
+}
+.wrapper {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 0.4rem;
 }
 
-.info-input-container .dots {
-  color: #aaa;
+.wrapper input {
+  position: absolute;
+  top: -0.4rem;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  background-color: transparent;
+
+}
+
+.dots {
+  color: #;
 }
 
 .input-wrapper {
@@ -67,7 +88,6 @@ export default {
   margin-left: 0.5rem;
   height: 100%;
   background-color: transparent;
-  font-size: 22pt !important;
   overflow: hidden;
 }
 

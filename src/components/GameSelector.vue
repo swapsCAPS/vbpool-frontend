@@ -42,14 +42,19 @@ export default {
 .select {
   flex-grow: 1;
   font-size: 14pt;
+  font-family: 'Delius', cursive !important;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
+.select .vs__dropdown-toggle {
+  border: 0 !important;
 }
 
 .select .vs__search::placeholder,
 .select .vs__dropdown-toggle,
 .select .vs__selected,
 .select .vs__dropdown-menu {
-  border: 0 !important;
-  font-family: 'Delius', cursive !important;
   line-height: 1.5rem;
 }
 

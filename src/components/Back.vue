@@ -35,7 +35,7 @@
               :games="games.right"
               :form="form"
             )
-          Disabler(:isDisabled="!isLoggedIn")
+          Disabler(:isDisabled="!user.isLoggedIn")
     .row
       .col-12
         .footer
@@ -47,6 +47,8 @@ import Header from './Header'
 import MatchInput from './MatchInput'
 import Table from './Table'
 import Disabler from './Disabler'
+
+import { mapState } from 'vuex'
 
 import allGames from '../assets/games.json'
 
@@ -72,6 +74,7 @@ export default {
   },
 
   computed: {
+    ...mapState([ 'user' ]),
     games () {
       const { games } = allGames
       return {

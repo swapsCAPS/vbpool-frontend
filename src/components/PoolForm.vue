@@ -3,21 +3,16 @@
     .col-12.mt-4.a4.card()
       Front(
         :form="page1"
-        :isLoggedIn="isLoggedIn"
-        @verifyEmail="onVerifyEmail"
-        @logOut="onLogOut"
       )
     .col-12.mb-4.a4.card.back()
       Back(
         :form="page2"
-        :isLoggedIn="isLoggedIn"
       )
     .col-12.mb-4.a4.card()
       Menu(
         @discard="discard"
         @send="send"
         :errors="errors"
-        :isLoggedIn="isLoggedIn"
       )
 </template>
 
@@ -30,14 +25,7 @@ import Menu from './Menu.vue'
 
 import allGames from '../assets/games.json'
 
-import {
-  emailRE,
-  STORE_EMAIL_KEY,
-} from '../constants'
-
-import { vbpStore } from '../helpers'
-
-import * as apiCalls from '../api-calls'
+import { mapState } from 'vuex'
 
 export default {
   name: 'PoolForm',
@@ -52,18 +40,14 @@ export default {
     return this.getDefaultData()
   },
 
+  computed: {
+    ...mapState([ 'isLoggedIn' ])
+  },
+
   watch: {
   },
 
   mounted () {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.isLoggedIn           = true
-        this.page1.userInfo.email = user.email
-      } else {
-        this.isLoggedIn = false
-      }
-    })
   },
 
   methods: {
@@ -80,25 +64,6 @@ export default {
       this.errors = []
       this.page1  = data.page1
       this.page2  = data.page2
-    },
-
-    onVerifyEmail () {
-      const { email } = this.page1.userInfo
-      if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
-
-      apiCalls.sendSignInLink(email)
-        .then(() => {
-          vbpStore.save(STORE_EMAIL_KEY, email)
-          window.alert(`Er is een email verzonden naar ${email}\nOpen de email om in te loggen`)
-        })
-        .catch(error => {
-          console.error('Something went wrong sending sign in link', error)
-          window.alert(`Er is iets misgegaan. Neem AUB even contact met ons op\nerror: ${error.message}`)
-        })
-    },
-
-    onLogOut () {
-      apiCalls.logOut()
     },
 
     getDefaultData () {
@@ -164,7 +129,6 @@ export default {
           }
           return acc
         }, {}),
-        isLoggedIn: false,
       }
     },
   },

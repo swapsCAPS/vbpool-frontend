@@ -18,6 +18,8 @@
 <script>
 import * as firebase from 'firebase/app'
 
+import { mapMutations } from 'vuex'
+
 import { vbpStore } from '../helpers'
 import { STORE_EMAIL_KEY } from '../constants'
 
@@ -30,6 +32,10 @@ export default {
       success:  false,
       error:    '',
     }
+  },
+
+  methods: {
+    ...mapMutations(['setLoggedIn'])
   },
 
   mounted () {
@@ -53,8 +59,10 @@ export default {
           const { email }     = user
           const { isNewUser } = additionalUserInfo
 
+          this.setLoggedIn(true)
+
           setTimeout(() => {
-            this.$router.push({ name: 'root', params: { isNewUser, email } })
+            this.$router.push({ name: 'form' })
           }, 1000)
         })
         .catch(function (error) {

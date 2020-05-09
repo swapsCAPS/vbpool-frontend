@@ -16,22 +16,6 @@
                   :editable="true"
                   v-model.trim="form.userInfo.name"
                 )
-              .col-12.col-lg-6
-                .email-input-wrapper
-                  InfoInput.email-input(
-                    title="Email"
-                    inputType="email"
-                    :editable="!isLoggedIn"
-                    v-model.trim="form.userInfo.email"
-                  )
-                  button.btn.btn-primary.float-right(
-                    @click="$emit('verifyEmail')"
-                    v-if="!isLoggedIn"
-                  ) Verifiëren
-                  button.btn.btn-primary.float-right(
-                    @click="$emit('logOut')"
-                    v-if="!!isLoggedIn"
-                  ) Uitloggen
       .row
         .col-12
           .instructions
@@ -194,7 +178,7 @@
                     inputType="number"
                     v-model.number="form.misc.totalGoals"
                   ).input.vbp-border.vbp-no-top-border
-          Disabler(:isDisabled="!isLoggedIn")
+          Disabler(:isDisabled="!user.isLoggedIn")
 </template>
 
 <script>
@@ -209,6 +193,8 @@ import Disabler from './Disabler'
 
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
+
+import { mapState } from 'vuex'
 
 export default {
   name: 'Front',
@@ -226,7 +212,6 @@ export default {
 
   props: {
     form:       Object,
-    isLoggedIn: Boolean,
   },
 
   data: function () {
@@ -237,6 +222,7 @@ export default {
   },
 
   computed: {
+    ...mapState([ 'user' ]),
     games () {
       return this.allGames.games.reduce((acc, game) => {
         if (!game.type) return acc

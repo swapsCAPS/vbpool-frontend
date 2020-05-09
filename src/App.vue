@@ -9,20 +9,55 @@
 <script>
 import VueRouter from 'vue-router'
 
+import * as firebase from 'firebase/app'
+
 import 'vue-select/dist/vue-select.css'
 
 import PoolForm from './components/PoolForm.vue'
+import SignIn from './components/SignIn.vue'
 import VerifyEmail from './components/VerifyEmail.vue'
+
+import store from './store'
 
 const routes = [
   { path: '/', name: 'root', redirect: '/form' },
+  {
+    path:        '/signin',
+    name:        'signin',
+    component:   SignIn,
+    beforeEnter: (to, from, next) => {
+      if (store.state.user.isLoggedIn) return next({ name: 'form' })
+      next()
+    },
+  },
   { path: '/form', name: 'form', component: PoolForm },
-  { path: '/verify-email', component: VerifyEmail },
+  { path: '/verify-email', name: 'verify-email', component: VerifyEmail },
 ]
 
+const router = new VueRouter({ routes })
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'signin' || to.name === 'verify-email') return next()
+  if (!store.state.user.isLoggedIn) return next({ name: 'signin' })
+  next()
+})
+
 export default {
-  name:   'App',
-  router: new VueRouter({ routes }),
+  name: 'App',
+  router,
+  mounted () {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        store.commit('setLoggedIn', true)
+        store.commit('setEmail', user.email)
+        router.push('form')
+      } else {
+        store.commit('setLoggedIn', false)
+        store.commit('setEmail', '')
+        router.push('signin')
+      }
+    })
+  },
 }
 </script>
 

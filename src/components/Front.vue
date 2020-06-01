@@ -10,12 +10,14 @@
         .col
           .user-info
             .row.mt-2.mb-2
-              .col-12.mw-auto
-                InfoInput(
-                  title="Poolnaam"
-                  :editable="true"
-                  v-model.trim="page1.meta.poolName"
-                )
+              .col-12
+                .d-flex.justify-content-between
+                  InfoInput(
+                    title="Poolnaam"
+                    :editable="true"
+                    v-model.trim="page1.meta.poolName"
+                  )
+                  button.btn.btn-primary.float-right Aanmaken
       .row
         .col-12
           .instructions

@@ -10,11 +10,11 @@
         .col
           .user-info
             .row.mt-2.mb-2
-              .col-12.col-lg-6
+              .col-12.mw-auto
                 InfoInput(
-                  title="Naam"
+                  title="Poolnaam"
                   :editable="true"
-                  v-model.trim="form.userInfo.name"
+                  v-model.trim="page1.meta.poolName"
                 )
       .row
         .col-12
@@ -58,7 +58,7 @@
                       GroupStage(
                         :group="group"
                         :teams="teams"
-                        v-model="form.groupStances[group.name]"
+                        v-model="page1.groupStances[group.name]"
                       )
           .row
             .col
@@ -72,7 +72,7 @@
                       Game(
                         :game="game"
                         :teams="teams"
-                        v-model="form.finals.eighth[game.nr]"
+                        v-model="page1.finals.eighth[game.nr]"
                       )
           .row
             .col
@@ -86,7 +86,7 @@
                       Game(
                         :game="game"
                         :teams="teams"
-                        v-model="form.finals.quarter[game.nr]"
+                        v-model="page1.finals.quarter[game.nr]"
                       )
           .row
             .col-12.col-md-12.col-lg-8.col-xl-6
@@ -100,7 +100,7 @@
                       Game(
                         :game="game"
                         :teams="teams"
-                        v-model="form.finals.half[game.nr]"
+                        v-model="page1.finals.half[game.nr]"
                       )
             .col-12.col-md-12.col-lg-4.col-xl-6
               Section(
@@ -113,7 +113,7 @@
                       Game(
                         :game="game"
                         :teams="teams"
-                        v-model="form.finals.final"
+                        v-model="page1.finals.final"
                       )
           .row
             .col-12.col-md-6.col-lg-3
@@ -125,12 +125,12 @@
                   GameSelector(
                     name="1e: "
                     :teams="teams"
-                    v-model="form.endStance[0]"
+                    v-model="page1.endStance[0]"
                   ).vbp-border
                   GameSelector(
                     name="2e: "
                     :teams="teams"
-                    v-model="form.endStance[1]"
+                    v-model="page1.endStance[1]"
                   ).input.vbp-border.vbp-no-top-border
             .col-12.col-md-6.col-lg-3
               Section(
@@ -140,12 +140,12 @@
                 template(v-slot:content)
                   MiscInput(
                     text="Speler (30p)"
-                    v-model.trim="form.topScorer.player"
+                    v-model.trim="page1.topScorer.player"
                   ).vbp-border
                   MiscInput(
                     text="Aantal goals (12p)"
                     inputType="number"
-                    v-model.number="form.topScorer.goals"
+                    v-model.number="page1.topScorer.goals"
                   ).input.vbp-border.vbp-no-top-border
             .col-12.col-md-6
               Section(
@@ -156,27 +156,27 @@
                   MiscInput(
                     text="aantal gele kaarten (±4, 16p):"
                     inputType="number"
-                    v-model.number="form.misc.yellowCards"
+                    v-model.number="page1.misc.yellowCards"
                   ).vbp-border
                   MiscInput(
                     text="aantal rode kaarten (±2, 16p):"
                     inputType="number"
-                    v-model.number="form.misc.redCards"
+                    v-model.number="page1.misc.redCards"
                   ).input.vbp-border.vbp-no-top-border
                   MiscInput(
                     text="aantal penalties in speeltijd (±1, 16p):"
                     inputType="number"
-                    v-model.number="form.misc.penalties"
+                    v-model.number="page1.misc.penalties"
                   ).input.vbp-border.vbp-no-top-border
                   MiscInput(
                     text="aantal gelijke spelen (±3, 16p):"
                     inputType="number"
-                    v-model.number="form.misc.draws"
+                    v-model.number="page1.misc.draws"
                   ).input.vbp-border.vbp-no-top-border
                   MiscInput(
                     text="aantal doelpunten in toernooi (±5, 16p):"
                     inputType="number"
-                    v-model.number="form.misc.totalGoals"
+                    v-model.number="page1.misc.totalGoals"
                   ).input.vbp-border.vbp-no-top-border
           Disabler(:isDisabled="!user.isLoggedIn")
 </template>
@@ -194,7 +194,7 @@ import Disabler from './Disabler'
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'Front',
@@ -211,7 +211,6 @@ export default {
   },
 
   props: {
-    form:       Object,
   },
 
   data: function () {
@@ -222,7 +221,7 @@ export default {
   },
 
   computed: {
-    ...mapState([ 'user' ]),
+    ...mapState([ 'user', 'page1' ]),
     games () {
       return this.allGames.games.reduce((acc, game) => {
         if (!game.type) return acc
@@ -238,7 +237,6 @@ export default {
         .sort()
     },
   },
-
 }
 </script>
 

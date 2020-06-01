@@ -6,15 +6,18 @@
           h3 Welkom bij de Laurierboom Voetbalpool EK2020
       .row.text-center.mt-5.mb-5
         .col-sm-12.col-lg-8.mx-auto
-          InfoInput.email-input(
-            title="Email"
-            inputType="email"
-            :editable="true"
-            v-model.trim="userInfo.email"
-          )
-          button.btn.btn-primary.mt-4(
-            @click="onVerifyEmail"
-          ) Verifiëren
+          div(v-if="!isVerifcationMailSent")
+            InfoInput.email-input(
+              title="Email"
+              inputType="email"
+              :editable="true"
+              v-model.trim="userInfo.email"
+            )
+            button.btn.btn-primary.mt-4(
+              @click="onVerifyEmail"
+            ) Verifiëren
+          div(v-else)
+            h3 Email verzonden, check AUB uw email inbox
 </template>
 
 <script>
@@ -30,7 +33,7 @@ import { vbpStore } from '../helpers'
 
 import * as apiCalls from '../api-calls'
 
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'SignIn',
@@ -42,7 +45,7 @@ export default {
   data () {
     return {
       userInfo: {
-        email: ''
+        email: '',
       },
     }
   },
@@ -51,10 +54,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['isLoggedIn'])
+    ...mapState({
+      isLoggedIn:            state => state.user.isLoggedIn,
+      isVerifcationMailSent: state => state.user.isVerifcationMailSent,
+    }),
   },
 
   methods: {
+    ...mapMutations([ 'setVerificationMailSent' ]),
     onVerifyEmail () {
       const { email } = this.userInfo
       if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
@@ -63,6 +70,7 @@ export default {
         .then(() => {
           vbpStore.save(STORE_EMAIL_KEY, email)
           window.alert(`Er is een email verzonden naar ${email}\nOpen de email om in te loggen`)
+          this.setVerificationMailSent()
         })
         .catch(error => {
           console.error('Something went wrong sending sign in link', error)

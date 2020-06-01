@@ -62,11 +62,6 @@ export default {
     Disabler,
   },
 
-  props: {
-    form:       Object,
-    isLoggedIn: Boolean,
-  },
-
   data: function () {
     return {
       allGames,
@@ -75,6 +70,9 @@ export default {
 
   computed: {
     ...mapState([ 'user' ]),
+    ...mapState({
+      form: state => state.page2,
+    }),
     games () {
       const { games } = allGames
       return {

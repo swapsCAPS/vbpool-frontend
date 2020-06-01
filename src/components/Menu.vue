@@ -4,12 +4,12 @@
       .col-6
         .btn-container
           button.mt-5.btn.btn-primary(
-            @click="$emit('send')"
+            @click="sendPool"
           ) Versturen
       .col-6
         .btn-container
           button.mt-5.btn.btn-danger(
-            @click="$emit('discard')"
+            @click="discard"
           ) Alles wissen
     .row.mt-3
       .col
@@ -21,6 +21,8 @@
 <script>
 import Disabler from './Disabler'
 
+import { mapActions, mapMutations } from 'vuex'
+
 export default {
   name: 'Menu',
 
@@ -30,6 +32,11 @@ export default {
 
   props: {
     errors: Array,
+  },
+
+  methods: {
+    ...mapActions([ 'sendPool' ]),
+    ...mapMutations([ 'discard' ]),
   },
 
 }

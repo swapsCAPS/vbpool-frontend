@@ -14,7 +14,7 @@ export default {
     isDisabled: Boolean,
     message:    {
       type:    String,
-      default: () => 'Vul AUB je email adres in. Klik daarna op "Verifiëren"',
+      default: () => 'This field is disabled',
     },
   },
 

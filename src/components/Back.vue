@@ -35,7 +35,10 @@
               :games="games.right"
               :form="form"
             )
-          Disabler(:isDisabled="!user.isLoggedIn")
+          Disabler(
+            :isDisabled="!user.isLoggedIn || !page1.meta.poolName"
+            message="Vul eerst een naam in voor deze pool en klik op opslaan"
+          )
     .row
       .col-12
         .footer
@@ -69,7 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapState([ 'user' ]),
+    ...mapState([ 'user', 'page1' ]),
     ...mapState({
       form: state => state.page2,
     }),

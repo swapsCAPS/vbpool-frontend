@@ -178,7 +178,10 @@
                     inputType="number"
                     v-model.number="page1.misc.totalGoals"
                   ).input.vbp-border.vbp-no-top-border
-          Disabler(:isDisabled="!user.isLoggedIn")
+          Disabler(
+            :isDisabled="!user.isLoggedIn || !page1.meta.poolName"
+            message="Vul eerst een naam in voor deze pool en klik op opslaan"
+          )
 </template>
 
 <script>

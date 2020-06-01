@@ -12,4 +12,19 @@
 - [ ] Add players array
 - [ ] Update dates :')
 - [ ] Improve login flow; wait for firebase to respond before showing the sign in page
+- [ ] % done indicator
 - [ ] All the things!
+
+
+## Ramblings
+
+#### Pool creation flow
+- user logs in
+- greeting page w/ all user's pools
+- click new pool
+- enter unique name of pool
+- click save
+- save pool in firestore
+- save edits to firestore
+  - every edit? save button w/ "leave page" warning?
+- why do we need send button?

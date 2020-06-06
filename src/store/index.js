@@ -13,19 +13,21 @@ const store = new Vuex.Store({
       isLoggedIn:            false,
       email:                 '',
       isVerifcationMailSent: false,
-      currentlyEditting:     '',
+      pools:                 [],
     },
-    pools: [],
-    page1,
-    page2,
+    form: {
+      type: 'new',
+      page1,
+      page2,
+    },
   },
   mutations: {
     discard (state) {
       const shouldDiscard = confirm('Weet je zeker dat je alles wilt wissen?!')
       if (!shouldDiscard) return
       const { page1, page2 } = getDefaultData()
-      state.page1            = page1
-      state.page2            = page2
+      state.form.page1       = page1
+      state.form.page2       = page2
     },
     setLoggedIn (state, value) {
       state.user.isLoggedIn = value

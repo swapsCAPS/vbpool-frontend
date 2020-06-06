@@ -3,7 +3,7 @@
     .row
       .col-12
         Header(
-          title="Wedstrijdvoorspellingen"
+          subtext="Wedstrijdvoorspellingen"
         )
     .row
       .col-12
@@ -28,16 +28,16 @@
           .col-12.col-xl-6
             Table(
               :games="games.left"
-              :form="form"
+              :form="page2"
             )
           .col-12.col-xl-6
             Table(
               :games="games.right"
-              :form="form"
+              :form="page2"
             )
           Disabler(
-            :isDisabled="!user.isLoggedIn || !page1.meta.poolName"
-            message="Vul eerst een naam in voor deze pool en klik op opslaan"
+            :isDisabled="!user.isLoggedIn || form.type === 'new'"
+            message="Vul eerst een naam in voor deze pool en klik op \"Aanmaken\""
           )
     .row
       .col-12
@@ -72,9 +72,9 @@ export default {
   },
 
   computed: {
-    ...mapState([ 'user', 'page1' ]),
+    ...mapState([ 'user', 'form' ]),
     ...mapState({
-      form: state => state.page2,
+      page2: state => state.form.page2,
     }),
     games () {
       const { games } = allGames

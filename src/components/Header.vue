@@ -1,14 +1,18 @@
 <template lang="pug">
   .head
-    h1 Café de Laurierboom EK 2020 voetbalpool
-    h2 {{ title }}
+    h1 {{ title }}
+    h2(v-if="subtext") {{ subtext }}
 </template>
 
 <script>
 export default {
   name:  'Header',
   props: {
-    title: String,
+    title: {
+      type:    String,
+      default: () => 'Café de Laurierboom EK 2020 voetbalpool',
+    },
+    subtext: String,
   },
 }
 </script>

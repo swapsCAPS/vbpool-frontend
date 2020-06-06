@@ -4,7 +4,7 @@
       .row
         .col-12
           NavBar
-    .container
+    .container.mt-4
       .row
         .col-12
           router-view
@@ -21,6 +21,7 @@ import NavBar from './components/NavBar.vue'
 import PoolForm from './components/PoolForm.vue'
 import SignIn from './components/SignIn.vue'
 import VerifyEmail from './components/VerifyEmail.vue'
+import YourPools from './components/YourPools.vue'
 
 import store from './store'
 
@@ -35,8 +36,10 @@ const routes = [
       next()
     },
   },
-  { path: '/form', name: 'form', component: PoolForm },
   { path: '/verify-email', name: 'verify-email', component: VerifyEmail },
+
+  { path: '/form', name: 'form', component: PoolForm },
+  { path: '/your-pools', name: 'your-pools', component: YourPools },
 ]
 
 const router = new VueRouter({ routes })
@@ -104,6 +107,13 @@ input[type=number] {
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.a4 {
+  background-color: #fcfdff;
+  padding-bottom: 3rem;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .vbp-border {

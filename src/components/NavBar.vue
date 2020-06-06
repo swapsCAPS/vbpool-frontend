@@ -1,5 +1,5 @@
 <template lang="pug">
-  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light.vbp-navbar
     a.navbar-brand Laurierboom Voetbalpool
     button.navbar-toggler(
       type="button"
@@ -30,26 +30,8 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
+.vbp-navbar {
+  background-color: #fff !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-.wrapper .input {
-  position: relative;
-}
-
-.wrapper .input input {
-  background-color: transparent;
-}
-
-.wrapper .dots {
-  position: absolute;
-  top: 0.4rem;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
 </style>

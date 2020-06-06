@@ -1,11 +1,13 @@
 <template lang="pug">
-  div
-    NavBar
+  #app
     .container
       .row
         .col-12
-          #app
-            router-view
+          NavBar
+    .container
+      .row
+        .col-12
+          router-view
 </template>
 
 <script>
@@ -75,10 +77,9 @@ body {
   background-color: #fff8f2 !important;
   color: #666 !important;
   cursor: default !important;
-}
-
-.container {
-  font-family: 'Times New Roman', serif;
+  font-family: 'Times New Roman', serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 input {
@@ -99,11 +100,6 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
-}
-
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .card {

@@ -1,11 +1,14 @@
 <template lang="pug">
   .row
-    .col-12.mt-4.a4.card
-      Front
-    .col-12.mb-4.a4.card.back
-      Back
-    .col-12.mb-4.a4.card
-      Menu
+    .col-12.mt-4
+      .a4.card
+        Front
+    .col-12.mb-4
+      .a4.card.back
+        Back
+    .col-12.mb-4
+      .a4.card
+        Menu
 </template>
 
 <script>
@@ -43,6 +46,8 @@ export default {
 .a4 {
   background: #fcfdff;
   padding-bottom: 3rem;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .back {

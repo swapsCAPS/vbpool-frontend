@@ -14,9 +14,12 @@
                 InfoInput(
                   title="Poolnaam"
                   :editable="true"
-                  v-model.trim="page1.meta.poolName"
+                  v-model.trim="poolName"
                 )
-                button.btn.btn-primary.float-right Aanmaken
+                button.btn.btn-primary.float-right(
+                  @click="createPool"
+                  :disabled="!poolName"
+                ) Aanmaken
     .row
       .col-12
         .instructions
@@ -198,7 +201,8 @@ import Disabler from './Disabler'
 import groups from '../assets/teams.json'
 import allGames from '../assets/games.json'
 
-import { mapState, mapMutations } from 'vuex'
+import { mapFields } from 'vuex-map-fields'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Front',
@@ -224,7 +228,12 @@ export default {
     }
   },
 
+  methods: {
+    ...mapActions([ 'createPool' ]),
+  },
+
   computed: {
+    ...mapFields([ 'form.page1.meta.poolName' ]),
     ...mapState([ 'user', 'form' ]),
     ...mapState({
       page1: state => state.form.page1,

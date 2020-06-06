@@ -10,6 +10,7 @@ import vSelect from 'vue-select'
 import VueRouter from 'vue-router'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.js'
 
 import { firebaseConfig } from './constants'
 

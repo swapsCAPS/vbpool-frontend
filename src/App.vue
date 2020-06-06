@@ -1,9 +1,11 @@
 <template lang="pug">
-  .container
-    .row
-      .col-12
-        #app
-          router-view
+  div
+    NavBar
+    .container
+      .row
+        .col-12
+          #app
+            router-view
 </template>
 
 <script>
@@ -13,6 +15,7 @@ import * as firebase from 'firebase/app'
 
 import 'vue-select/dist/vue-select.css'
 
+import NavBar from './components/NavBar.vue'
 import PoolForm from './components/PoolForm.vue'
 import SignIn from './components/SignIn.vue'
 import VerifyEmail from './components/VerifyEmail.vue'
@@ -43,8 +46,11 @@ router.beforeEach((to, from, next) => {
 })
 
 export default {
-  name: 'App',
+  name:       'App',
   router,
+  components: {
+    NavBar,
+  },
   mounted () {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -64,18 +70,6 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Delius&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400&display=swap');
-
-h1, h2, h3, h4, h5, p {
-  margin: 0 !important;
-}
-
-h3, h4 {
-  margin-bottom: 0.25rem !important;
-}
-
-p {
-  font-size: 12pt !important;
-}
 
 body {
   background-color: #fff8f2 !important;
@@ -126,63 +120,6 @@ input[type=number] {
 
 .bold {
   font-weight: bold;
-}
-
-button {
-  border-radius: 0 !important;
-  border: 1px fill #333 !important;
-  font-family: Arial !important;
-}
-
-.btn-primary {
-  background: #fcfdff !important;
-  color: #333 !important;
-  border: 1px solid #333 !important;
-}
-
-.btn-primary:hover {
-  background-color: #1f8e00 !important;
-  border: 1px solid #1f8e00;
-}
-
-.btn-primary:focus {
-  background-color: #1f8e00 !important;
-  border: 1px solid #1f8e00;
-}
-
-.btn-danger {
-  background-color: #999 !important;
-  border: 1px solid #333;
-}
-
-.btn-danger:hover {
-  background-color: #333 !important;
-  border: 1px solid #333;
-}
-
-.btn-danger:focus {
-  border-color: #333;
-  border: 1px solid #333;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.btn-danger:active {
-  border-color: #333;
-}
-
-.btn {
-  border-color: #333;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-}
-
-.btn:focus {
-  border-color: #333;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-}
-
-.btn:active:focus {
-  border-color: #333;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
 </style>

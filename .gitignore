@@ -22,6 +22,7 @@ yarn-error.log*
 
 .firebase/
 .firebaserc
+.firebase-admin-key.*
 
 .env
 .env.production

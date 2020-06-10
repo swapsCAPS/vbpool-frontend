@@ -3,18 +3,17 @@
     .row
       .col
         Header(
-          title="Jouw pools"
+          title="Administratie"
         )
     .row
       .col
-        .list-group.list-group-flush
-          router-link.list-group-item.list-group-item-action(
+        div.list-group
+          .list-group-item.list-group-item-action(
             v-for="pool of user.pools"
-            :to="`/form/${pool.id}`"
-            :class="{ disabled: pool.isPayed }"
+            :href="`#/your-pools/${pool.id}`"
           )
-            a
-              span  {{ pool.name }}
+            a {{ pool.name }}
+            button.btn.float-right dingen
 
 </template>
 
@@ -23,7 +22,7 @@ import Header from './Header'
 
 import { mapState, mapActions } from 'vuex'
 export default {
-  name:       'PoolForm',
+  name:       'Admin',
   components: {
     Header,
   },

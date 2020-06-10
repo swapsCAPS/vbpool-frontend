@@ -1,6 +1,6 @@
 <template lang="pug">
   nav.navbar.navbar-expand-lg.navbar-light.bg-light.vbp-navbar
-    a.navbar-brand Laurierboom Voetbalpool
+    router-link(to="/").navbar-brand Laurierboom Voetbalpool
     button.navbar-toggler(
       type="button"
       data-toggle="collapse"
@@ -10,10 +10,14 @@
     #navbarNav.collapse.navbar-collapse
       ul.navbar-nav
         li.nav-item
-          router-link(to="/your-pools").nav-link(href="#") Jouw Pools
+          router-link(to="/your-pools").nav-link Jouw Pools
+        li.nav-item(v-if="user.role == 'admin'")
+          router-link(to="/admin").nav-link Administratie
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'InfoInput',
 
@@ -25,6 +29,10 @@ export default {
     editable: Boolean,
     title:    String,
     value:    String,
+  },
+
+  computed: {
+    ...mapState([ 'user' ]),
   },
 }
 </script>

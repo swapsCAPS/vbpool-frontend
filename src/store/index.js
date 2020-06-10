@@ -14,6 +14,7 @@ const store = new Vuex.Store({
   state: {
     user: {
       isLoggedIn:            false,
+      role:                  'user',
       email:                 '',
       isVerifcationMailSent: false,
       pools:                 [],
@@ -41,6 +42,9 @@ const store = new Vuex.Store({
     },
     setEmail (state, value) {
       state.user.email = value
+    },
+    setRole (state, value) {
+      state.user.role = value
     },
     setVerificationMailSent (state) {
       state.user.isVerifcationMailSent = true

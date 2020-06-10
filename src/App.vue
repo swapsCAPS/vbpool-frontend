@@ -22,9 +22,10 @@ import PoolForm from './components/PoolForm.vue'
 import SignIn from './components/SignIn.vue'
 import VerifyEmail from './components/VerifyEmail.vue'
 import YourPools from './components/YourPools.vue'
+import Admin from './components/Admin.vue'
+import { sync } from 'vuex-router-sync'
 
 import store from './store'
-
 const routes = [
   { path: '/', name: 'root', redirect: '/form' },
   {
@@ -38,11 +39,14 @@ const routes = [
   },
   { path: '/verify-email', name: 'verify-email', component: VerifyEmail },
 
-  { path: '/form', name: 'form', component: PoolForm },
+  { path: '/form/:poolId', name: 'form', component: PoolForm },
   { path: '/your-pools', name: 'your-pools', component: YourPools },
+  { path: '/admin', name: 'admin', component: Admin },
 ]
 
 const router = new VueRouter({ routes })
+
+sync(store, router)
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'signin' || to.name === 'verify-email') return next()
@@ -57,10 +61,12 @@ export default {
     NavBar,
   },
   mounted () {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         store.commit('setLoggedIn', true)
         store.commit('setEmail', user.email)
+        const token = await firebase.auth().currentUser.getIdTokenResult()
+        store.commit('setRole', token.claims.role || 'user')
         router.push('form')
       } else {
         store.commit('setLoggedIn', false)

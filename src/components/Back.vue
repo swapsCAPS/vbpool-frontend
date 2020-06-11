@@ -36,7 +36,7 @@
               :form="page2"
             )
           Disabler(
-            :isDisabled="!user.isLoggedIn || form.type === 'new'"
+            :isDisabled="!user.isLoggedIn || !route.params.poolId"
             message="Vul eerst een naam in voor deze pool en klik op \"Aanmaken\""
           )
     .row
@@ -72,7 +72,7 @@ export default {
   },
 
   computed: {
-    ...mapState([ 'user', 'form' ]),
+    ...mapState([ 'user', 'form', 'route' ]),
     ...mapState({
       page2: state => state.form.page2,
     }),

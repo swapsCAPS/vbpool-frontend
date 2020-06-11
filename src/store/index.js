@@ -1,10 +1,13 @@
 import Vue from 'vue'
+import _ from 'lodash'
 import Vuex from 'vuex'
 import { getField, updateField } from 'vuex-map-fields'
 
 import { getDefaultData } from '../helpers'
 
 import * as firebase from 'firebase/app'
+
+import router from '../router'
 
 Vue.use(Vuex)
 
@@ -31,8 +34,6 @@ const store = new Vuex.Store({
   mutations: {
     updateField,
     discard (state) {
-      const shouldDiscard = confirm('Weet je zeker dat je alles wilt wissen?!')
-      if (!shouldDiscard) return
       const { page1, page2 } = getDefaultData()
       state.form.page1       = page1
       state.form.page2       = page2
@@ -52,27 +53,51 @@ const store = new Vuex.Store({
     setUserPools (state, value) {
       state.user.pools = value
     },
+    upsertFormPages (state, value) {
+      state.form = _.merge(state.form, value)
+    },
   },
   actions: {
-    async createPool ({ commit, state }) {
+    async createPool ({ commit, dispatch, state }) {
       const { poolName } = state.form.page1.meta
+
       if (!poolName) return
-      const db       = firebase.firestore()
-      const response = await db.collection('pools').add({
-        name:   poolName,
+
+      const db = firebase.firestore()
+
+      const res = await db.collection('pools').add({
         userId: firebase.auth().currentUser.uid,
+        form:   state.form,
       })
-      console.log('response', response)
-      // TODO lock name field unlock form fields
+
+      console.log('res', res)
+      router.push({ name: 'edit-form', params: { poolId: res.id } })
     },
+
+    async fetchAndSetPool ({ commit }, id) {
+      if (!id) throw new Error('fetchAndSetPool called w/o an id')
+
+      const db = firebase.firestore()
+
+      commit('discard')
+
+      const doc = await db.collection('pools').doc(id).get()
+
+      if (!doc.exists) {
+        throw new Error(`No pool with id: ${id}`)
+      }
+
+      commit('upsertFormPages', doc.data().form)
+    },
+
     async fetchUserPools ({ commit, state }) {
-      const db       = firebase.firestore()
+      const db = firebase.firestore()
+
       const response = await db
         .collection('pools')
         .where('userId', '==', firebase.auth().currentUser.uid)
         .get()
-      console.log('response', response)
-      response.forEach(doc => console.log(doc.data()))
+
       commit('setUserPools', response.docs.map(doc => ({ id: doc.id, ...doc.data() })))
     },
   },

@@ -10,9 +10,9 @@
         .user-info
           .row.mt-2.mb-2
             .col-12
-              .d-flex.justify-content-between
+              .d-flex.justify-content-between(v-if="!route.params.poolId")
                 InfoInput(
-                  title="Poolnaam"
+                  title="Poolnaam:"
                   :editable="true"
                   v-model.trim="poolName"
                 )
@@ -20,6 +20,11 @@
                   @click="createPool"
                   :disabled="!poolName"
                 ) Aanmaken
+              .d-flex(v-else)
+                h3
+                  span Pool:
+                  span {{ ` ` }}
+                  span {{ poolName }}
     .row
       .col-12
         .instructions
@@ -183,7 +188,7 @@
                   v-model.number="page1.misc.totalGoals"
                 ).input.vbp-border.vbp-no-top-border
         Disabler(
-          :isDisabled="!user.isLoggedIn || form.type === 'new'"
+          :isDisabled="!user.isLoggedIn || !route.params.poolId"
           message="Vul eerst een naam in voor deze pool en klik op \"Aanmaken\""
         )
 </template>
@@ -234,7 +239,7 @@ export default {
 
   computed: {
     ...mapFields([ 'form.page1.meta.poolName' ]),
-    ...mapState([ 'user', 'form' ]),
+    ...mapState([ 'user', 'form', 'route' ]),
     ...mapState({
       page1: state => state.form.page1,
     }),

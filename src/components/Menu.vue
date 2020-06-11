@@ -36,7 +36,11 @@ export default {
 
   methods: {
     ...mapActions([ 'sendPool' ]),
-    ...mapMutations([ 'discard' ]),
+    discard () {
+      const shoulddiscard = confirm('weet je zeker dat je alles wilt wissen?!')
+      if (!shoulddiscard) return
+      this.$router.push({ path: '/form' })
+    },
   },
 
 }

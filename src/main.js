@@ -14,8 +14,6 @@ import 'bootstrap/dist/js/bootstrap.js'
 
 import { firebaseConfig } from './constants'
 
-import store from './store'
-
 firebase.initializeApp(firebaseConfig)
 
 Vue.use(VueRouter)
@@ -27,5 +25,4 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  store,
 }).$mount('#app')

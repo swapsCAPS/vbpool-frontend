@@ -14,7 +14,7 @@
             :class="{ disabled: pool.isPayed }"
           )
             a
-              span  {{ pool.name }}
+              span  {{ pool.form.page1.meta.poolName }}
 
 </template>
 

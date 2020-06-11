@@ -4,7 +4,7 @@
       .col-6
         .btn-container
           button.mt-5.btn.btn-primary(
-            @click="sendPool"
+            @click="updatePool"
           ) Versturen
       .col-6
         .btn-container
@@ -35,7 +35,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([ 'sendPool' ]),
+    ...mapActions([ 'updatePool' ]),
     discard () {
       const shoulddiscard = confirm('weet je zeker dat je alles wilt wissen?!')
       if (!shoulddiscard) return

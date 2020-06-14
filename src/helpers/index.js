@@ -1,5 +1,5 @@
 import allGames from '../assets/games.json'
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
 
 export const fbAuthObservablePromiseWrapper = () => new Promise((resolve, reject) => {
   const unsub = firebase.auth().onAuthStateChanged((user, error) => {

@@ -2,7 +2,7 @@
 
 ## TODO
 - [ ] Move more state to vuex
-- [ ] Save pool data
+- [x] Save pool data
 - [ ] Navigation warning
 - [ ] "My Pools" page
 - [ ] Modals instead of alerts
@@ -11,7 +11,7 @@
 - [ ] Filtered drop down menu. Only show applicable
 - [ ] Add players array
 - [ ] Update dates :')
-- [ ] Improve login flow; wait for firebase to respond before showing the sign in page
+- [x] Improve login flow; wait for firebase to respond before showing the sign in page
 - [ ] % done indicator
 - [ ] All the things!
 

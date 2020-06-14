@@ -6,7 +6,6 @@ const actionCodeSettings = {
 }
 
 export const sendSignInLink = (email) => {
-  console.log('actionCodeSettings', actionCodeSettings)
   return firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
 }
 

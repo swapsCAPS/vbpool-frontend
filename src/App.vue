@@ -11,18 +11,14 @@
 </template>
 
 <script>
-import * as firebase from 'firebase/app'
-
 import 'vue-select/dist/vue-select.css'
 
 import NavBar from './components/NavBar.vue'
+
 export default {
   name:       'App',
   components: {
     NavBar,
-  },
-  mounted () {
-    console.log('app mounted', firebase.auth().currentUser)
   },
 }
 </script>

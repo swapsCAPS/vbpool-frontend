@@ -39,11 +39,9 @@ Vue.config.productionTip = false
         store.commit('setEmail', user.email)
         const token = await firebase.auth().currentUser.getIdTokenResult()
         store.commit('setRole', token.claims.role || 'user')
-        router.push('form')
       } else {
         store.commit('setLoggedIn', false)
         store.commit('setEmail', '')
-        router.push('signin')
       }
     },
     router,

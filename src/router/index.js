@@ -1,3 +1,4 @@
+import * as firebase from 'firebase/app'
 import VueRouter from 'vue-router'
 
 import SignIn from '../components/SignIn.vue'
@@ -5,7 +6,6 @@ import VerifyEmail from '../components/VerifyEmail.vue'
 import YourPools from '../components/YourPools.vue'
 import Admin from '../components/Admin.vue'
 import PoolForm from '../components/PoolForm.vue'
-
 import store from '../store'
 
 const routes = [
@@ -25,6 +25,7 @@ const routes = [
 
   {
     path:        '/form',
+    name:        'form',
     component:   PoolForm,
     beforeEnter: async (to, from, next) => {
       store.commit('discard')
@@ -55,7 +56,7 @@ const router = new VueRouter({ routes })
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'signin' || to.name === 'verify-email') return next()
-  if (!store.state.user.isLoggedIn) return next({ name: 'signin' })
+  if (!firebase.auth().currentUser) return next({ name: 'signin' })
   next()
 })
 

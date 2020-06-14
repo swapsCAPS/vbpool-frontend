@@ -16,34 +16,13 @@ import * as firebase from 'firebase/app'
 import 'vue-select/dist/vue-select.css'
 
 import NavBar from './components/NavBar.vue'
-import { sync } from 'vuex-router-sync'
-
-import router from './router'
-import store from './store'
-
-sync(store, router)
-
 export default {
   name:       'App',
-  store,
-  router,
   components: {
     NavBar,
   },
   mounted () {
-    firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        store.commit('setLoggedIn', true)
-        store.commit('setEmail', user.email)
-        const token = await firebase.auth().currentUser.getIdTokenResult()
-        store.commit('setRole', token.claims.role || 'user')
-        router.push('form')
-      } else {
-        store.commit('setLoggedIn', false)
-        store.commit('setEmail', '')
-        router.push('signin')
-      }
-    })
+    console.log('app mounted', firebase.auth().currentUser)
   },
 }
 </script>

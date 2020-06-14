@@ -1,4 +1,15 @@
 import allGames from '../assets/games.json'
+import * as firebase from 'firebase'
+
+export const fbAuthObservablePromiseWrapper = () => new Promise((resolve, reject) => {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      resolve(user)
+    } else {
+      reject(new Error('onAuthStateChanged called w/o user object'))
+    }
+  })
+})
 
 export const vbpStore = {
   save: (key, data) => {

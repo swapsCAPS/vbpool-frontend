@@ -5,15 +5,27 @@ service cloud.firestore {
         return request.auth.uid != null;
       }
 
-      function isOwn() {
-        return request.resource.data.userId == request.auth.uid;
+      function readGuard() {
+        return resource.data.userId == request.auth.uid
+        || request.auth.token.role == 'admin';
       }
 
-      allow read:   if signedIn();
+      function writeGuard() {
+        return request.resource.data.userId == request.auth.uid
+        || request.auth.token.role == 'admin';
+      }
+
       allow create: if signedIn()
-                    && isOwn();
-      allow update: if signedIn();
-      allow delete: false;
+                    && writeGuard();
+      allow read:   if signedIn()
+                    && readGuard();
+      allow update: if signedIn()
+                    && readGuard()
+                    && writeGuard();
+      allow delete: if signedIn()
+                    && readGuard()
+                    && writeGuard()
+                    && resource.data.isPayed == false;
     }
   }
 }

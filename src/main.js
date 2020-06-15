@@ -16,10 +16,10 @@ import 'bootstrap/dist/js/bootstrap.js'
 import { firebaseConfig } from './constants'
 import { sync } from 'vuex-router-sync'
 
-import router from './router'
-import store from './store'
 import { fbAuthObservablePromiseWrapper } from './helpers'
 
+import store from './store'
+import router from './router'
 sync(store, router)
 
 firebase.initializeApp(firebaseConfig)
@@ -37,16 +37,12 @@ Vue.config.productionTip = false
     async created () {
       if (user) {
         store.commit('setLoggedIn', true)
-        store.commit('setEmail', user.email)
-        const token = await firebase.auth().currentUser.getIdTokenResult()
-        store.commit('setRole', token.claims.role || 'user')
+        store.commit('setUser', user)
       } else {
         store.commit('setLoggedIn', false)
-        store.commit('setEmail', '')
+        store.commit('resetUser')
       }
     },
-    router,
-    store,
     render: h => h(App),
   }).$mount('#app')
 })()

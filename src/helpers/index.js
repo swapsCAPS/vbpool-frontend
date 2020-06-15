@@ -1,11 +1,19 @@
 import allGames from '../assets/games.json'
 import firebase from 'firebase/app'
 
+export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 export const fbAuthObservablePromiseWrapper = () => new Promise((resolve, reject) => {
-  const unsub = firebase.auth().onAuthStateChanged((user, error) => {
+  const unsub = firebase.auth().onAuthStateChanged(async (user, error) => {
     unsub()
     if (error) return reject(error)
-    user ? resolve(user) : resolve()
+    if (!user) return resolve()
+    let token
+    try {
+      token = await firebase.auth().currentUser.getIdTokenResult()
+    } catch (error) { return reject(error) }
+    user.role = token.claims.role
+    resolve(user)
   })
 })
 

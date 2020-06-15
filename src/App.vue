@@ -15,11 +15,16 @@ import 'vue-select/dist/vue-select.css'
 
 import NavBar from './components/NavBar.vue'
 
+import store from './store'
+import router from './router'
+
 export default {
   name:       'App',
   components: {
     NavBar,
   },
+  router,
+  store,
 }
 </script>
 

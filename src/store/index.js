@@ -5,7 +5,7 @@ import { getField, updateField } from 'vuex-map-fields'
 
 import { getDefaultData } from '../helpers'
 
-import * as firebase from 'firebase/app'
+import firebase from 'firebase/app'
 
 import router from '../router'
 
@@ -40,11 +40,11 @@ const store = new Vuex.Store({
     setLoggedIn (state, value) {
       state.user.isLoggedIn = value
     },
-    setEmail (state, value) {
-      state.user.email = value
+    setUser (state, user) {
+      state.user = { ...state.user, ..._.pick(user, [ 'email', 'role' ]) }
     },
-    setRole (state, value) {
-      state.user.role = value
+    resetUser (state) {
+      state.user = { ...state.user, role: 'user', email: '' }
     },
     setVerificationMailSent (state) {
       state.user.isVerifcationMailSent = true
@@ -61,6 +61,13 @@ const store = new Vuex.Store({
       if (!state.form.page1.meta.poolName) return
 
       const db = firebase.firestore()
+
+      // WTF creating a FB rule for this is ridiculously hard... Should move away from FB.
+      const list = await db
+        .collection('pools')
+        .where('userId', '==', firebase.auth().currentUser.uid)
+        .get()
+      if (list.docs.length >= 10) return alert('Je kunt niet meer dan 10 pools aanmaken')
 
       const res = await db.collection('pools').add({
         userId: firebase.auth().currentUser.uid,

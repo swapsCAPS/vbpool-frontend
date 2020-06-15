@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app'
+import firebase from 'firebase/app'
 import VueRouter from 'vue-router'
 
 import SignIn from '../components/SignIn.vue'
@@ -16,6 +16,7 @@ const routes = [
     name:        'signin',
     component:   SignIn,
     beforeEnter: (to, from, next) => {
+      console.log('store.state.user.isLoggedIn', store.state.user.isLoggedIn)
       if (store.state.user.isLoggedIn) return next({ name: 'form' })
       next()
     },

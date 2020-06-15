@@ -20,7 +20,7 @@ import * as firebase from 'firebase/app'
 
 import { mapMutations } from 'vuex'
 
-import { vbpStore } from '../helpers'
+import { sleep, fbAuthObservablePromiseWrapper, vbpStore } from '../helpers'
 import { STORE_EMAIL_KEY } from '../constants'
 
 export default {
@@ -35,41 +35,40 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setLoggedIn'])
+    ...mapMutations([ 'setLoggedIn' ]),
   },
 
-  mounted () {
+  async mounted () {
     if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-      let email = vbpStore.load(STORE_EMAIL_KEY)
+      let storedEmail = vbpStore.load(STORE_EMAIL_KEY)
 
-      if (!email) {
+      if (!storedEmail) {
         // User opened the link on a different device. To prevent session fixation
         // attacks, ask the user to provide the associated email again. For example:
-        email = window.prompt('We konden je inlog-actie niet vinden voor deze browser\nVul AUB nogmaals je email adres in')
+        storedEmail = window.prompt('We konden je inlog-actie niet vinden voor deze browser\nVul AUB nogmaals je email adres in')
       }
 
-      firebase.auth().signInWithEmailLink(email, window.location.href)
-        .then((result) => {
-          // Clear email from storage.
-          vbpStore.delete(STORE_EMAIL_KEY)
-          this.success = true
+      let user
+      try {
+        await firebase.auth().signInWithEmailLink(storedEmail, window.location.href)
+        user = await fbAuthObservablePromiseWrapper()
+      } catch (error) {
+        // Common errors could be invalid email and invalid or expired OTPs.
+        this.error = error.message
+        return console.log('Something went wrong verifying email', error)
+      } finally {
+        // Clear email from storage.
+        vbpStore.delete(STORE_EMAIL_KEY)
+      }
 
-          const { user, additionalUserInfo } = result
+      this.success = true
 
-          const { email }     = user
-          const { isNewUser } = additionalUserInfo
+      this.$store.commit('setLoggedIn', true)
+      this.$store.commit('setUser', user)
 
-          this.setLoggedIn(true)
+      await sleep(1000)
 
-          setTimeout(() => {
-            this.$router.push({ name: 'form' })
-          }, 1000)
-        })
-        .catch(function (error) {
-          // Common errors could be invalid email and invalid or expired OTPs.
-          console.log('Something went wrong verifying email', error)
-          this.error = error.message
-        })
+      this.$router.push({ name: 'form' })
     }
   },
 

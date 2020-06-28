@@ -25,6 +25,13 @@ import router from './router'
 sync(store, router)
 
 firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+if (location.hostname === 'localhost') {
+  db.settings({
+    host: 'localhost:8081',
+    ssl:  false,
+  })
+}
 
 Vue.use(VueRouter)
 Vue.use(Vuex)

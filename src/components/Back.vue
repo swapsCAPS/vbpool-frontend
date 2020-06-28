@@ -96,6 +96,11 @@ export default {
 </script>
 
 <style scoped>
+p {
+  line-height: 1.25;
+  margin-bottom: 0;
+}
+
 .container {
   font-family: 'Times New Roman', serif;
 }

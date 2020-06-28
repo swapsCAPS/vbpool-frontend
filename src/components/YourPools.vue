@@ -14,7 +14,7 @@
             :class="{ disabled: pool.isPayed }"
           )
             .d-flex.align-items-baseline.justify-content-between
-              span {{ pool.form.page1.meta.poolName }}
+              span {{ pool.meta.poolName }}
               div(
                 v-if="!pool.isPayed"
               )

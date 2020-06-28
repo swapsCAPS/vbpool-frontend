@@ -1,19 +1,57 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+       return request.auth.token.role == 'admin';
+    }
+
     function signedIn() {
       return request.auth.uid != null;
     }
 
-    function readGuard() {
-      return resource.data.userId == request.auth.uid
-      || request.auth.token.role == 'admin';
-    }
-
     match /pools/{pool} {
+      function getDoc() {
+        return resource.data;
+      }
+
+      function getReq() {
+        return resource.data;
+      }
+
+      function isOwn() {
+        return request.resource.data.userId == request.auth.uid || isAdmin();
+      }
+
+      function readGuard() {
+        return resource.data.userId == request.auth.uid || isAdmin();
+      }
+
       function writeGuard() {
-        return request.resource.data.userId == request.auth.uid
-        || request.auth.token.role == 'admin';
+        return (
+                 isOwn() &&
+                 getDoc().flags.isPaid == false &&
+                 getDoc().meta.poolName == getReq().meta.poolName
+               ) ||
+               isAdmin();
+      }
+
+      function parentDoc() {
+        return get(/databases/$(database)/documents/pools/$(pool)).data
+      }
+
+      match /forms/{form} {
+        function isOwn() {
+          return parentDoc().userId == request.auth.uid;
+        }
+
+        allow get:    if isOwn();
+        allow create: if isOwn();
+        allow update: if isOwn() &&
+                         resource.data.page1.meta.poolName == request.data.page1.meta.poolName &&
+                         parentDoc().flags.isPaid == false;
+        allow delete: if isOwn() &&
+                         parentDoc().flags.isPaid == false;
+
       }
 
       allow create: if signedIn()
@@ -26,7 +64,7 @@ service cloud.firestore {
       allow delete: if signedIn()
                     && readGuard()
                     && writeGuard()
-                    && resource.data.isPayed == false;
+                    && resource.data.flags.isPaid == false;
     }
   }
 }

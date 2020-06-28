@@ -262,6 +262,11 @@ export default {
 </script>
 
 <style scoped>
+p {
+  line-height: 1.25;
+  margin-bottom: 0;
+}
+
 .user-info {
   border: 1px solid #ccc;
   padding: 0rem 0.5rem;

@@ -71,34 +71,39 @@ const store = new Vuex.Store({
       const userId = firebase.auth().currentUser.uid
 
       const pool = db.collection('pools').doc()
-      const form = db.collection('pools').doc(pool.id).collection('forms').doc()
+      const form = db.collection('pools').doc(pool.id).collection('forms').doc('form')
 
-      const b = db.batch()
-
-      b.set(pool, {
+      await pool.set({
         userId,
+        meta: {
+          poolName: state.form.page1.meta.poolName,
+        },
         flags: {
-          isPayed:    false,
+          isPaid:     false,
           isComplete: false,
         },
       })
 
-      b.set(form, { userId, form: state.form })
-
-      await b.commit()
+      await form.set(state.form)
 
       router.push({ name: 'edit-form', params: { poolId: pool.id } })
     },
 
     async updatePool ({ state }) {
+      const { poolId } = state.route.params
       // TODO validation
-      if (!state.route.params.poolId) return
+      if (!poolId) return
 
       const db = firebase.firestore()
 
-      const res = await db.collection('pools').doc(state.route.params.poolId).set({
-        userId:  firebase.auth().currentUser.uid,
-        isPayed: false,
+      const res = await db.collection('pools').doc(poolId).set({
+        meta: {
+          poolName: state.form.page1.meta.poolName,
+        },
+        flags: {
+          isPaid:     false,
+          isComplete: false,
+        },
       })
     },
 
@@ -109,13 +114,17 @@ const store = new Vuex.Store({
 
       commit('discard')
 
-      const doc = await db.collection('pools').doc(id).get()
+      // TODO might not need pool here... Saves a db read.
+      const [ pool, form ] = await Promise.all([
+        db.collection('pools').doc(id).get(),
+        db.collection('pools').doc(id).collection('forms').doc('form').get(),
+      ])
 
-      if (!doc.exists) {
+      if (!pool.exists) {
         throw new Error(`No pool with id: ${id}`)
       }
 
-      commit('upsertFormPages', doc.data().form)
+      commit('upsertFormPages', form.data())
     },
 
     async fetchUserPools ({ commit, state }) {

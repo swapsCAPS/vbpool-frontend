@@ -16,7 +16,7 @@
                   :editable="true"
                   v-model.trim="poolName"
                 )
-                button.btn.btn-primary.float-right(
+                button.btn.btn-outline-primary.float-right(
                   @click="createPool"
                   :disabled="!poolName"
                 ) Aanmaken

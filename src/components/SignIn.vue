@@ -13,7 +13,7 @@
               :editable="true"
               v-model.trim="userInfo.email"
             )
-            button.btn.btn-primary.mt-4(
+            button.btn.btn-outline-primary.mt-4(
               @click="onVerifyEmail"
             ) Verifiëren
           div(v-else)
@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import * as firebase from 'firebase/app'
 import InfoInput from './InfoInput'
 
 import {

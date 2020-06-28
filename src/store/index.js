@@ -57,24 +57,37 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    async createPool ({ commit, dispatch, state }) {
+    async createPool ({ state }) {
       if (!state.form.page1.meta.poolName) return
 
       const db = firebase.firestore()
 
-      // WTF creating a FB rule for this is ridiculously hard... Should move away from FB.
       const list = await db
         .collection('pools')
         .where('userId', '==', firebase.auth().currentUser.uid)
         .get()
       if (list.docs.length >= 10) return alert('Je kunt niet meer dan 10 pools aanmaken')
 
-      const res = await db.collection('pools').add({
-        userId: firebase.auth().currentUser.uid,
-        form:   state.form,
+      const userId = firebase.auth().currentUser.uid
+
+      const pool = db.collection('pools').doc()
+      const form = db.collection('pools').doc(pool.id).collection('forms').doc()
+
+      const b = db.batch()
+
+      b.set(pool, {
+        userId,
+        flags: {
+          isPayed:    false,
+          isComplete: false,
+        },
       })
 
-      router.push({ name: 'edit-form', params: { poolId: res.id } })
+      b.set(form, { userId, form: state.form })
+
+      await b.commit()
+
+      router.push({ name: 'edit-form', params: { poolId: pool.id } })
     },
 
     async updatePool ({ state }) {
@@ -85,7 +98,6 @@ const store = new Vuex.Store({
 
       const res = await db.collection('pools').doc(state.route.params.poolId).set({
         userId:  firebase.auth().currentUser.uid,
-        form:    state.form,
         isPayed: false,
       })
     },

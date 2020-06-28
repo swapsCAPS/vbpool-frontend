@@ -3,12 +3,12 @@
     .row
       .col-6
         .btn-container
-          button.mt-5.btn.btn-primary(
+          button.mt-5.btn.btn-outline-primary(
             @click="updatePool"
           ) Versturen
       .col-6
         .btn-container
-          button.mt-5.btn.btn-danger(
+          button.mt-5.btn.btn-outline-danger(
             @click="discard"
           ) Alles wissen
     .row.mt-3

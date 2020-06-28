@@ -39,6 +39,7 @@ export default {
   },
 
   async mounted () {
+    // TODO dispatch action
     if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
       let storedEmail = vbpStore.load(STORE_EMAIL_KEY)
 

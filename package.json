@@ -11,6 +11,8 @@
     "deploy-rules": "firebase deploy --only firestore:rules"
   },
   "dependencies": {
+    "@firebase/testing": "^0.20.5",
+    "@fortawesome/fontawesome-free": "^5.13.0",
     "bootstrap": "^4.4.1",
     "core-js": "^3.6.4",
     "firebase": "^7.11.0",

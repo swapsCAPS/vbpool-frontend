@@ -11,12 +11,12 @@
           router-link.list-group-item.list-group-item-action(
             v-for="pool of user.pools"
             :to="`/form/${pool.id}`"
-            :class="{ disabled: pool.isPayed }"
+            :class="{ disabled: pool.flags.isPaid }"
           )
             .d-flex.align-items-baseline.justify-content-between
               span {{ pool.meta.poolName }}
               div(
-                v-if="!pool.isPayed"
+                v-if="!pool.flags.isPaid"
               )
                 .btn.btn-outline-primary.mr-1
                   span.fa.fa-edit
@@ -39,7 +39,7 @@
 <script>
 import Header from './Header'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name:       'PoolForm',
   components: {
@@ -48,11 +48,8 @@ export default {
   computed: {
     ...mapState([ 'user' ]),
   },
-  methods: {
-    ...mapActions([ 'fetchUserPools' ]),
-  },
   created () {
-    this.fetchUserPools()
+    this.$store.dispatch({ type: 'listUserPools' })
   },
 
 }

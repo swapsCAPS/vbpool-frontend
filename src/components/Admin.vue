@@ -20,7 +20,7 @@
 <script>
 import Header from './Header'
 
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   name:       'Admin',
   components: {
@@ -29,11 +29,8 @@ export default {
   computed: {
     ...mapState([ 'user' ]),
   },
-  methods: {
-    ...mapActions([ 'fetchUserPools' ]),
-  },
   created () {
-    this.fetchUserPools()
+    this.$store.dispatch({ type: 'listUserPools' })
   },
 
 }

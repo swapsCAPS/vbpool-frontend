@@ -89,26 +89,8 @@ const store = new Vuex.Store({
       router.push({ name: 'edit-form', params: { poolId: pool.id } })
     },
 
-    async updatePool ({ state }) {
-      const { poolId } = state.route.params
-      // TODO validation
-      if (!poolId) return
-
-      const db = firebase.firestore()
-
-      const res = await db.collection('pools').doc(poolId).set({
-        meta: {
-          poolName: state.form.page1.meta.poolName,
-        },
-        flags: {
-          isPaid:     false,
-          isComplete: false,
-        },
-      })
-    },
-
-    async fetchAndSetPool ({ commit }, id) {
-      if (!id) throw new Error('fetchAndSetPool called w/o an id')
+    async readPool ({ commit }, id) {
+      if (!id) throw new Error('readPool called w/o an id')
 
       const db = firebase.firestore()
 
@@ -127,7 +109,47 @@ const store = new Vuex.Store({
       commit('upsertFormPages', form.data())
     },
 
-    async fetchUserPools ({ commit, state }) {
+    async updatePool ({ state }) {
+      const { poolId } = state.route.params
+      // TODO validation
+      if (!poolId) return
+
+      const db = firebase.firestore()
+
+      const res = await db.collection('pools').doc(poolId).set({
+        meta: {
+          poolName: state.form.page1.meta.poolName,
+        },
+        flags: {
+          isPaid:     false,
+          isComplete: false,
+        },
+      })
+    },
+
+    async deletePool ({ state, commit }) {
+      const { poolId } = state.route.params
+      if (!poolId) return
+
+      const shoulddiscard = confirm('Weet je zeker dat je deze pool wilt verwijderen?')
+      if (!shoulddiscard) return
+
+      const db = firebase.firestore()
+
+      const b = db.batch()
+
+      const pool = db.collection('pools').doc(poolId)
+      const form = db.collection('pools').doc(poolId).collection('forms').doc('form')
+      b.delete(form)
+      b.delete(pool)
+      await b.commit()
+
+      commit('discard')
+
+      router.push({ path: '/form' })
+    },
+
+    async listUserPools ({ commit }) {
       const db = firebase.firestore()
 
       const response = await db

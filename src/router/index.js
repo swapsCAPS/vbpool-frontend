@@ -40,7 +40,7 @@ const routes = [
     component:   PoolForm,
     beforeEnter: async (to, from, next) => {
       try {
-        await store.dispatch('fetchAndSetPool', to.params.poolId)
+        await store.dispatch('readPool', to.params.poolId)
       } catch (e) {
         console.error(e)
         return next({ path: '/form' })

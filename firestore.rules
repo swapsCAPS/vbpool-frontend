@@ -10,27 +10,27 @@ service cloud.firestore {
     }
 
     match /pools/{pool} {
-      function getDoc() {
+      function rsrcData() {
         return resource.data;
       }
 
-      function getReq() {
-        return resource.data;
+      function reqRsrcData() {
+        return request.resource.data;
       }
 
       function isOwn() {
-        return request.resource.data.userId == request.auth.uid || isAdmin();
+        return rsrcData().userId == request.auth.uid || isAdmin();
       }
 
       function readGuard() {
-        return resource.data.userId == request.auth.uid || isAdmin();
+        return rsrcData().userId == request.auth.uid || isAdmin();
       }
 
       function writeGuard() {
         return (
                  isOwn() &&
-                 getDoc().flags.isPaid == false &&
-                 getDoc().meta.poolName == getReq().meta.poolName
+                 rsrcData().flags.isPaid == false &&
+                 rsrcData().meta.poolName == reqRsrcData().meta.poolName // Not allowed to change value
                ) ||
                isAdmin();
       }
@@ -47,7 +47,7 @@ service cloud.firestore {
         allow get:    if isOwn();
         allow create: if isOwn();
         allow update: if isOwn() &&
-                         resource.data.page1.meta.poolName == request.data.page1.meta.poolName &&
+                         rsrcData().page1.meta.poolName == reqRsrcData().page1.meta.poolName && // Not allowed to change value
                          parentDoc().flags.isPaid == false;
         allow delete: if isOwn() &&
                          parentDoc().flags.isPaid == false;
@@ -64,7 +64,7 @@ service cloud.firestore {
       allow delete: if signedIn()
                     && readGuard()
                     && writeGuard()
-                    && resource.data.flags.isPaid == false;
+                    && rsrcData().flags.isPaid == false;
     }
   }
 }

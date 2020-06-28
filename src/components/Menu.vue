@@ -1,27 +1,32 @@
 <template lang="pug">
   div
-    .row
-      .col-6
-        .btn-container
-          button.mt-5.btn.btn-outline-primary(
-            @click="updatePool"
-          ) Versturen
-      .col-6
-        .btn-container
-          button.mt-5.btn.btn-outline-danger(
-            @click="discard"
-          ) Alles wissen
-    .row.mt-3
-      .col
-        .errors(v-for="error in errors")
-          .error - {{ error.message }}
+    div
+      .row
+        .col-6
+          .btn-container
+            button.mt-5.btn.btn-outline-primary(
+              @click="updatePool"
+            ) Versturen
+        .col-6
+          .btn-container
+            button.mt-5.btn.btn-outline-danger(
+              @click="deletePool"
+            ) Verwijder pool
+      .row.mt-3
+        .col
+          .errors(v-for="error in errors")
+            .error - {{ error.message }}
+    Disabler(
+      :isDisabled="!user.isLoggedIn || !route.params.poolId"
+      message="Vul eerst een naam in voor deze pool en klik op \"Aanmaken\""
+    )
 
 </template>
 
 <script>
 import Disabler from './Disabler'
 
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Menu',
@@ -34,13 +39,12 @@ export default {
     errors: Array,
   },
 
+  computed: {
+    ...mapState([ 'user', 'route' ]),
+  },
+
   methods: {
-    ...mapActions([ 'updatePool' ]),
-    discard () {
-      const shoulddiscard = confirm('weet je zeker dat je alles wilt wissen?!')
-      if (!shoulddiscard) return
-      this.$router.push({ path: '/form' })
-    },
+    ...mapActions([ 'updatePool', 'deletePool' ]),
   },
 
 }

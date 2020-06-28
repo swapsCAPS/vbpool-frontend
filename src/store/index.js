@@ -111,20 +111,12 @@ const store = new Vuex.Store({
 
     async updatePool ({ state }) {
       const { poolId } = state.route.params
-      // TODO validation
       if (!poolId) return
 
       const db = firebase.firestore()
 
-      const res = await db.collection('pools').doc(poolId).set({
-        meta: {
-          poolName: state.form.page1.meta.poolName,
-        },
-        flags: {
-          isPaid:     false,
-          isComplete: false,
-        },
-      })
+      // TODO validation
+      await db.collection('pools').doc(poolId).collection('forms').doc('form').set(state.form)
     },
 
     async deletePool ({ state, commit }) {
@@ -146,7 +138,7 @@ const store = new Vuex.Store({
 
       commit('discard')
 
-      router.push({ path: '/form' })
+      router.push({ path: '/your-pools' })
     },
 
     async listUserPools ({ commit }) {

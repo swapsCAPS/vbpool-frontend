@@ -18,10 +18,8 @@
               div(
                 v-if="!pool.flags.isPaid"
               )
-                .btn.btn-outline-primary.mr-1
+                .btn.btn-outline-secondary.mr-1
                   span.fa.fa-edit
-                .btn.btn-outline-danger
-                  span.fa.fa-trash
               div(v-else)
                 .btn.btn.btn-outline-secondary.disabled
                   span.fa.fa-money-bill.mr-1

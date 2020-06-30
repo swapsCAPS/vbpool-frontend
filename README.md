@@ -1,10 +1,11 @@
 # vbpool-frontend
 
 ## TODO
-- [ ] Move more state to vuex
+- [x] Move more state to vuex
 - [x] Save pool data
 - [ ] Navigation warning
-- [ ] "My Pools" page
+- [ ] component directory structure
+- [x] "My Pools" page
 - [ ] Modals instead of alerts
 - [ ] Admin page
 - [ ] Styling tweaks
@@ -19,12 +20,11 @@
 ## Ramblings
 
 #### Pool creation flow
-- user logs in
-- greeting page w/ all user's pools
-- click new pool
-- enter unique name of pool
-- click save
-- save pool in firestore
-- save edits to firestore
-  - every edit? save button w/ "leave page" warning?
-- why do we need send button?
+- [x] user logs in
+- [x] greeting page w/ all user's pools
+- [x] click new pool
+- [x] enter unique name of pool
+- [x] click save
+- [x] save pool in firestore
+- [x] save edits to firestore
+  - [ ] every edit? save button w/ "leave page" warning?

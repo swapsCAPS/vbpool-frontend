@@ -80,12 +80,13 @@ input {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none !important;
+  margin: 0 !important;
 }
+
 /* Firefox */
 input[type=number] {
-  -moz-appearance: textfield;
+  -moz-appearance: textfield !important;
 }
 
 .card {

@@ -1,17 +1,6 @@
 <template lang="pug">
   div
     div
-      .row
-        .col-6
-          .btn-container
-            button.mt-5.btn.btn-outline-primary(
-              @click="updatePool"
-            ) Versturen
-        .col-6
-          .btn-container
-            button.mt-5.btn.btn-outline-danger(
-              @click="deletePool"
-            ) Verwijder pool
       .row.mt-3
         .col
           .errors(v-for="error in errors")

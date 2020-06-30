@@ -6,7 +6,7 @@
       :options="teams"
       :value="value"
       :searchable="false"
-      v-on:input="input"
+      @input="input"
     )
 </template>
 

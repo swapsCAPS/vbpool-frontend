@@ -27,7 +27,7 @@ export default {
     checkInput (event) {
       const { key, target } = event
       const { value }       = target
-      if (key < 1 || +key > 4 || value.length) return event.preventDefault()
+      if (+key < 1 || +key > 4 || value.length) return event.preventDefault()
     },
   },
 }

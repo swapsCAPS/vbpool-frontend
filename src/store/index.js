@@ -26,6 +26,7 @@ const store = new Vuex.Store({
       page1,
       page2,
     },
+    isSaving: false,
   },
   getters: {
     getField,
@@ -54,6 +55,9 @@ const store = new Vuex.Store({
     },
     upsertFormPages (state, value) {
       state.form = _.merge(state.form, value)
+    },
+    setSaving (state, value) {
+      state.isSaving = value
     },
   },
   actions: {
@@ -109,14 +113,22 @@ const store = new Vuex.Store({
       commit('upsertFormPages', form.data())
     },
 
-    async updatePool ({ state }) {
+    async updatePool ({ state, commit }) {
       const { poolId } = state.route.params
       if (!poolId) return
+
+      if (state.isSaving) return // Maybe we should cancel the current and invoke the next save...
+
+      commit('setSaving', true)
 
       const db = firebase.firestore()
 
       // TODO validation
       await db.collection('pools').doc(poolId).collection('forms').doc('form').set(state.form)
+
+      setTimeout(() => {
+        commit('setSaving', false)
+      }, 1500)
     },
 
     async deletePool ({ state, commit }) {

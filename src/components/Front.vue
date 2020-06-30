@@ -20,11 +20,14 @@
                   @click="createPool"
                   :disabled="!poolName"
                 ) Aanmaken
-              .d-flex(v-else)
+              .d-flex.justify-content-between(v-else)
                 h3
                   span Pool:
                   span {{ ` ` }}
                   span {{ poolName }}
+                button.btn.btn-outline-danger(
+                  @click="deletePool"
+                ) Verwijder pool
     .row
       .col-12
         .instructions
@@ -234,7 +237,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([ 'createPool' ]),
+    ...mapActions([ 'createPool', 'deletePool' ]),
   },
 
   computed: {

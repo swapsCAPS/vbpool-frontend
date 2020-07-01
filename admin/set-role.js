@@ -22,6 +22,6 @@ admin.auth().getUserByEmail(email)
     return user
   }).then(user => {
     return admin.auth().setCustomUserClaims(user.uid, {
-      role: 'admin',
+      role,
     })
   }).catch(console.error)

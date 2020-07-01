@@ -1,12 +1,16 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function currUser() {
+      return request.auth.uid;
+    }
+
     function isAdmin() {
        return request.auth.token.role == 'admin';
     }
 
     function signedIn() {
-      return request.auth.uid != null;
+      return currUser() != null;
     }
 
     match /pools/{pool} {
@@ -18,21 +22,15 @@ service cloud.firestore {
         return request.resource.data;
       }
 
-      function isOwn() {
-        return rsrcData().userId == request.auth.uid || isAdmin();
-      }
-
       function readGuard() {
-        return rsrcData().userId == request.auth.uid || isAdmin();
+        return signedIn() &&
+               rsrcData().userId == currUser();
       }
 
       function writeGuard() {
-        return (
-                 isOwn() &&
-                 rsrcData().flags.isPaid == false &&
-                 rsrcData().meta.poolName == reqRsrcData().meta.poolName // Not allowed to change value
-               ) ||
-               isAdmin();
+        return signedIn() &&
+               reqRsrcData().userId == currUser() &&
+               reqRsrcData().flags.isPaid == false;
       }
 
       function parentDoc() {
@@ -41,30 +39,29 @@ service cloud.firestore {
 
       match /forms/{form} {
         function isOwn() {
-          return parentDoc().userId == request.auth.uid;
+          return parentDoc().userId == currUser() || isAdmin();
         }
 
-        allow get:    if isOwn();
-        allow create: if isOwn();
-        allow update: if isOwn() &&
-                         rsrcData().page1.meta.poolName == reqRsrcData().page1.meta.poolName && // Not allowed to change value
-                         parentDoc().flags.isPaid == false;
-        allow delete: if isOwn() &&
-                         parentDoc().flags.isPaid == false;
+        allow get:    if isOwn() || isAdmin();
+        allow create: if isOwn() || isAdmin();
+        allow update: if (
+                           isOwn() &&
+                           rsrcData().page1.meta.poolName == reqRsrcData().page1.meta.poolName && // Not allowed to change value
+                           parentDoc().flags.isPaid == false
+                         ) ||
+                         isAdmin();
+        allow delete: if (
+                           isOwn() &&
+                           parentDoc().flags.isPaid == false
+                         ) ||
+                         isAdmin();
 
       }
 
-      allow create: if signedIn()
-                    && writeGuard();
-      allow read:   if signedIn()
-                    && readGuard();
-      allow update: if signedIn()
-                    && readGuard()
-                    && writeGuard();
-      allow delete: if signedIn()
-                    && readGuard()
-                    && writeGuard()
-                    && rsrcData().flags.isPaid == false;
+      allow create: if writeGuard() || isAdmin();
+      allow read:   if readGuard() || isAdmin();
+      allow update: if (readGuard() && writeGuard()) || isAdmin();
+      allow delete: if (readGuard() || isAdmin()) && rsrcData().flags.isPaid == false;
     }
   }
 }

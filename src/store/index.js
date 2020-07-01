@@ -61,11 +61,12 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    async createPool ({ state }) {
+    async createPool ({ state, commit }) {
       if (!state.form.page1.meta.poolName) return
 
       const db = firebase.firestore()
 
+      commit('setSaving', true)
       const list = await db
         .collection('pools')
         .where('userId', '==', firebase.auth().currentUser.uid)
@@ -89,6 +90,8 @@ const store = new Vuex.Store({
       })
 
       await form.set(state.form)
+
+      commit('setSaving', false)
 
       router.push({ name: 'edit-form', params: { poolId: pool.id } })
     },

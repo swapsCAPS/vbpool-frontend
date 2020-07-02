@@ -11,6 +11,7 @@
           .row.mt-2.mb-2
             .col-12
               .d-flex.justify-content-between(v-if="!route.params.poolId")
+                h3 Poolnaam:
                 InfoInput(
                   title="Poolnaam:"
                   :editable="true"

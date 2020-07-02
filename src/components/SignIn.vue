@@ -7,12 +7,13 @@
       .row.text-center.mt-5.mb-5
         .col-sm-12.col-lg-8.mx-auto
           div(v-if="!isVerifcationMailSent")
-            InfoInput.email-input(
-              title="Email"
-              inputType="email"
-              :editable="true"
-              v-model.trim="userInfo.email"
-            )
+            .d-flex
+              h3 Email:
+              InfoInput.email-input(
+                inputType="email"
+                :editable="true"
+                v-model.trim="userInfo.email"
+              )
             button.btn.btn-outline-primary.mt-4(
               @click="onVerifyEmail"
             ) Verifiëren

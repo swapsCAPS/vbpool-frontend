@@ -1,14 +1,12 @@
 <template lang="pug">
-  .d-flex.flex-fill
-    h3 {{ title }}
-    .ml-2.mr-2.wrapper.flex-fill
-      h3.dots ..............................................................................................................................
-      h3.d-flex.input
-        input.flex-fill(
-          :type="inputType"
-          :value="value"
-          @input="$emit('input', $event.target.value)"
-        )
+  .ml-2.mr-2.wrapper.flex-fill
+    h3.dots ..............................................................................................................................
+    h3.d-flex.input
+      input.flex-fill(
+        :type="inputType"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
+      )
 </template>
 
 <script>

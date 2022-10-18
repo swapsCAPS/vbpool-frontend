@@ -4,7 +4,8 @@
   h3.d-flex.input
     input.flex-fill(
       :type="inputType"
-      v-model="value"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
     )
 </template>
 
@@ -17,10 +18,11 @@ export default {
       type:    String,
       default: () => 'text',
     },
-    editable: Boolean,
-    title:    String,
-    value:    String,
+    editable:   Boolean,
+    title:      String,
+    modelValue: String,
   },
+  emits: [ 'update:modelValue' ],
 }
 </script>
 

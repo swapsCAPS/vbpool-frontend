@@ -29,14 +29,14 @@ if (location.hostname === 'localhost') {
 }
 
 ;(async function go () {
-  const user = await fbAuthObservablePromiseWrapper()
-  if (user) {
-    store.commit('setLoggedIn', true)
-    store.commit('setUser', user)
-  } else {
-    store.commit('setLoggedIn', false)
-    store.commit('resetUser')
-  }
+  // const user = await fbAuthObservablePromiseWrapper(fbApp)
+  // if (user) {
+  // store.commit('setLoggedIn', true)
+  // store.commit('setUser', user)
+  // } else {
+  // store.commit('setLoggedIn', false)
+  // store.commit('resetUser')
+  // }
 
   const app = createApp(App)
 

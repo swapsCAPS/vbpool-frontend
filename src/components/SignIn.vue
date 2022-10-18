@@ -12,7 +12,7 @@
             InfoInput.email-input(
               inputType="email"
               :editable="true"
-              v-model.trim="userInfo.email"
+              v-model="userInfo.email"
             )
           button.btn.btn-outline-primary.mt-4(
             @click="onVerifyEmail"
@@ -64,7 +64,6 @@ export default {
     ...mapMutations([ 'setVerificationMailSent' ]),
     onVerifyEmail () {
       const { email } = this.userInfo
-      console.log('email', email)
       if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
 
       apiCalls.sendSignInLink(email)

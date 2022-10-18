@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { getAuth } from 'firebase/auth'
+import { getAuth, signInWithEmailLink, isSignInWithEmailLink } from 'firebase/auth'
 
 import { mapMutations } from 'vuex'
 
@@ -41,7 +41,7 @@ export default {
   async mounted () {
     // TODO dispatch action
     const auth = getAuth()
-    if (auth.isSignInWithEmailLink(window.location.href)) {
+    if (isSignInWithEmailLink(auth, window.location.href)) {
       let storedEmail = vbpStore.load(STORE_EMAIL_KEY)
 
       if (!storedEmail) {
@@ -52,7 +52,7 @@ export default {
 
       let user
       try {
-        await getAuth().signInWithEmailLink(storedEmail, window.location.href)
+        await signInWithEmailLink(auth, storedEmail, window.location.href)
         user = await fbAuthObservablePromiseWrapper()
       } catch (error) {
         // Common errors could be invalid email and invalid or expired OTPs.

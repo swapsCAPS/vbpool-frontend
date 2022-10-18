@@ -1,17 +1,17 @@
 <template lang="pug">
-  .section-container
-    .section-header
-      h4
-        span.text {{ text || "Main text" }}
-        span {{ ` ` }}
-        span.subtext {{ subtext }}
-    .section-content
-      slot(name="content")
+.section-container
+  .section-header
+    h4
+      span.text {{ text || "Main text" }}
+      span {{ ` ` }}
+      span.subtext {{ subtext }}
+  .section-content
+    slot(name="content")
 </template>
 
 <script>
 export default {
-  name:  'Section',
+  name:  'SectionComponent',
   props: {
     text:    String,
     subtext: String,

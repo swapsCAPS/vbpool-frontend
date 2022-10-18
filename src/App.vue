@@ -1,15 +1,15 @@
 <template lang="pug">
-  #app
-    .d-flex.is-saving-spinner(v-if="isSaving")
-      .spinner(v-if="isSaving")
-    .container
-      .row
-        .col-12
-          NavBar
-    .container.mt-4
-      .row
-        .col-12
-          router-view
+#app
+  .d-flex.is-saving-spinner(v-if="isSaving")
+    .spinner(v-if="isSaving")
+  .container
+    .row
+      .col-12
+        NavBar
+  .container.mt-4
+    .row
+      .col-12
+        router-view
 </template>
 
 <script>

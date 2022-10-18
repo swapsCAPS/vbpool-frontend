@@ -1,19 +1,18 @@
-import Vue from 'vue'
 import _ from 'lodash'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
+
 import { getField, updateField } from 'vuex-map-fields'
 
 import { getDefaultData } from '../helpers'
 
-import firebase from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
 
 import router from '../router'
 
-Vue.use(Vuex)
-
 const { page1, page2 } = getDefaultData()
 
-const store = new Vuex.Store({
+const store = createStore({
   state: {
     user: {
       isLoggedIn:            false,
@@ -64,16 +63,16 @@ const store = new Vuex.Store({
     async createPool ({ state, commit }) {
       if (!state.form.page1.meta.poolName) return
 
-      const db = firebase.firestore()
+      const db = getFirestore()
 
       commit('setSaving', true)
       const list = await db
         .collection('pools')
-        .where('userId', '==', firebase.auth().currentUser.uid)
+        .where('userId', '==', getAuth().currentUser.uid)
         .get()
       if (list.docs.length >= 10) return alert('Je kunt niet meer dan 10 pools aanmaken')
 
-      const userId = firebase.auth().currentUser.uid
+      const userId = getAuth().currentUser.uid
 
       const pool = db.collection('pools').doc()
       const form = db.collection('pools').doc(pool.id).collection('forms').doc('form')
@@ -99,7 +98,7 @@ const store = new Vuex.Store({
     async readPool ({ commit }, id) {
       if (!id) throw new Error('readPool called w/o an id')
 
-      const db = firebase.firestore()
+      const db = getFirestore()
 
       commit('discard')
 
@@ -124,7 +123,7 @@ const store = new Vuex.Store({
 
       commit('setSaving', true)
 
-      const db = firebase.firestore()
+      const db = getFirestore()
 
       // TODO validation
       await db.collection('pools').doc(poolId).collection('forms').doc('form').set(state.form)
@@ -141,7 +140,7 @@ const store = new Vuex.Store({
       const shoulddiscard = confirm('Weet je zeker dat je deze pool wilt verwijderen?')
       if (!shoulddiscard) return
 
-      const db = firebase.firestore()
+      const db = getFirestore()
 
       const b = db.batch()
 
@@ -157,11 +156,11 @@ const store = new Vuex.Store({
     },
 
     async listUserPools ({ commit }) {
-      const db = firebase.firestore()
+      const db = getFirestore()
 
       const response = await db
         .collection('pools')
-        .where('userId', '==', firebase.auth().currentUser.uid)
+        .where('userId', '==', getAuth().currentUser.uid)
         .get()
 
       commit('setUserPools', response.docs.map(doc => ({ id: doc.id, ...doc.data() })))

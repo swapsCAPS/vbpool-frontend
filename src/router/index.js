@@ -1,5 +1,5 @@
-import firebase from 'firebase/app'
-import VueRouter from 'vue-router'
+import { getAuth } from 'firebase/auth'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import SignIn from '../components/SignIn.vue'
 import VerifyEmail from '../components/VerifyEmail.vue'
@@ -53,11 +53,14 @@ const routes = [
   { path: '/admin', name: 'admin', component: Admin },
 ]
 
-const router = new VueRouter({ routes })
+const router = createRouter({
+  routes,
+  history: createWebHistory(),
+})
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'signin' || to.name === 'verify-email') return next()
-  if (!firebase.auth().currentUser) return next({ name: 'signin' })
+  if (!getAuth().currentUser) return next({ name: 'signin' })
   next()
 })
 

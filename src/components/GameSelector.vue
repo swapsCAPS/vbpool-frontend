@@ -1,13 +1,13 @@
 <template lang="pug">
-  .input
-    span {{ name }}
-    v-select(
-      class="select"
-      :options="teams"
-      :value="value"
-      :searchable="false"
-      @input="input"
-    )
+.input
+  span {{ name }}
+  v-select(
+    class="select"
+    :options="teams"
+    :value="value"
+    :searchable="false"
+    @input="input"
+  )
 </template>
 
 <script>

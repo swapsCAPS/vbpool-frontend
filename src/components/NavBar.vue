@@ -1,18 +1,18 @@
 <template lang="pug">
-  nav.navbar.navbar-expand-lg.navbar-light.bg-light.vbp-navbar
-    router-link(to="/").navbar-brand Laurierboom Voetbalpool
-    button.navbar-toggler(
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNav"
-    )
-      span.navbar-toggler-icon
-    #navbarNav.collapse.navbar-collapse
-      ul.navbar-nav
-        li.nav-item
-          router-link(to="/your-pools").nav-link Jouw Pools
-        li.nav-item(v-if="user.role == 'admin'")
-          router-link(to="/admin").nav-link Administratie
+nav.navbar.navbar-expand-lg.navbar-light.bg-light.vbp-navbar
+  router-link(to="/").navbar-brand Laurierboom Voetbalpool
+  button.navbar-toggler(
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+  )
+    span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse
+    ul.navbar-nav
+      li.nav-item
+        router-link(to="/your-pools").nav-link Jouw Pools
+      li.nav-item(v-if="user.role == 'admin'")
+        router-link(to="/admin").nav-link Administratie
 </template>
 
 <script>

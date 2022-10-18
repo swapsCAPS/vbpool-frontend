@@ -1,17 +1,17 @@
 <template lang="pug">
-  .group
-    h4 {{ `Groep ${group.name}` }}
-    div(v-for="team, index in group.teams")
-      span {{ team.team }}
-      input(
-        :class="{ 'vbp-no-top-border': index !== 0 }"
-        :key="team.team"
-        type="number"
-        min="1"
-        max="4"
-        @keypress="checkInput($event)"
-        v-model="value[team.team]"
-      )
+.group
+  h4 {{ `Groep ${group.name}` }}
+  div(v-for="team, index in group.teams")
+    span {{ team.team }}
+    input(
+      :class="{ 'vbp-no-top-border': index !== 0 }"
+      :key="team.team"
+      type="number"
+      min="1"
+      max="4"
+      @keypress="checkInput($event)"
+      v-model="value[team.team]"
+    )
 </template>
 
 <script>

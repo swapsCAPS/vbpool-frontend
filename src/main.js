@@ -1,14 +1,10 @@
-import 'firebase/auth'
-import 'firebase/firestore'
+import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 
-import firebase from 'firebase/app'
-
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createApp } from 'vue'
 
 import App from './App.vue'
 import vSelect from 'vue-select'
-import VueRouter from 'vue-router'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -16,33 +12,25 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js'
 
 import { firebaseConfig } from './constants'
-import { sync } from 'vuex-router-sync'
 
 import { fbAuthObservablePromiseWrapper } from './helpers'
 
 import store from './store'
 import router from './router'
-sync(store, router)
 
-firebase.initializeApp(firebaseConfig)
-const db = firebase.firestore()
+const fbApp = initializeApp(firebaseConfig)
+console.log('firebaseConfig', firebaseConfig)
 if (location.hostname === 'localhost') {
-  db.settings({
-    host: 'localhost:8081',
-    ssl:  false,
-  })
+  // const db = getFirestore(fbApp)
+  // db.settings({
+  // host: 'localhost:8081',
+  // ssl:  false,
+  // })
 }
-
-Vue.use(VueRouter)
-Vue.use(Vuex)
-
-Vue.component('v-select', vSelect)
-
-Vue.config.productionTip = false
 
 ;(async function go () {
   const user = await fbAuthObservablePromiseWrapper()
-  new Vue({
+  const app  = createApp({
     async created () {
       if (user) {
         store.commit('setLoggedIn', true)
@@ -53,5 +41,15 @@ Vue.config.productionTip = false
       }
     },
     render: h => h(App),
-  }).$mount('#app')
+
+  })
+
+  app.use(router)
+  app.use(store)
+
+  app.component('v-select', vSelect)
+
+  app.config.productionTip = false
+
+  app.mount('#app')
 })()

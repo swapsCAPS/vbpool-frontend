@@ -1,18 +1,18 @@
 <template lang="pug">
-  .input-wrapper
-    input(
-      type="number"
-      min="0"
-      max="99"
-      v-model.number="value[0]"
-    )
-    span -
-    input(
-      type="number"
-      min="0"
-      max="99"
-      v-model.number="value[1]"
-    )
+.input-wrapper
+  input(
+    type="number"
+    min="0"
+    max="99"
+    v-model.number="value[0]"
+  )
+  span -
+  input(
+    type="number"
+    min="0"
+    max="99"
+    v-model.number="value[1]"
+  )
 </template>
 
 <script>

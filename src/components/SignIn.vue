@@ -1,24 +1,24 @@
 <template lang="pug">
-  .row
-    .col-10.mt-4.a4.card.mx-auto
-      .row
-        .col-12.text-center.mt-3
-          h3 Welkom bij de Laurierboom Voetbalpool EK2020
-      .row.text-center.mt-5.mb-5
-        .col-sm-12.col-lg-8.mx-auto
-          div(v-if="!isVerifcationMailSent")
-            .d-flex
-              h3 Email:
-              InfoInput.email-input(
-                inputType="email"
-                :editable="true"
-                v-model.trim="userInfo.email"
-              )
-            button.btn.btn-outline-primary.mt-4(
-              @click="onVerifyEmail"
-            ) Verifiëren
-          div(v-else)
-            h3 Email verzonden, check AUB uw email inbox
+.row
+  .col-10.mt-4.a4.card.mx-auto
+    .row
+      .col-12.text-center.mt-3
+        h3 Welkom bij de Laurierboom Voetbalpool EK2020
+    .row.text-center.mt-5.mb-5
+      .col-sm-12.col-lg-8.mx-auto
+        div(v-if="!isVerifcationMailSent")
+          .d-flex
+            h3 Email:
+            InfoInput.email-input(
+              inputType="email"
+              :editable="true"
+              v-model.trim="userInfo.email"
+            )
+          button.btn.btn-outline-primary.mt-4(
+            @click="onVerifyEmail"
+          ) Verifiëren
+        div(v-else)
+          h3 Email verzonden, check AUB uw email inbox
 </template>
 
 <script>

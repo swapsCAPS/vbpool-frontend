@@ -1,22 +1,22 @@
 <template lang="pug">
-  .row
-    .col-12.mt-4.a4.card.verify-card()
-      .mt-5.mb-5
-        .text-center(v-if="success")
-          h1 Je bent ingelogd. Veel plezier met invullen!
-        div(v-else-if="error")
-          h1.text-center Er is iets misgegaan tijdens het inloggen...
-          h3.mt-3 Neem AUB even contact met ons op
-          h5.mt-4
-            span Melding:
-            span {{ ' ' }}
-            span {{ error }}
-        .text-center(v-else)
-          h1 Bezig met inloggen...
+.row
+  .col-12.mt-4.a4.card.verify-card()
+    .mt-5.mb-5
+      .text-center(v-if="success")
+        h1 Je bent ingelogd. Veel plezier met invullen!
+      div(v-else-if="error")
+        h1.text-center Er is iets misgegaan tijdens het inloggen...
+        h3.mt-3 Neem AUB even contact met ons op
+        h5.mt-4
+          span Melding:
+          span {{ ' ' }}
+          span {{ error }}
+      .text-center(v-else)
+        h1 Bezig met inloggen...
 </template>
 
 <script>
-import * as firebase from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 
 import { mapMutations } from 'vuex'
 
@@ -40,7 +40,8 @@ export default {
 
   async mounted () {
     // TODO dispatch action
-    if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+    const auth = getAuth()
+    if (auth.isSignInWithEmailLink(window.location.href)) {
       let storedEmail = vbpStore.load(STORE_EMAIL_KEY)
 
       if (!storedEmail) {
@@ -51,7 +52,7 @@ export default {
 
       let user
       try {
-        await firebase.auth().signInWithEmailLink(storedEmail, window.location.href)
+        await getAuth().signInWithEmailLink(storedEmail, window.location.href)
         user = await fbAuthObservablePromiseWrapper()
       } catch (error) {
         // Common errors could be invalid email and invalid or expired OTPs.

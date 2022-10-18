@@ -1,11 +1,11 @@
 <template lang="pug">
-  .input
-    span {{ text }}
-    input(
-      :type="inputType"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
-    )
+.input
+  span {{ text }}
+  input(
+    :type="inputType"
+    :value="value"
+    @input="$emit('input', $event.target.value)"
+  )
 </template>
 
 <script>

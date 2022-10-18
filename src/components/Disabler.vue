@@ -1,8 +1,8 @@
 <template lang="pug">
-  .disabler(
-    :class="{ isDisabled }"
-    @click="alert"
-  )
+.disabler(
+  :class="{ isDisabled }"
+  @click="alert"
+)
 </template>
 
 <script>

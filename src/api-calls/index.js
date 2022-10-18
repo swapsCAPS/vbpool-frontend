@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 
 const actionCodeSettings = {
   url:             `${process.env.VUE_APP_HOST_URL}/#/verify-email`,
@@ -6,7 +6,7 @@ const actionCodeSettings = {
 }
 
 export const sendSignInLink = (email) => {
-  return firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+  return getAuth().sendSignInLinkToEmail(email, actionCodeSettings)
 }
 
-export const logOut = () => firebase.auth().signOut()
+export const logOut = () => getAuth().signOut()

@@ -1,17 +1,17 @@
 <template lang="pug">
-  .row
-    .col-12
-      .a4.card
-        Front
-    .col-12.mb-4
-      .a4.card.back
-        Back
+.row
+  .col-12
+    .a4.card
+      FrontComponent
+  .col-12.mb-4
+    .a4.card.back
+      BackComponent
 </template>
 
 <script>
-import Front from './Front.vue'
-import Back from './Back.vue'
-import Menu from './Menu.vue'
+import FrontComponent from './FrontComponent.vue'
+import BackComponent from './BackComponent.vue'
+import MenuComponent from './MenuComponent.vue'
 import _ from 'lodash'
 
 import { mapState }  from 'vuex'
@@ -19,9 +19,9 @@ import { mapState }  from 'vuex'
 export default {
   name:       'PoolForm',
   components: {
-    Front,
-    Back,
-    Menu,
+    FrontComponent,
+    BackComponent,
+    MenuComponent,
   },
   computed: {
     ...mapState([ 'form' ]),

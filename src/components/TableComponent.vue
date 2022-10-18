@@ -1,45 +1,45 @@
 <template lang="pug">
-  .table-responsive-md
-    table.table
-      tr
-        th.datum Datum
-        th.time tijd
-        th.nr nr
-        th.match Wedstrijd
-        th.half-time rust
-        th.end eind
-        th.toto toto
-      tr(
-        v-for="game in games"
-        :key="game.nr"
-      )
-        td.padded {{ game.formattedDate }}
-        td.padded {{ game.tijd }}
-        td.padded.nr {{ game.nr }}
-        td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
-        td
-          MatchInput(
-            v-model="form[game.nr].half"
-          )
-        td
-          MatchInput(
-            v-model="form[game.nr].end"
-          )
-        td.toto
-          input(
-            type="number"
-            min="1"
-            max="3"
-            @keypress="checkInput($event)"
-            v-model="form[game.nr].toto"
-          )
+.table-responsive-md
+  table.table
+    tr
+      th.datum Datum
+      th.time tijd
+      th.nr nr
+      th.match Wedstrijd
+      th.half-time rust
+      th.end eind
+      th.toto toto
+    tr(
+      v-for="game in games"
+      :key="game.nr"
+    )
+      td.padded {{ game.formattedDate }}
+      td.padded {{ game.tijd }}
+      td.padded.nr {{ game.nr }}
+      td.padded.game-text {{ `${game.naam1} - ${game.naam2}` }}
+      td
+        MatchInput(
+          v-model="form[game.nr].half"
+        )
+      td
+        MatchInput(
+          v-model="form[game.nr].end"
+        )
+      td.toto
+        input(
+          type="number"
+          min="1"
+          max="3"
+          @keypress="checkInput($event)"
+          v-model="form[game.nr].toto"
+        )
 </template>
 
 <script>
 import MatchInput from './MatchInput'
 
 export default {
-  name: 'Table',
+  name: 'TableComponent',
 
   components: {
     MatchInput,

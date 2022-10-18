@@ -1,30 +1,30 @@
 <template lang="pug">
-  .a4.card
-    .row
-      .col
-        Header(
-          title="Administratie"
+.a4.card
+  .row
+    .col
+      HeaderComponent(
+        title="Administratie"
+      )
+  .row
+    .col
+      div.list-group
+        .list-group-item.list-group-item-action(
+          v-for="pool of user.pools"
+          :href="`#/your-pools/${pool.id}`"
         )
-    .row
-      .col
-        div.list-group
-          .list-group-item.list-group-item-action(
-            v-for="pool of user.pools"
-            :href="`#/your-pools/${pool.id}`"
-          )
-            a {{ pool.name }}
-            button.btn.float-right dingen
+          a {{ pool.name }}
+          button.btn.float-right dingen
 
 </template>
 
 <script>
-import Header from './Header'
+import HeaderComponent from './HeaderComponent'
 
 import { mapState } from 'vuex'
 export default {
   name:       'Admin',
   components: {
-    Header,
+    HeaderComponent,
   },
   computed: {
     ...mapState([ 'user' ]),

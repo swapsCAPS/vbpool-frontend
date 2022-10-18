@@ -1,12 +1,12 @@
 <template lang="pug">
-  .head
-    h1 {{ title }}
-    h2(v-if="subtext") {{ subtext }}
+.head
+  h1 {{ title }}
+  h2(v-if="subtext") {{ subtext }}
 </template>
 
 <script>
 export default {
-  name:  'Header',
+  name:  'HeaderComponent',
   props: {
     title: {
       type:    String,

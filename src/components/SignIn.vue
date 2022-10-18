@@ -64,6 +64,7 @@ export default {
     ...mapMutations([ 'setVerificationMailSent' ]),
     onVerifyEmail () {
       const { email } = this.userInfo
+      console.log('email', email)
       if (!emailRE.test(email)) return window.alert('Dit is geen geldig email adres')
 
       apiCalls.sendSignInLink(email)

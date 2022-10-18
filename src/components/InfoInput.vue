@@ -4,8 +4,7 @@
   h3.d-flex.input
     input.flex-fill(
       :type="inputType"
-      :value="value"
-      @input="$emit('input', $event.target.value)"
+      v-model="value"
     )
 </template>
 

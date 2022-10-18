@@ -30,19 +30,15 @@ if (location.hostname === 'localhost') {
 
 ;(async function go () {
   const user = await fbAuthObservablePromiseWrapper()
-  const app  = createApp({
-    async created () {
-      if (user) {
-        store.commit('setLoggedIn', true)
-        store.commit('setUser', user)
-      } else {
-        store.commit('setLoggedIn', false)
-        store.commit('resetUser')
-      }
-    },
-    render: h => h(App),
+  if (user) {
+    store.commit('setLoggedIn', true)
+    store.commit('setUser', user)
+  } else {
+    store.commit('setLoggedIn', false)
+    store.commit('resetUser')
+  }
 
-  })
+  const app = createApp(App)
 
   app.use(router)
   app.use(store)

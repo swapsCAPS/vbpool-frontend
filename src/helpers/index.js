@@ -6,8 +6,6 @@ export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 export const fbAuthObservablePromiseWrapper = (app) => new Promise((resolve, reject) => {
   const auth  = getAuth(app)
   const unsub = onAuthStateChanged(auth, async (user, error) => {
-    console.log('user', user)
-    console.log('error', error)
     unsub()
     if (error) return reject(error)
     if (!user) return resolve()

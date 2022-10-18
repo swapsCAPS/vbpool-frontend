@@ -10,7 +10,8 @@
       min="1"
       max="4"
       @keypress="checkInput($event)"
-      v-model="value[team.team]"
+      :value="modelValue[team.team]"
+      @input="$emit('update:modelValue', $event.target.value)"
     )
 </template>
 
@@ -19,8 +20,8 @@ export default {
   name: 'GroupStage',
 
   props: {
-    group: Object,
-    value: Object,
+    group:      Object,
+    modelValue: Object,
   },
 
   methods: {

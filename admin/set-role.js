@@ -18,7 +18,6 @@ admin.auth().getUserByEmail(email)
   .then(user => {
     if (!user.emailVerified) throw new Error('user not verified')
 
-    console.log('user', user)
     return user
   }).then(user => {
     return admin.auth().setCustomUserClaims(user.uid, {

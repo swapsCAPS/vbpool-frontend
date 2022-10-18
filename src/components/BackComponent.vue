@@ -26,17 +26,17 @@ div
     .col-12
       .row.tables
         .col-12.col-xl-6
-          Table(
+          TableComponent(
             :games="games.left"
             :form="page2"
           )
         .col-12.col-xl-6
-          Table(
+          TableComponent(
             :games="games.right"
             :form="page2"
           )
         Disabler(
-          :isDisabled="!user.isLoggedIn || !route.params.poolId"
+          :isDisabled="!user.isLoggedIn || !$route.params.poolId"
           message="Vul eerst een naam in voor deze pool en klik op \"Aanmaken\""
         )
   .row
@@ -56,7 +56,7 @@ import { mapState } from 'vuex'
 import allGames from '../assets/games.json'
 
 export default {
-  name: 'Back',
+  name: 'BackComponent',
 
   components: {
     HeaderComponent,

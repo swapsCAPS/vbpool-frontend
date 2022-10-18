@@ -1,5 +1,4 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
 
 import { createApp } from 'vue'
 
@@ -29,14 +28,14 @@ if (location.hostname === 'localhost') {
 }
 
 ;(async function go () {
-  // const user = await fbAuthObservablePromiseWrapper(fbApp)
-  // if (user) {
-  // store.commit('setLoggedIn', true)
-  // store.commit('setUser', user)
-  // } else {
-  // store.commit('setLoggedIn', false)
-  // store.commit('resetUser')
-  // }
+  const user = await fbAuthObservablePromiseWrapper(fbApp)
+  if (user) {
+    store.commit('setLoggedIn', true)
+    store.commit('setUser', user)
+  } else {
+    store.commit('setLoggedIn', false)
+    store.commit('resetUser')
+  }
 
   const app = createApp(App)
 

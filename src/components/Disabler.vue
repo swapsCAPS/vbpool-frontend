@@ -34,6 +34,7 @@ export default {
 }
 
 .disabler {
+  z-index: 9999;
   position: absolute;
   top: 0;
   left: 0;

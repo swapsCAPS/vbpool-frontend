@@ -3,11 +3,11 @@
   .d-flex.is-saving-spinner(v-if="isSaving")
     .spinner(v-if="isSaving")
   .container
-    .row
+    .row.g-0
       .col-12
         NavBar
   .container.mt-4
-    .row
+    .row.g-0
       .col-12
         router-view
 </template>
@@ -96,8 +96,8 @@ input[type=number] {
 .a4 {
   background-color: #fcfdff;
   padding-bottom: 3rem;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .vbp-border {

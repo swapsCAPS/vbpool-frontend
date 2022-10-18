@@ -5,10 +5,10 @@ import { getField, updateField } from 'vuex-map-fields'
 
 import { getDefaultData } from '../helpers'
 
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, doc, setDoc, query, where, getDocs } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
-import router from '../router'
+import { useRouter } from 'vue-router'
 
 const { page1, page2 } = getDefaultData()
 
@@ -66,18 +66,17 @@ const store = createStore({
       const db = getFirestore()
 
       commit('setSaving', true)
-      const list = await db
-        .collection('pools')
-        .where('userId', '==', getAuth().currentUser.uid)
-        .get()
+      const list = await getDocs(
+        query(
+          collection(db, 'pools'),
+          where('userId', '==', getAuth().currentUser.uid),
+        ),
+      )
       if (list.docs.length >= 10) return alert('Je kunt niet meer dan 10 pools aanmaken')
 
       const userId = getAuth().currentUser.uid
 
-      const pool = db.collection('pools').doc()
-      const form = db.collection('pools').doc(pool.id).collection('forms').doc('form')
-
-      await pool.set({
+      const pool = await addDoc(collection(db, 'pools'), {
         userId,
         meta: {
           poolName: state.form.page1.meta.poolName,
@@ -88,11 +87,12 @@ const store = createStore({
         },
       })
 
-      await form.set(state.form)
+      const formRef = doc(db, [ 'pools', pool.id, 'forms', 'form' ])
+      await setDoc(formRef, state.form)
 
       commit('setSaving', false)
 
-      router.push({ name: 'edit-form', params: { poolId: pool.id } })
+      useRouter().push({ name: 'edit-form', params: { poolId: pool.id } })
     },
 
     async readPool ({ commit }, id) {
@@ -116,7 +116,10 @@ const store = createStore({
     },
 
     async updatePool ({ state, commit }) {
-      const { poolId } = state.route.params
+      console.log('router', useRouter)
+      console.log('router', useRouter())
+      console.log('router.currentRoute', useRouter().currentRoute)
+      const { poolId } = useRouter().currentRoute.params
       if (!poolId) return
 
       if (state.isSaving) return // Maybe we should cancel the current and invoke the next save...
@@ -133,8 +136,8 @@ const store = createStore({
       }, 1500)
     },
 
-    async deletePool ({ state, commit }) {
-      const { poolId } = state.route.params
+    async deletePool ({ commit }) {
+      const { poolId } = useRouter().currentRoute.params
       if (!poolId) return
 
       const shoulddiscard = confirm('Weet je zeker dat je deze pool wilt verwijderen?')
@@ -152,7 +155,7 @@ const store = createStore({
 
       commit('discard')
 
-      router.push({ path: '/your-pools' })
+      useRouter().push({ path: '/your-pools' })
     },
 
     async listUserPools ({ commit }) {

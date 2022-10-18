@@ -57,8 +57,8 @@ div
                 p De hoogste deelnemers in de totaalstand krijgen de volgende prijzen:
                 p 1e pl: 50%, 2de pl: 30%, 3e pl: 15%, 4e pl: 5% van de totale inleg (minus de dagprijzen en de rode lantaarn)
           li Bij een gelijk aantal punten wordt de betreffende prijs verdeeld
-  .row
-    .col
+  .row.dingen
+    .col.position-relative
       .row
         .col
           SectionComponent(

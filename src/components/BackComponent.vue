@@ -23,7 +23,7 @@ div
         h3 Punten
         p Ruststand goed: 2 pnt, Eindstand goed: 3 pnt, Toto goed: 4 pnt. Totaal aantal doelpunten op één dag goed: 5 pnt.
   .row
-    .col-12
+    .col-12.position-relative
       .row.tables
         .col-12.col-xl-6
           TableComponent(

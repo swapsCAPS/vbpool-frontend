@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
 
 import { createApp } from 'vue'
 
@@ -14,11 +15,17 @@ import { firebaseConfig } from './constants'
 
 import { fbAuthObservablePromiseWrapper } from './helpers'
 
-import store from './store'
-import router from './router'
-
+/* eslint-disable-next-line */
 const fbApp = initializeApp(firebaseConfig)
-console.log('firebaseConfig', firebaseConfig)
+
+/* eslint-disable-next-line */
+getFirestore(fbApp)
+
+/* eslint-disable-next-line */
+import router from './router'
+/* eslint-disable-next-line */
+import store from './store'
+
 if (location.hostname === 'localhost') {
   // const db = getFirestore(fbApp)
   // db.settings({

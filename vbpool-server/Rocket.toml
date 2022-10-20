@@ -1,0 +1,2 @@
+[default.databases.vbpool.db]
+url = "/home/dan/code/vbpool-frontend/vbpool-server/data/vbpool.db"

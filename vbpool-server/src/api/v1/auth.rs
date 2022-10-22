@@ -1,15 +1,18 @@
-use rocket::{form::Form, get, post};
+use rocket::{form::Form, get, post, Responder};
+use rocket::{routes, Route};
 use rocket_auth::{Auth, Error, Login, Signup};
 
 #[post("/signup", data = "<form>")]
-pub async fn signup(form: Form<Signup>, auth: Auth<'_>) -> Result<&'static str, Error> {
+async fn signup(mut form: Form<Signup>, auth: Auth<'_>) -> Result<&'static str, Error> {
+    form.email = form.email.to_lowercase();
+
     auth.signup(&form).await?;
-    auth.login(&form.into());
+    auth.login(&form.into()).await?;
     Ok("You signed up.")
 }
 
 #[post("/login", data = "<form>")]
-pub async fn login(
+async fn login(
     form: rocket::serde::json::Json<Login>,
     auth: Auth<'_>,
 ) -> Result<&'static str, Error> {
@@ -18,6 +21,10 @@ pub async fn login(
 }
 
 #[get("/logout")]
-pub fn logout(auth: Auth<'_>) {
+fn logout(auth: Auth<'_>) {
     auth.logout();
+}
+
+pub fn router() -> Vec<Route> {
+    routes![signup, login, logout]
 }

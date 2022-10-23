@@ -17,7 +17,7 @@ pub async fn get_users_db() -> Result<(Pool<Sqlite>, Users), rocket_auth::Error>
  */
 async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
     match super::models::Db::fetch(&rocket) {
-        Some(db) => match rocket_db_pools::sqlx::migrate!("./db/migrations")
+        Some(db) => match rocket_db_pools::sqlx::migrate!("db/migrations")
             .run(&**db)
             .await
         {

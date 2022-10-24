@@ -3,12 +3,10 @@ use rocket_auth::Users;
 use rocket_db_pools::sqlx::{Pool, Sqlite, SqlitePool};
 use rocket_db_pools::Database;
 
-pub async fn get_users_db() -> Result<(Pool<Sqlite>, Users), rocket_auth::Error> {
+pub async fn get_db() -> Result<Pool<Sqlite>, rocket_auth::Error> {
     let conn: Pool<Sqlite> = SqlitePool::connect("data/vbpool.db").await?;
-    let users: Users = conn.clone().into();
-    users.create_table().await?;
 
-    Ok((conn, users))
+    Ok(conn)
 }
 
 /*
@@ -31,10 +29,14 @@ async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
     }
 }
 
-pub async fn rocket(conn: Pool<Sqlite>, users: Users) -> Rocket<Build> {
+pub async fn rocket(conn: Pool<Sqlite>) -> Rocket<Build> {
+    let users: Users = conn.clone().into();
+    users.create_table().await.unwrap();
+
     rocket::build()
         .mount("/api/v1/auth", super::api::v1::auth::router())
         .mount("/api/v1/health", routes![super::api::v1::health,])
+        .mount("/api/v1", routes![super::api::v1::post_form])
         .attach(super::models::Db::init())
         .attach(AdHoc::try_on_ignite("migrations", run_migrations))
         .manage(users)

@@ -1,23 +1,10 @@
-use rocket::{
-    get, post,
-    response::status::BadRequest,
-    serde::{json::Json, Deserialize},
-    Responder,
-};
+use rocket::{get, post, serde::json::Json};
 use rocket_auth::{Error, User};
 use rocket_db_pools::{sqlx, Connection};
 
-use crate::models::Db;
+use crate::models::{Db, PoolForm};
 
 pub mod auth;
-
-#[derive(Deserialize)]
-#[serde(crate = "rocket::serde")]
-struct PoolForm {
-    #[serde(skip_deserializing, skip_serializing_if = "Option::is_none")]
-    id: Option<i64>,
-    name: String,
-}
 
 #[get("/")]
 pub async fn health() -> Result<&'static str, Error> {
@@ -33,11 +20,31 @@ pub async fn health() -> Result<&'static str, Error> {
 // }
 
 #[post("/form", data = "<pool_form>")]
-async fn post_form(mut db: Connection<Db>, user: User, pool_form: Json<PoolForm>) -> () {
+pub async fn post_form(
+    mut db: Connection<Db>,
+    user: User,
+    pool_form: Json<PoolForm>,
+) -> Option<Json<PoolForm>> {
     // TODO
-    sqlx::query("INSERT INTO pool_forms (pool_form_name) VALUES (?)")
-        .bind(&pool_form.name)
-        .execute(&mut *db)
+    let result = sqlx::query(
+        "
+        INSERT INTO pool_forms
+        (pool_form_name, pool_form_user_id, pool_form_is_paid)
+        VALUES (?, ?, ?)
+        ",
+    )
+    .bind(&pool_form.pool_form_name)
+    .bind(user.id())
+    .bind(false)
+    .execute(&mut *db)
+    .await
+    .unwrap();
+
+    let form: PoolForm = sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_id = ?")
+        .bind(result.last_insert_rowid())
+        .fetch_one(&mut *db)
         .await
         .unwrap();
+
+    return Some(Json(form));
 }

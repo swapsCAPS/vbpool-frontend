@@ -6,9 +6,9 @@ mod models;
 
 #[launch]
 async fn rocket() -> _ {
-    let (db, users) = app::get_users_db().await.unwrap();
+    let db = app::get_db().await.unwrap();
 
-    app::rocket(db, users).await
+    app::rocket(db).await
 }
 
 #[cfg(test)]

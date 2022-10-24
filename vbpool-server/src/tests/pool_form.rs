@@ -1,33 +1,56 @@
-use super::super::app::{get_users_db, rocket};
+use crate::models::PoolForm;
+
+use super::super::app::{get_db, rocket};
 use rocket::http::{ContentType, Status};
 use rocket::local::asynchronous::Client;
-use rocket_auth::Users;
+use rocket::serde::json::json;
 
-use super::common::fixtures;
-
-async fn setup() {
-    let (db, users) = get_users_db().await.unwrap();
-
-    users
-        .create_user(fixtures::EMAIL, fixtures::PASSWORD, false)
-        .await
-        .unwrap();
-}
-
-async fn teardown(users: Users) {
-    let user = users.get_by_email(fixtures::EMAIL).await.unwrap();
-    users.delete(user.id()).await.unwrap();
-}
+use super::common::{fixtures, setup, signup};
 
 #[rocket::async_test]
 async fn post_form() {
-    let (db, users) = get_users_db().await.unwrap();
+    setup().await;
 
-    let client = Client::tracked(rocket(db, users).await)
+    let db = get_db().await.unwrap();
+
+    let client = Client::tracked(rocket(db).await)
         .await
         .expect("valid rocket");
 
-    let response = client.post("/api/v1/form").dispatch().await;
+    signup(&client).await;
+
+    let response = client
+        .post("/api/v1/auth/login")
+        .body(
+            json!({
+                "email": fixtures::EMAIL,
+                "password": fixtures::PASSWORD,
+            })
+            .to_string(),
+        )
+        .header(ContentType::JSON)
+        .dispatch()
+        .await;
+
+    println!("{}", response.into_string().await.unwrap());
+    // assert_eq!(response.status(), Status::Ok);
+
+    let response = client
+        .post("/api/v1/form")
+        .body(
+            json!({
+                "pool_form_name": "dingen",
+                "pool_form_is_paid": true,
+                "pool_form_user_id": 9999,
+            })
+            .to_string(),
+        )
+        .header(ContentType::JSON)
+        .dispatch()
+        .await;
+
     assert_eq!(response.status(), Status::Ok);
-    assert_eq!(response.into_string().await.unwrap(), "Banana!");
+    let pool_form: PoolForm = response.into_json().await.unwrap();
+    assert_eq!(pool_form.pool_form_user_id, Some(1));
+    assert_eq!(pool_form.pool_form_is_paid, Some(false));
 }

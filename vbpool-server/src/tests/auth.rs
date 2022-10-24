@@ -1,26 +1,15 @@
-use super::super::app::{get_users_db, rocket};
+use super::super::app::{get_db, rocket};
 use rocket::http::{ContentType, Status};
-use rocket::local::asynchronous::Client;
+use rocket::local::asynchronous::{Client, LocalResponse};
+use rocket_auth::Users;
 
-use super::common::fixtures;
-
-async fn setup() {
-    let (db, users) = get_users_db().await.unwrap();
-
-    if let Ok(id) = users.get_by_email(fixtures::EMAIL).await {
-        users.delete(id.id()).await.unwrap();
-    }
-}
-
-async fn teardown() {
-    // TODO
-}
+use super::common::{fixtures, setup, signup};
 
 #[rocket::async_test]
 async fn health() {
-    let (db, users) = get_users_db().await.unwrap();
+    let db = get_db().await.unwrap();
 
-    let client = Client::tracked(rocket(db, users).await)
+    let client = Client::tracked(rocket(db).await)
         .await
         .expect("valid rocket");
 
@@ -33,27 +22,20 @@ async fn health() {
 async fn signup_happy() {
     setup().await;
 
-    let (db, users) = get_users_db().await.unwrap();
+    let db = get_db().await.unwrap();
 
-    let client = Client::tracked(rocket(db, users).await)
+    let client = Client::tracked(rocket(db).await)
         .await
         .expect("valid rocket");
 
-    let response = client
-        .post("/api/v1/auth/signup")
-        .body(format!(
-            "email={}&password={}",
-            fixtures::UPPER_EMAIL,
-            fixtures::PASSWORD
-        ))
-        .header(ContentType::Form)
-        .dispatch()
-        .await;
+    let response: LocalResponse = signup(&client).await;
 
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.into_string().await.unwrap(), "You signed up.");
 
-    let (_, users) = get_users_db().await.unwrap();
+    let db = get_db().await.unwrap();
+
+    let users: Users = db.clone().into();
 
     let user = users.get_by_email(fixtures::EMAIL).await.unwrap();
 

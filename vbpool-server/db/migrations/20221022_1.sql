@@ -10,6 +10,7 @@ CREATE TABLE pool_forms (
 CREATE TABLE pool_form_group_stage (
   pool_form_group_stage_id INTEGER PRIMARY KEY AUTOINCREMENT,
   pool_form_id INTEGER NOT NULL,
+  pool_form_group_stage_letter VARCHAR NOT NULL,
   pool_form_group_stage_pos_1 VARCHAR NOT NULL,
   pool_form_group_stage_pos_2 VARCHAR NOT NULL,
   pool_form_group_stage_pos_3 VARCHAR NOT NULL,

@@ -39,6 +39,7 @@ pub async fn rocket(conn: Pool<Sqlite>) -> Rocket<Build> {
             "/api/v1",
             routes![
                 super::api::v1::post_form,
+                super::api::v1::patch_form,
                 super::api::v1::delete_form,
                 super::api::v1::health,
             ],

@@ -1,4 +1,3 @@
-use rocket::response::content;
 use rocket::{
     delete, get,
     http::{ContentType, Status},
@@ -34,6 +33,42 @@ pub async fn post_form(
     .bind(user.id())
     .bind(false)
     .bind("{}")
+    .execute(&mut *db)
+    .await
+    .unwrap();
+
+    let form: PoolForm = sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_id = ?")
+        .bind(result.last_insert_rowid())
+        .fetch_one(&mut *db)
+        .await
+        .unwrap();
+
+    return Some(Json(form));
+}
+
+#[patch("/form/<id>", data = "<pool_form>")]
+pub async fn patch_form(
+    mut db: Connection<Db>,
+    user: User,
+    pool_form: Json<PoolForm>,
+    id: i64,
+) -> Option<Json<PoolForm>> {
+    let result = sqlx::query(
+        "
+        UPDATE pool_forms
+        SET pool_form_name = ?,
+            pool_form_json = ?
+        WHERE
+            pool_form_user_id = ? AND
+            pool_form_id = ? AND
+            pool_form_is_paid = ?
+        ",
+    )
+    .bind(&pool_form.pool_form_name)
+    .bind(&pool_form.pool_form_json)
+    .bind(user.id())
+    .bind(&id)
+    .bind(false)
     .execute(&mut *db)
     .await
     .unwrap();

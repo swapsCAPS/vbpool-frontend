@@ -13,4 +13,5 @@ pub struct PoolForm {
     pub pool_form_name: String,
     pub pool_form_user_id: Option<i64>,
     pub pool_form_is_paid: Option<bool>,
+    pub pool_form_json: Option<String>,
 }

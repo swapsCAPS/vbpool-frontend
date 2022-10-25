@@ -5,7 +5,7 @@ use rocket::http::{ContentType, Status};
 use rocket::local::asynchronous::Client;
 use rocket::serde::json::json;
 
-use super::common::{fixtures, setup, signup};
+use super::common::{login, setup, signup};
 
 #[rocket::async_test]
 async fn post_form() {
@@ -19,21 +19,7 @@ async fn post_form() {
 
     signup(&client).await;
 
-    let response = client
-        .post("/api/v1/auth/login")
-        .body(
-            json!({
-                "email": fixtures::EMAIL,
-                "password": fixtures::PASSWORD,
-            })
-            .to_string(),
-        )
-        .header(ContentType::JSON)
-        .dispatch()
-        .await;
-
-    println!("{}", response.into_string().await.unwrap());
-    // assert_eq!(response.status(), Status::Ok);
+    login(&client).await;
 
     let response = client
         .post("/api/v1/form")
@@ -41,7 +27,7 @@ async fn post_form() {
             json!({
                 "pool_form_name": "dingen",
                 "pool_form_is_paid": true,
-                "pool_form_user_id": 9999,
+                "pool_form_user_id": 1_000_000,
             })
             .to_string(),
         )
@@ -51,6 +37,68 @@ async fn post_form() {
 
     assert_eq!(response.status(), Status::Ok);
     let pool_form: PoolForm = response.into_json().await.unwrap();
+
     assert_eq!(pool_form.pool_form_user_id, Some(1));
     assert_eq!(pool_form.pool_form_is_paid, Some(false));
+}
+
+#[rocket::async_test]
+async fn delete_form() {
+    setup().await;
+
+    let db = get_db().await.unwrap();
+
+    let client = Client::tracked(rocket(db.clone()).await)
+        .await
+        .expect("valid rocket");
+
+    signup(&client).await;
+    login(&client).await;
+
+    let pool_form_name = "deleteme";
+
+    client
+        .post("/api/v1/form")
+        .body(json!({ "pool_form_name": pool_form_name, }).to_string())
+        .header(ContentType::JSON)
+        .dispatch()
+        .await;
+
+    let inserted_form: PoolForm =
+        sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
+            .bind(pool_form_name)
+            .fetch_one(&db)
+            .await
+            .expect(&format!(
+                "Did not insert a form with name: {}",
+                &pool_form_name,
+            ));
+
+    let response = client
+        .delete(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .dispatch()
+        .await;
+
+    assert_eq!(response.status(), Status::Ok);
+
+    let rows: Vec<PoolForm> = sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
+        .bind(pool_form_name)
+        .fetch_all(&db)
+        .await
+        .unwrap();
+
+    assert_eq!(
+        rows.len(),
+        0,
+        "Got more rows than I expected after deletion!"
+    );
+}
+
+#[ignore]
+#[rocket::async_test]
+async fn delete_unauthorized_form() {
+    // TODO
 }

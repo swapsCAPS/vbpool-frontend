@@ -1,6 +1,7 @@
 use super::super::app::get_db;
 use rocket::http::ContentType;
 use rocket::local::asynchronous::{Client, LocalResponse};
+use rocket::serde::json::json;
 use rocket_db_pools::sqlx;
 
 pub mod fixtures {
@@ -43,4 +44,19 @@ pub async fn signup<'a>(client: &'a Client) -> LocalResponse<'a> {
         .await;
 
     return response;
+}
+
+pub async fn login(client: &Client) {
+    let response = client
+        .post("/api/v1/auth/login")
+        .body(
+            json!({
+                "email": fixtures::EMAIL,
+                "password": fixtures::PASSWORD,
+            })
+            .to_string(),
+        )
+        .header(ContentType::JSON)
+        .dispatch()
+        .await;
 }

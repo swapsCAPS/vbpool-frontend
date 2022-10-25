@@ -35,8 +35,14 @@ pub async fn rocket(conn: Pool<Sqlite>) -> Rocket<Build> {
 
     rocket::build()
         .mount("/api/v1/auth", super::api::v1::auth::router())
-        .mount("/api/v1/health", routes![super::api::v1::health,])
-        .mount("/api/v1", routes![super::api::v1::post_form])
+        .mount(
+            "/api/v1",
+            routes![
+                super::api::v1::post_form,
+                super::api::v1::delete_form,
+                super::api::v1::health,
+            ],
+        )
         .attach(super::models::Db::init())
         .attach(AdHoc::try_on_ignite("migrations", run_migrations))
         .manage(users)

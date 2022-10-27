@@ -16,12 +16,31 @@ pub async fn health() -> Result<&'static str, Error> {
     Ok("Banana!")
 }
 
+#[get("/form/<id>")]
+pub async fn get_form(mut db: Connection<Db>, user: User, id: i64) -> Option<Json<PoolForm>> {
+    let pool_form: PoolForm = sqlx::query_as(
+        "
+        SELECT * FROM pool_forms
+        WHERE
+            pool_form_user_id = ? AND
+            pool_form_id = ?
+        ",
+    )
+    .bind(user.id())
+    .bind(&id)
+    .fetch_one(&mut *db)
+    .await
+    .unwrap();
+
+    return Some(Json(pool_form));
+}
+
 #[post("/form", data = "<pool_form>")]
 pub async fn post_form(
     mut db: Connection<Db>,
     user: User,
     pool_form: Json<PoolForm>,
-) -> Option<Json<PoolForm>> {
+) -> Json<PoolForm> {
     let result = sqlx::query(
         "
         INSERT INTO pool_forms
@@ -43,7 +62,7 @@ pub async fn post_form(
         .await
         .unwrap();
 
-    return Some(Json(form));
+    return Json(form);
 }
 
 #[patch("/form/<id>", data = "<pool_form>")]

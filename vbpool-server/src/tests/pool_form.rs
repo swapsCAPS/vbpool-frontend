@@ -5,7 +5,7 @@ use rocket::http::{ContentType, Status};
 use rocket::local::asynchronous::Client;
 use rocket::serde::json::json;
 
-use super::common::{login, setup, signup};
+use super::common::{login, post_form_fixture, setup, signup};
 
 #[rocket::async_test]
 async fn post_form() {
@@ -57,12 +57,7 @@ async fn delete_form() {
 
     let pool_form_name = "deleteme";
 
-    client
-        .post("/api/v1/form")
-        .body(json!({ "pool_form_name": pool_form_name, }).to_string())
-        .header(ContentType::JSON)
-        .dispatch()
-        .await;
+    post_form_fixture(&client, pool_form_name).await;
 
     let inserted_form: PoolForm =
         sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
@@ -95,6 +90,37 @@ async fn delete_form() {
         0,
         "Got more rows than I expected after deletion!"
     );
+}
+
+#[rocket::async_test]
+async fn patch_form() {
+    setup().await;
+
+    let db = get_db().await.unwrap();
+
+    let client = Client::tracked(rocket(db.clone()).await)
+        .await
+        .expect("valid rocket");
+
+    signup(&client).await;
+    login(&client).await;
+
+    let pool_form_name = "please_update_me";
+
+    post_form_fixture(&client, pool_form_name).await;
+
+    let inserted_form: PoolForm =
+        sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
+            .bind(pool_form_name)
+            .fetch_one(&db)
+            .await
+            .expect(&format!(
+                "Did not insert a form with name: {}",
+                &pool_form_name,
+            ));
+
+    assert_eq!(inserted_form.pool_form_json.unwrap(), "{}");
+    // TODO test updating indicidual fields
 }
 
 #[ignore]

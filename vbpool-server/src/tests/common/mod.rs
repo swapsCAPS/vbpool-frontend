@@ -60,3 +60,12 @@ pub async fn login(client: &Client) {
         .dispatch()
         .await;
 }
+
+pub async fn post_form_fixture(client: &Client, pool_form_name: &'static str) {
+    client
+        .post("/api/v1/form")
+        .body(json!({ "pool_form_name": pool_form_name, }).to_string())
+        .header(ContentType::JSON)
+        .dispatch()
+        .await;
+}

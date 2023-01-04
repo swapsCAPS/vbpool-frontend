@@ -17,7 +17,7 @@ async fn post_form() {
         .await
         .expect("valid rocket");
 
-    signup(&client).await;
+    signup(&client, None).await;
 
     login(&client).await;
 
@@ -52,7 +52,7 @@ async fn delete_form() {
         .await
         .expect("valid rocket");
 
-    signup(&client).await;
+    signup(&client, None).await;
     login(&client).await;
 
     let pool_form_name = "deleteme";
@@ -102,7 +102,7 @@ async fn patch_form() {
         .await
         .expect("valid rocket");
 
-    signup(&client).await;
+    signup(&client, None).await;
     login(&client).await;
 
     let pool_form_name = "please_update_me";

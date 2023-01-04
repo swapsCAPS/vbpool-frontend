@@ -28,7 +28,7 @@ async fn signup_happy() {
         .await
         .expect("valid rocket");
 
-    let response: LocalResponse = signup(&client).await;
+    let response: LocalResponse = signup(&client, None).await;
 
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.into_string().await.unwrap(), "You signed up.");

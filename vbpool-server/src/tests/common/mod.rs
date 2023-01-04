@@ -31,12 +31,12 @@ pub async fn setup() {
         .unwrap();
 }
 
-pub async fn signup<'a>(client: &'a Client) -> LocalResponse<'a> {
+pub async fn signup<'a>(client: &'a Client, email: Option<&str>) -> LocalResponse<'a> {
     let response = client
         .post("/api/v1/auth/signup")
         .body(format!(
             "email={}&password={}",
-            fixtures::UPPER_EMAIL,
+            email.unwrap_or(fixtures::UPPER_EMAIL),
             fixtures::PASSWORD
         ))
         .header(ContentType::Form)
@@ -61,6 +61,9 @@ pub async fn login(client: &Client) {
         .await;
 }
 
+/**
+ * Creates a pool form with a given name
+ */
 pub async fn post_form_fixture(client: &Client, pool_form_name: &'static str) {
     client
         .post("/api/v1/form")

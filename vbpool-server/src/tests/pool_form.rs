@@ -4,6 +4,7 @@ use super::super::app::{get_db, rocket};
 use rocket::http::{ContentType, Status};
 use rocket::local::asynchronous::Client;
 use rocket::serde::json::json;
+use rocket_db_pools::sqlx::{Pool, Sqlite, SqlitePool};
 
 use super::common::{login, post_form_fixture, setup, signup};
 
@@ -19,7 +20,7 @@ async fn post_form() {
 
     signup(&client, None).await;
 
-    login(&client).await;
+    login(&client, None).await;
 
     let response = client
         .post("/api/v1/form")
@@ -53,7 +54,7 @@ async fn delete_form() {
         .expect("valid rocket");
 
     signup(&client, None).await;
-    login(&client).await;
+    login(&client, None).await;
 
     let pool_form_name = "deleteme";
 
@@ -103,7 +104,7 @@ async fn patch_form() {
         .expect("valid rocket");
 
     signup(&client, None).await;
-    login(&client).await;
+    login(&client, None).await;
 
     let pool_form_name = "please_update_me";
 
@@ -123,8 +124,56 @@ async fn patch_form() {
     // TODO test updating indicidual fields
 }
 
-#[ignore]
 #[rocket::async_test]
 async fn delete_unauthorized_form() {
-    // TODO
+    setup().await;
+
+    let db = get_db().await.unwrap();
+
+    async fn get_logged_in_client(db: &Pool<Sqlite>, email: &str) -> Client {
+        let client = Client::tracked(rocket(db.clone()).await)
+            .await
+            .expect("valid rocket");
+
+        signup(&client, Some(email)).await;
+        login(&client, Some(email)).await;
+
+        return client;
+    }
+
+    let client1 = get_logged_in_client(&db, "bla1@bla.com").await;
+    let client2 = get_logged_in_client(&db, "bla2@bla.com").await;
+
+    let pool_form_name = "deleteme";
+
+    post_form_fixture(&client1, pool_form_name).await;
+
+    let inserted_form: PoolForm =
+        sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
+            .bind(pool_form_name)
+            .fetch_one(&db)
+            .await
+            .unwrap();
+
+    let response = client2
+        .delete(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .dispatch()
+        .await;
+
+    // Client 2 is not allowed to delete and will receive a 404
+    assert_eq!(response.status(), Status::NotFound);
+
+    let response = client1
+        .delete(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .dispatch()
+        .await;
+
+    // Client 1 _is_ not allowed to delete and will receive a 404
+    assert_eq!(response.status(), Status::Ok);
 }

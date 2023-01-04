@@ -46,12 +46,12 @@ pub async fn signup<'a>(client: &'a Client, email: Option<&str>) -> LocalRespons
     return response;
 }
 
-pub async fn login(client: &Client) {
+pub async fn login(client: &Client, email: Option<&str>) {
     let response = client
         .post("/api/v1/auth/login")
         .body(
             json!({
-                "email": fixtures::EMAIL,
+                "email": email.unwrap_or(fixtures::EMAIL),
                 "password": fixtures::PASSWORD,
             })
             .to_string(),

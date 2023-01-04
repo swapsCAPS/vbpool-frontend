@@ -1,7 +1,7 @@
 # vbpool-server
 
 ## TODO
-- [ ] Stuff
+- [x] Test if deleting other user's forms is allowed
 
 ## Testing
 Since tests use a single DB to hold state we need to run them in series using:

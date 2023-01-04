@@ -107,7 +107,7 @@ pub async fn delete_form(
     user: User,
     id: i64,
 ) -> (Status, (ContentType, rocket::serde::json::Value)) {
-    sqlx::query(
+    let result = sqlx::query(
         "
         DELETE FROM pool_forms
         WHERE
@@ -122,6 +122,16 @@ pub async fn delete_form(
     .execute(&mut *db)
     .await
     .unwrap();
+
+    if result.rows_affected() == 0 {
+        return (
+            Status::NotFound,
+            (
+                ContentType::JSON,
+                json!({ "message": "not found", "meta": id }),
+            ),
+        );
+    }
 
     return (
         Status::Ok,

@@ -8,19 +8,24 @@ use rocket_db_pools::sqlx::{Pool, Sqlite, SqlitePool};
 
 use super::common::{login, post_form_fixture, setup, signup};
 
+async fn get_logged_in_client(db: &Pool<Sqlite>, email: Option<&str>) -> Client {
+    let client = Client::tracked(rocket(db.clone()).await)
+        .await
+        .expect("valid rocket");
+
+    signup(&client, email).await;
+    login(&client, email).await;
+
+    return client;
+}
+
 #[rocket::async_test]
 async fn post_form() {
     setup().await;
 
     let db = get_db().await.unwrap();
 
-    let client = Client::tracked(rocket(db).await)
-        .await
-        .expect("valid rocket");
-
-    signup(&client, None).await;
-
-    login(&client, None).await;
+    let client = get_logged_in_client(&db, None).await;
 
     let response = client
         .post("/api/v1/form")
@@ -49,12 +54,7 @@ async fn delete_form() {
 
     let db = get_db().await.unwrap();
 
-    let client = Client::tracked(rocket(db.clone()).await)
-        .await
-        .expect("valid rocket");
-
-    signup(&client, None).await;
-    login(&client, None).await;
+    let client = get_logged_in_client(&db, None).await;
 
     let pool_form_name = "deleteme";
 
@@ -99,12 +99,7 @@ async fn patch_form() {
 
     let db = get_db().await.unwrap();
 
-    let client = Client::tracked(rocket(db.clone()).await)
-        .await
-        .expect("valid rocket");
-
-    signup(&client, None).await;
-    login(&client, None).await;
+    let client = get_logged_in_client(&db, None).await;
 
     let pool_form_name = "please_update_me";
 
@@ -121,32 +116,56 @@ async fn patch_form() {
             ));
 
     assert_eq!(inserted_form.pool_form_json.unwrap(), "{}");
-    // TODO test updating indicidual fields
+
+    let pool_form_name = "new things!";
+    let pool_form_json = json!({ "awesome": "fields" }).to_string();
+
+    let response = client
+        .patch(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .body(
+            json!({
+                "pool_form_name": pool_form_name,
+                "pool_form_is_paid": true,
+                "pool_form_user_id": 1_000_000,
+                "pool_form_json": pool_form_json,
+            })
+            .to_string(),
+        )
+        .dispatch()
+        .await;
+
+    assert_eq!(response.status(), Status::Ok);
+
+    let inserted_form: PoolForm = sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_id = ?")
+        .bind(inserted_form.pool_form_id)
+        .fetch_one(&db)
+        .await
+        .unwrap();
+
+    /*
+     * It has changed the json
+     */
+    assert_eq!(inserted_form.pool_form_name, pool_form_name);
+    assert_eq!(inserted_form.pool_form_json.unwrap(), pool_form_json);
+    assert_eq!(inserted_form.pool_form_is_paid.unwrap(), false);
+    assert_eq!(inserted_form.pool_form_user_id.unwrap(), 1);
 }
 
 #[rocket::async_test]
-async fn delete_unauthorized_form() {
+async fn unauthorized_form_delete() {
     setup().await;
 
     let db = get_db().await.unwrap();
 
-    async fn get_logged_in_client(db: &Pool<Sqlite>, email: &str) -> Client {
-        let client = Client::tracked(rocket(db.clone()).await)
-            .await
-            .expect("valid rocket");
-
-        signup(&client, Some(email)).await;
-        login(&client, Some(email)).await;
-
-        return client;
-    }
-
-    let client1 = get_logged_in_client(&db, "bla1@bla.com").await;
-    let client2 = get_logged_in_client(&db, "bla2@bla.com").await;
+    let authorized = get_logged_in_client(&db, Some("bla1@bla.com")).await;
+    let unauthorized = get_logged_in_client(&db, Some("bla2@bla.com")).await;
 
     let pool_form_name = "deleteme";
 
-    post_form_fixture(&client1, pool_form_name).await;
+    post_form_fixture(&authorized, pool_form_name).await;
 
     let inserted_form: PoolForm =
         sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
@@ -155,7 +174,10 @@ async fn delete_unauthorized_form() {
             .await
             .unwrap();
 
-    let response = client2
+    /*
+     * Test DELETE
+     */
+    let response = unauthorized
         .delete(format!(
             "/api/v1/form/{}",
             inserted_form.pool_form_id.unwrap()
@@ -166,11 +188,58 @@ async fn delete_unauthorized_form() {
     // Client 2 is not allowed to delete and will receive a 404
     assert_eq!(response.status(), Status::NotFound);
 
-    let response = client1
+    let response = authorized
         .delete(format!(
             "/api/v1/form/{}",
             inserted_form.pool_form_id.unwrap()
         ))
+        .dispatch()
+        .await;
+
+    // Client 1 _is_ not allowed to delete and will receive a 404
+    assert_eq!(response.status(), Status::Ok);
+}
+
+#[rocket::async_test]
+async fn unauthorized_form_patch() {
+    setup().await;
+
+    let db = get_db().await.unwrap();
+
+    let authorized = get_logged_in_client(&db, Some("bla1@bla.com")).await;
+    let unauthorized = get_logged_in_client(&db, Some("bla2@bla.com")).await;
+
+    let pool_form_name = "deleteme";
+
+    post_form_fixture(&authorized, pool_form_name).await;
+
+    let inserted_form: PoolForm =
+        sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
+            .bind(pool_form_name)
+            .fetch_one(&db)
+            .await
+            .unwrap();
+
+    let payload = json!({ "pool_form_name": "new name", }).to_string();
+
+    let response = unauthorized
+        .patch(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .body(&payload)
+        .dispatch()
+        .await;
+
+    // Client 2 is not allowed to delete and will receive a 404
+    assert_eq!(response.status(), Status::NotFound);
+
+    let response = authorized
+        .patch(format!(
+            "/api/v1/form/{}",
+            inserted_form.pool_form_id.unwrap()
+        ))
+        .body(&payload)
         .dispatch()
         .await;
 

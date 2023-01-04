@@ -3,6 +3,7 @@ use rocket::{
     http::{ContentType, Status},
     patch, post,
     serde::json::{json, Json},
+    Responder,
 };
 use rocket_auth::{Error, User};
 use rocket_db_pools::{sqlx, Connection};
@@ -65,13 +66,19 @@ pub async fn post_form(
     return Json(form);
 }
 
+#[derive(Responder)]
+pub enum PatchResult {
+    Value(rocket::serde::json::Value),
+    Json(Json<PoolForm>),
+}
+
 #[patch("/form/<id>", data = "<pool_form>")]
 pub async fn patch_form(
     mut db: Connection<Db>,
     user: User,
     pool_form: Json<PoolForm>,
     id: i64,
-) -> Option<Json<PoolForm>> {
+) -> (Status, (ContentType, PatchResult)) {
     let result = sqlx::query(
         "
         UPDATE pool_forms
@@ -84,7 +91,7 @@ pub async fn patch_form(
         ",
     )
     .bind(&pool_form.pool_form_name)
-    .bind(&pool_form.pool_form_json)
+    .bind(&pool_form.pool_form_json) // TODO cannot be null now... how to optionally update
     .bind(user.id())
     .bind(&id)
     .bind(false)
@@ -92,13 +99,34 @@ pub async fn patch_form(
     .await
     .unwrap();
 
-    let form: PoolForm = sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_id = ?")
-        .bind(result.last_insert_rowid())
-        .fetch_one(&mut *db)
-        .await
-        .unwrap();
+    if result.rows_affected() == 0 {
+        return (
+            Status::NotFound,
+            (
+                ContentType::JSON,
+                PatchResult::Value(json!({ "message": "not found", "meta": id })),
+            ),
+        );
+    }
 
-    return Some(Json(form));
+    let form: PoolForm = sqlx::query_as(
+        "
+        SELECT * FROM pool_forms
+        WHERE
+            pool_form_id = ? AND
+            pool_form_user_id = ?
+        ",
+    )
+    .bind(result.last_insert_rowid())
+    .bind(user.id())
+    .fetch_one(&mut *db)
+    .await
+    .unwrap();
+
+    return (
+        Status::Ok,
+        (ContentType::JSON, PatchResult::Json(Json(form))),
+    );
 }
 
 #[delete("/form/<id>")]

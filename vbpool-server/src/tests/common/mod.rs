@@ -1,3 +1,5 @@
+use crate::models::PoolForm;
+
 use super::super::app::get_db;
 use rocket::http::ContentType;
 use rocket::local::asynchronous::{Client, LocalResponse};
@@ -64,11 +66,16 @@ pub async fn login(client: &Client, email: Option<&str>) {
 /**
  * Creates a pool form with a given name
  */
-pub async fn post_form_fixture(client: &Client, pool_form_name: &'static str) {
-    client
+pub async fn post_form_fixture(client: &Client, pool_form_name: &'static str) -> PoolForm {
+    let form: PoolForm = client
         .post("/api/v1/form")
         .body(json!({ "pool_form_name": pool_form_name, }).to_string())
         .header(ContentType::JSON)
         .dispatch()
-        .await;
+        .await
+        .into_json()
+        .await
+        .unwrap();
+
+    return form;
 }

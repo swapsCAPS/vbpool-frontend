@@ -82,8 +82,8 @@ pub async fn patch_form(
     let result = sqlx::query(
         "
         UPDATE pool_forms
-        SET pool_form_name = ?,
-            pool_form_json = ?
+        SET pool_form_name = coalesce(?, pool_form_name),
+            pool_form_json = coalesce(?, pool_form_json)
         WHERE
             pool_form_user_id = ? AND
             pool_form_id = ? AND
@@ -91,7 +91,7 @@ pub async fn patch_form(
         ",
     )
     .bind(&pool_form.pool_form_name)
-    .bind(&pool_form.pool_form_json) // TODO cannot be null now... how to optionally update
+    .bind(&pool_form.pool_form_json)
     .bind(user.id())
     .bind(&id)
     .bind(false)

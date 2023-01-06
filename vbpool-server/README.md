@@ -2,7 +2,7 @@
 
 ## TODO
 - [-] Test PATCH
-  - [ ] Test null fields, currently not sending payload will result in `NOT_NULL` error
+  - [x] Test null fields, currently not sending payload will result in `NOT_NULL` error
 - [x] Test if deleting other user's forms is allowed
 
 ## Testing

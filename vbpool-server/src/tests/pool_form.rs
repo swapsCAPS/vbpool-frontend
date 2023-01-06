@@ -178,8 +178,7 @@ async fn patch_form_with_fields_omited() {
 
     assert_eq!(inserted_form.pool_form_json.unwrap(), "{}");
 
-    let pool_form_name = "new things!";
-    let pool_form_json = json!({ "awesome": "fields" }).to_string();
+    let new_name = "new things!";
 
     let response = client
         .patch(format!(
@@ -188,10 +187,7 @@ async fn patch_form_with_fields_omited() {
         ))
         .body(
             json!({
-                "pool_form_name": pool_form_name,
-                "pool_form_is_paid": true,
-                "pool_form_user_id": 1_000_000,
-                "pool_form_json": pool_form_json,
+                "pool_form_name": new_name,
             })
             .to_string(),
         )
@@ -207,12 +203,10 @@ async fn patch_form_with_fields_omited() {
         .unwrap();
 
     /*
-     * It has changed the json
+     * It has changed the name and not the json
      */
-    assert_eq!(inserted_form.pool_form_name, pool_form_name);
-    assert_eq!(inserted_form.pool_form_json.unwrap(), pool_form_json);
-    assert_eq!(inserted_form.pool_form_is_paid.unwrap(), false);
-    assert_eq!(inserted_form.pool_form_user_id.unwrap(), 1);
+    assert_eq!(inserted_form.pool_form_name, new_name);
+    assert_eq!(inserted_form.pool_form_json.unwrap(), "{}");
 }
 
 #[rocket::async_test]

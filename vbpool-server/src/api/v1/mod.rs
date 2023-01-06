@@ -6,7 +6,7 @@ use rocket::{
     Responder,
 };
 use rocket_auth::{Error, User};
-use rocket_db_pools::{sqlx, Connection};
+use rocket_db_pools::Connection;
 
 use crate::models::{Db, PoolForm};
 

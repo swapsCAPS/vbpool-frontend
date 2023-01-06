@@ -218,7 +218,7 @@ async fn unauthorized_form_delete() {
     let authorized = get_logged_in_client(&db, Some("bla1@bla.com")).await;
     let unauthorized = get_logged_in_client(&db, Some("bla2@bla.com")).await;
 
-    let pool_form_name = "deleteme";
+    let pool_form_name = "delete me";
 
     post_form_fixture(&authorized, pool_form_name).await;
 
@@ -240,7 +240,7 @@ async fn unauthorized_form_delete() {
         .dispatch()
         .await;
 
-    // Client 2 is not allowed to delete and will receive a 404
+    // Client 2 *is not* allowed to delete and will receive a 404
     assert_eq!(response.status(), Status::NotFound);
 
     let response = authorized
@@ -251,7 +251,7 @@ async fn unauthorized_form_delete() {
         .dispatch()
         .await;
 
-    // Client 1 _is_ not allowed to delete and will receive a 404
+    // Client 1 *is* allowed to delete and will receive a 404
     assert_eq!(response.status(), Status::Ok);
 }
 
@@ -264,9 +264,9 @@ async fn unauthorized_form_patch() {
     let authorized = get_logged_in_client(&db, Some("bla1@bla.com")).await;
     let unauthorized = get_logged_in_client(&db, Some("bla2@bla.com")).await;
 
-    let pool_form_name = "deleteme";
+    let pool_form_name = "old name";
 
-    let pool_form = post_form_fixture(&authorized, pool_form_name).await;
+    post_form_fixture(&authorized, pool_form_name).await;
 
     let inserted_form: PoolForm =
         sqlx::query_as("SELECT * FROM pool_forms WHERE pool_form_name = ?")
@@ -286,7 +286,7 @@ async fn unauthorized_form_patch() {
         .dispatch()
         .await;
 
-    // Client 2 is not allowed to delete and will receive a 404
+    // Client 2 *is not* allowed to mutate and will receive a 404
     assert_eq!(response.status(), Status::NotFound);
 
     let response = authorized
@@ -298,6 +298,6 @@ async fn unauthorized_form_patch() {
         .dispatch()
         .await;
 
-    // Client 1 _is_ not allowed to delete and will receive a 404
+    // Client 1 *is* allowed to mutate and will receive a 404
     assert_eq!(response.status(), Status::Ok);
 }

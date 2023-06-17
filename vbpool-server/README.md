@@ -14,7 +14,7 @@ nginx -> oauth2-proxy -> vbpool-server
               |               |
            keycloak           |
               |               |
-           postgres ----------
+           postgres        postgres
 ```
 
 ### Initialize tables (run once)

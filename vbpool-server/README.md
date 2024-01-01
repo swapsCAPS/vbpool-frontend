@@ -6,28 +6,18 @@
 - [x] Test if deleting other user's forms is allowed
 - [ ] Authentication
   - [ ] OA2P proxy
-  - [ ] Ory hydra
+  - [ ] Keycloak
 
 ## Authentication Arch
 ```
-nginx -> oauth2-proxy -> vbpool-server
-              |               |
-           keycloak           |
-              |               |
-           postgres        postgres
+     WWW     |        SERVER
+             |
+client <-> nginx -> oauth2-proxy -> vbpool-server
+             |   |      |               |
+             |    -> keycloak           |
+             |          |               |
+             |       postgres        postgres
 ```
-
-### Initialize tables (run once)
-```
-docker compose --profile ory-hydra-init up
-```
-Postgres tables for Ory are now initialized
-
-### Create oauth2 client app (run once)
-```
-docker compose --profile ory-hydra-create-client up
-```
-Copy paste resulting client credentials into .env file
 
 ### Run auth stack
 ```

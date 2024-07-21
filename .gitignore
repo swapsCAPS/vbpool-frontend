@@ -26,9 +26,12 @@ yarn-error.log*
 
 .env
 .env.production
+*.env
 
 *.log
 
 target
 
 vbpool-server/data/*
+
+/dev-certs/*
